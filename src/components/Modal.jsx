@@ -95,6 +95,16 @@ class Modal extends React.Component {
         }
 
         this.props.onPostTab(newTab);
+
+        this.setState({
+            title: '',
+            website: '',
+            description: '',
+            category: '',
+            favicon: ''
+        })
+
+        this.props.history.push('/home')
     }
 
     render() {

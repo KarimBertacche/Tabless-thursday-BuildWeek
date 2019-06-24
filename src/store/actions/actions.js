@@ -18,6 +18,8 @@ export const REGISTER_FAILURE = 'REGISTER_FAILURE';
 
 export const CREATE_TAB = 'CREATE_TAB';
 
+export const DELETE_TAB = 'DELETE_TAB';
+
 //ACTIONS CREATOR
 
 const loginAPI = "https://tabless-thursday-backend.herokuapp.com/api/login";
@@ -84,7 +86,19 @@ export const postUserTab = (tabInfo) => dispatch => {
     axiosWithAuth()
         .post(postTabAPI, tabInfo) 
         .then(response => {
-            dispatch({ type: CREATE_TAB, payload: response.data })
+            dispatch({ type: CREATE_TAB, payload: response.data[0] })
+            getUserTabs();
+        })
+        .catch(error => {
+            debugger
+        })
+}
+
+export const deleteTab = (id) => dispatch => {
+    axiosWithAuth()
+        .delete(`https://tabless-thursday-backend.herokuapp.com/api/tabs/${id}`)
+        .then(response => {
+            dispatch({ type: DELETE_TAB, payload: response.data.message });
         })
         .catch(error => {
             debugger

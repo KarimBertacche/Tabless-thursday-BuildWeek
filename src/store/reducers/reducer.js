@@ -5,6 +5,7 @@ const initialState = {
     tabs: null,
     loggedIn: false,
     loading: false,
+    deleteMessage: '',
 }
 
 export function reducer(state = initialState, action) {
@@ -19,7 +20,8 @@ export function reducer(state = initialState, action) {
             return {...state, tabs: action.payload};
         case types.CREATE_TAB:
             return {...state, tabs: [action.payload].concat(state.tabs)};
-
+        case types.DELETE_TAB:
+            return {...state, deleteMessage: action.payload };
         default: 
             return state;
     }

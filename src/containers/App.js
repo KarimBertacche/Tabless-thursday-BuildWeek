@@ -10,6 +10,7 @@ import PrivateRoute from '../components/PrivateRoute';
 // import * as types from '../store/actions/actions';
 import { login } from '../store/actions/actions';
 import Modal from '../components/Modal';
+import ModalDelete from '../components/ModalDelete';
 
 class App extends React.Component {
   constructor(props) {
@@ -91,11 +92,5 @@ const mapStateToProps = state => {
       user: state.user
   }
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     onLogin: ({ username, password, email }) => dispatch(login({ username, password, email })),
-//   }
-// }
 
 export default connect(mapStateToProps, { login })(App);
