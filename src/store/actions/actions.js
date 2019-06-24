@@ -81,12 +81,10 @@ export const getUserTabs = () => dispatch => {
 const postTabAPI = "https://tabless-thursday-backend.herokuapp.com/api/tabs";
 
 export const postUserTab = (tabInfo) => dispatch => {
-    let id = localStorage.getItem('userID');
-
     axiosWithAuth()
-        .post(postTabAPI) 
+        .post(postTabAPI, tabInfo) 
         .then(response => {
-            debugger
+            dispatch({ type: CREATE_TAB, payload: response.data })
         })
         .catch(error => {
             debugger

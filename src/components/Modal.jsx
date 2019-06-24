@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { postUserTab } from '../store/actions/actions';
@@ -29,10 +30,11 @@ const StylesModal = styled.section`
         overflow: hidden;
         padding: 40px 20px;
 
-        span {
+        .exit {
             position: absolute;
             top: 2%;
             right: 2%;
+            text-decoration: none;
             font-size: 2rem;
             font-weight: bold;
             cursor: pointer;
@@ -44,6 +46,11 @@ const StylesModal = styled.section`
             margin-bottom: 10px;
             font-size: 1.5rem;
             text-align: center;
+            outline: none;
+
+            &::placeholder {
+                font-weight: bold;
+            }
         }
 
         button {
@@ -64,12 +71,27 @@ const StylesModal = styled.section`
 
 class Modal extends React.Component {
     state = {
+        title: '',
+        website: '',
+        description: '',
+        category: '',
+        favicon: ''
+    }
 
+    changeInputHandler = event => {
+        this.setState({ [event.target.name]: event.target.value });
     }
 
     postTabHandler = () => {
-        const newTab = {
+        let userId = localStorage.getItem('userID');
 
+        const newTab = {
+            title: this.state.title,
+            website: this.state.website,
+            user_id: userId,
+            description: this.state.description,
+            category: this.state.category,
+            favicon: this.state.favicon
         }
 
         this.props.onPostTab(newTab);
@@ -79,13 +101,41 @@ class Modal extends React.Component {
         return ReactDOM.createPortal(
             <StylesModal>
                 <div>
-                    <span>X</span>
-                    <input type="text"/>
-                    <input type="text"/>
-                    <input type="text"/>
-                    <input type="text"/>
-                    <input type="text"/>
-                    <button>Add Tab</button>
+                    <Link to="/home" className="exit">X</Link>
+                    <input 
+                        type="text"
+                        name="title"
+                        value={this.state.title}
+                        onChange={this.changeInputHandler}
+                        placeholder="title"
+                        required/>
+                    <input 
+                        type="text"
+                        name="website"
+                        value={this.state.website}
+                        onChange={this.changeInputHandler}
+                        placeholder="website"
+                        required/>
+                    <input 
+                        type="text"
+                        name="description"
+                        value={this.state.description}
+                        onChange={this.changeInputHandler}
+                        placeholder="description"
+                        required/>
+                    <input 
+                        type="text"
+                        name="category"
+                        value={this.state.category}
+                        onChange={this.changeInputHandler}
+                        placeholder="category"/>
+                    <input 
+                        type="text"
+                        name="favicon"
+                        value={this.state.favicon}
+                        onChange={this.changeInputHandler}
+                        placeholder="favicon"/>
+                    <button onClick={this.postTabHandler}>Add Tab</button>
                 </div>
             </StylesModal>,
             document.querySelector('#portal')
