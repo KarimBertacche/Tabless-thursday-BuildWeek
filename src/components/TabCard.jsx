@@ -57,21 +57,30 @@ const StylesTabCard = styled.section`
             top: 0;
             left: 0;
             background-color: #fff;
-            transform: rotateY(180deg); 
+            padding: 0;
+            transform: rotateY(180deg);
+            overflow: hidden;
 
             div {
                 position: relative;
                 width: 100%;
                 height: 100%;
-                border: 3px solid green;
                 padding-top: 30px;
 
-                span {
+                .delete-btn {
                     position: absolute;
                     top: 0;
-                    right: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 80%;
+                    border: 3px solid red;
+                    border-top: none;
+                    border-bottom-left-radius: 10px;
+                    border-bottom-right-radius: 10px;
                     font-size: 1.8rem;
                     font-weight: bold;
+                    text-decoration: none;
+                    color: #000;
                 }
     
                 a {
@@ -79,6 +88,22 @@ const StylesTabCard = styled.section`
                     width: 100%;
                     font-size: 1.5rem;
                     text-align: center;
+                }
+
+                .update-btn {
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 80%;
+                    border: 3px solid red;
+                    border-bottom: none;
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                    font-size: 1.8rem;
+                    font-weight: bold;
+                    text-decoration: none;
+                    color: #000; 
                 }
             }
 
@@ -107,8 +132,9 @@ const TabCard = (props) => {
             </div>
             <div className="side back-side">
                 <div>
-                    <Link to="/home/delete">X</Link>
-                    <a href={props.website} target="_blank">{props.website}</a>
+                    <Link to="/home/delete" className="delete-btn">DELETE TAB</Link>
+                    <a href={props.website} target="_blank" rel="external">{props.website}</a>
+                    <Link to="/home/update" className="update-btn">UPDATE TAB</Link>
                     <Route path="/home/delete" render={() => <ModalDelete tabId={props.tabId} /> } />
                 </div>
             </div>

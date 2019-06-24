@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -47,6 +47,12 @@ const StylesNavBar = styled.header`
 `;
 
 const NavBar = props => {
+    const logUserOutHandler = (event) => {
+        event.preventDefault();
+        props.onLoggingOut();
+        props.history.push('/');
+    }
+
     if (!!localStorage.getItem('userLogged') || props.loggedIn) {
         return (
             <StylesNavBar>
@@ -54,7 +60,7 @@ const NavBar = props => {
                 <nav>
                     <NavLink to="/home" activeClassName="active" className="nav-links">Tabs</NavLink>
                     <NavLink to="/about" activeClassName="active" className="nav-links">About</NavLink>
-                    <Link exact to="/" className="nav-links" onClick={props.onLoggingOut}>Log Out</Link>
+                    <Link exact to="/" className="nav-links" onClick={logUserOutHandler}>Log Out</Link>
                 </nav>
             </StylesNavBar>
         )
