@@ -61,7 +61,7 @@ const NavBar = props => {
     } else {
         return (
             <StylesNavBar>
-                <Link to="/" className="heading-secondary"><h2>Tabless Thursday</h2></Link>
+                <Link exact to="/" className="heading-secondary"><h2>Tabless Thursday</h2></Link>
                 <nav>
                     <NavLink to="/login" activeClassName="active" className="nav-links">Sign in</NavLink>
                     <NavLink to="/register" activeClassName="active" className="nav-links">Sign Up</NavLink>

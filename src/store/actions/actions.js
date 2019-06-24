@@ -16,6 +16,8 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'REGISTER_FAILURE';
 
+export const CREATE_TAB = 'CREATE_TAB';
+
 //ACTIONS CREATOR
 
 const loginAPI = "https://tabless-thursday-backend.herokuapp.com/api/login";
@@ -74,5 +76,20 @@ export const getUserTabs = () => dispatch => {
         .catch(error => {
             debugger
         });
+}
+
+const postTabAPI = "https://tabless-thursday-backend.herokuapp.com/api/tabs";
+
+export const postUserTab = (tabInfo) => dispatch => {
+    let id = localStorage.getItem('userID');
+
+    axiosWithAuth()
+        .post(postTabAPI) 
+        .then(response => {
+            debugger
+        })
+        .catch(error => {
+            debugger
+        })
 }
 

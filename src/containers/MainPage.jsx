@@ -39,7 +39,7 @@ class MainPage extends React.Component{
                     <AsideBar />
                 </aside>
                 <main>
-                    <TabsContainer />
+                    <TabsContainer history={this.props.history}/>
                 </main>
             </StylesMainPage>
         )
