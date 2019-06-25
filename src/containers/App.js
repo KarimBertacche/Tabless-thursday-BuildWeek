@@ -7,10 +7,8 @@ import Login from '../components/Login';
 import SignUp from '../components/SignUp';
 import MainPage from '../containers/MainPage';
 import PrivateRoute from '../components/PrivateRoute';
-// import * as types from '../store/actions/actions';
 import { login } from '../store/actions/actions';
-import Modal from '../components/Modal';
-import ModalDelete from '../components/ModalDelete';
+import Modal from '../components/modals/Modal';
 
 class App extends React.Component {
   constructor(props) {

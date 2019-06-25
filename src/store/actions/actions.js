@@ -20,6 +20,8 @@ export const CREATE_TAB = 'CREATE_TAB';
 
 export const DELETE_TAB = 'DELETE_TAB';
 
+export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
+
 //ACTIONS CREATOR
 
 const loginAPI = "https://tabless-thursday-backend.herokuapp.com/api/login";
@@ -99,6 +101,17 @@ export const deleteTab = (id) => dispatch => {
         .delete(`https://tabless-thursday-backend.herokuapp.com/api/tabs/${id}`)
         .then(response => {
             dispatch({ type: DELETE_TAB, payload: response.data.message });
+        })
+        .catch(error => {
+            debugger
+        })
+}
+
+export const updateTab = (id) => dispatch => {
+    axiosWithAuth()
+        .put(`https://tabless-thursday-backend.herokuapp.com/api/tabs/${id}`)
+        .then(response => {
+            debugger
         })
         .catch(error => {
             debugger

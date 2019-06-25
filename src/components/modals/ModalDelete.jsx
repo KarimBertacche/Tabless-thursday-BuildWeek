@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { deleteTab, getUserTabs } from '../store/actions/actions';
+import { deleteTab, getUserTabs } from '../../store/actions/actions';
 
 const StylesModalDelete = styled.section`
     position: absolute;
@@ -15,7 +15,7 @@ const StylesModalDelete = styled.section`
     align-items: center;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0,0,0, 0.8);
+    background-color: rgba(0,0,0, 0.4);
     z-index: 999;
 
     div {
@@ -71,8 +71,13 @@ const StylesModalDelete = styled.section`
 
 const ModalDelete = (props) => {
 
+    useEffect(() => {
+        props.onRefreshTabs();
+    })
+
     const deleteCardHandler = (event) => {
         event.preventDefault();
+        event.stopPropagation();
         props.onDeleteTab(props.tabId);
         props.onRefreshTabs();
     }
@@ -83,7 +88,7 @@ const ModalDelete = (props) => {
                 <p>Are you sure that you want to delete the tab?</p>
                 <main className="btn-wrapper">
                     <Link to="/home" className="del-btn">No</Link>
-                    <button onClick={deleteCardHandler} className="del-btn">Yes</button>
+                    <Link to="/home" className="del-btn"><p onClick={deleteCardHandler}>Yes</p></Link>
                 </main>
             </div>
         </StylesModalDelete>,

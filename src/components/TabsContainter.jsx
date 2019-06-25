@@ -55,6 +55,7 @@ const TabsContainer = props => {
                                         description={tab.description}
                                         website={tab.website}
                                         tabId={tab.tab_id}
+                                        tabs={props.tabs}
                                          /> 
                         })
                     :   null

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { postUserTab } from '../store/actions/actions';
+import { postUserTab } from '../../store/actions/actions';
 
 const StylesModal = styled.section`
     position: absolute;
