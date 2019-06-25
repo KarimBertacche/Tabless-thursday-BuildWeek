@@ -54,6 +54,7 @@ const TabsContainer = props => {
                                         title={tab.title}
                                         description={tab.description}
                                         website={tab.website}
+                                        favicon={tab.favicon}
                                         tabId={tab.tab_id}
                                         tabs={props.tabs}
                                          /> 

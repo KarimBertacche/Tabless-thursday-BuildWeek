@@ -101,11 +101,17 @@ class Modal extends React.Component {
             website: '',
             description: '',
             category: '',
-            favicon: ''
+            favicon: null
         })
 
         this.props.history.push('/home')
     }
+
+    // fileSelectedHandler = (event) => {
+    //     this.setState({
+    //         favicon: event.target.files[0],
+    //     })
+    // }
 
     render() {
         return ReactDOM.createPortal(

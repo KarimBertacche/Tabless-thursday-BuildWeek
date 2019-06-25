@@ -43,6 +43,12 @@ const StylesTabCard = styled.section`
                 margin: 0;
                 border: 3px solid red;
                 border-radius: 5px;
+                object-fit: contain;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                }
             }
 
             p {
@@ -153,7 +159,7 @@ class TabCard extends React.Component {
                     <h2>{this.props.title}</h2>
                     <p>{this.props.tabId}</p>
                     <figure>
-    
+                        <img src={this.props.favicon} alt={this.props.title} />
                     </figure>
                     <p><span>Description:</span> {this.props.description}</p>
                 </div>
@@ -162,7 +168,6 @@ class TabCard extends React.Component {
                         <Link to="/home/delete" className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</Link>
                         <a href={this.props.website}>{this.props.website}</a>
                         <Link to="/home/update" className="update-btn" onClick={() => this.passDataHandler(this.props.tabId)}>UPDATE TAB</Link> 
-                        {/* () => this.passDataHandler() */}
                         <Route 
                             path="/home/delete" 
                             render={(props) => {
