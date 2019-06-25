@@ -65,14 +65,13 @@ const TabsContainer = props => {
                 {
                     props.tabs.map(tab => {
                         return( 
-                            <Switch>
+                            <Switch key={uuid()}>
                                 <Route
                                     path="/home/:category"
                                     render={(props) => {
                                         if(props.match.params.category === tab.category && tab.category !== null) {
                                             return <TabCard
                                                 {...props}
-                                                key={uuid()}
                                                 username={tab.username}
                                                 title={tab.title}
                                                 description={tab.description}
@@ -90,7 +89,6 @@ const TabsContainer = props => {
                                     render={(props) => {
                                         return <TabCard
                                             {...props}
-                                            key={uuid()}
                                             username={tab.username}
                                             title={tab.title}
                                             description={tab.description}

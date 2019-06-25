@@ -82,23 +82,8 @@ class App extends React.Component {
           <PrivateRoute path="/home" component={MainPage} />
         </Switch>
         <Route path="/new" component={Modal} />
-        <Route
-                            path="/delete" 
-                            render={(props) => {
-                                return  <ModalDelete 
-                                            {...props}
-                                        /> 
-                            }} 
-                        />
-                        <Route 
-                            exact 
-                            path="/update" 
-                            render={(props) => {
-                                return  <ModalUpdate
-                                            {...props} 
-                                        /> 
-                            }} 
-                        />
+        <Route path="/delete" render={(props) => <ModalDelete {...props} /> } />
+        <Route path="/update" render={(props) => <ModalUpdate {...props} /> } />
       </div>
     );
   }
