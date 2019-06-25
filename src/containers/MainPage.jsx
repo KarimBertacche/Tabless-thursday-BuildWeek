@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { getUserTabs } from '../store/actions/actions';
+import AsideBar from '../components/AsideBar';
+import TabsContainer from '../components/TabsContainter';
 
 const StylesMainPage = styled.div`
     display: flex;
@@ -34,10 +36,10 @@ class MainPage extends React.Component{
         return (
             <StylesMainPage>
                 <aside>
-                    aside
+                    <AsideBar />
                 </aside>
                 <main>
-                    main
+                    <TabsContainer history={this.props.history}/>
                 </main>
             </StylesMainPage>
         )
