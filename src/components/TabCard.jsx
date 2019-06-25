@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import ModalDelete from './modals/ModalDelete';
 import ModalUpdate from './modals/ModalUpdate';
-import { deleteTab, getUserTabs } from '../store/actions/actions';
+import { getUserTabs } from '../store/actions/actions';
 
 const StylesTabCard = styled.section`
     position: relative;
@@ -141,13 +141,6 @@ class TabCard extends React.Component {
         localStorage.setItem('tabID', id);
     }
 
-    delCompleteHandler = () => {
-        let tabId = localStorage.getItem('tabID');
-        this.props.onDeleteTab(tabId);
-        localStorage.removeItem('tabID');
-        this.props.onRefreshTabs();
-    }
-
     componentDidUpdate() {
         this.props.onRefreshTabs();
     }
@@ -166,28 +159,9 @@ class TabCard extends React.Component {
                 </div>
                 <div className="side back-side">
                     <div>
-                        <Link to="/home/delete" className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</Link>
+                        <Link to="/delete" className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</Link>
                         <a href={this.props.website}>{this.props.website}</a>
-                        <Link to="/home/update" className="update-btn" onClick={() => this.passDataHandler(this.props.tabId)}>UPDATE TAB</Link> 
-                        <Route 
-                            path="/home/delete" 
-                            render={(props) => {
-                                return  <ModalDelete 
-                                            {...props}
-                                            delCompleteHandler={this.delCompleteHandler}
-                                        /> 
-                            }} 
-                        />
-                        <Route 
-                            exact 
-                            path="/home/update" 
-                            render={(props) => {
-                                return  <ModalUpdate
-                                            {...props} 
-                                            clearAllFields={this.clearAllFields}
-                                        /> 
-                            }} 
-                        />
+                        <Link to="/update" className="update-btn" onClick={() => this.passDataHandler(this.props.tabId)}>UPDATE TAB</Link> 
                     </div>
                 </div>
             </StylesTabCard>
@@ -197,13 +171,13 @@ class TabCard extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        tabs: state.tabs,
         deleteMessage: state.deleteMessage
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onDeleteTab: (id) => dispatch(deleteTab(id)),
         onRefreshTabs: () => dispatch(getUserTabs())
     }
 }

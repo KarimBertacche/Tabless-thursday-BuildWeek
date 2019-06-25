@@ -10,6 +10,7 @@ import PrivateRoute from '../components/PrivateRoute';
 import { login } from '../store/actions/actions';
 import Modal from '../components/modals/Modal';
 import ModalDelete from '../components/modals/ModalDelete';
+import ModalUpdate from '../components/modals/ModalUpdate';
 
 class App extends React.Component {
   constructor(props) {
@@ -80,7 +81,24 @@ class App extends React.Component {
             }} />
           <PrivateRoute path="/home" component={MainPage} />
         </Switch>
-        <Route path="/home/new" component={Modal} />
+        <Route path="/new" component={Modal} />
+        <Route
+                            path="/delete" 
+                            render={(props) => {
+                                return  <ModalDelete 
+                                            {...props}
+                                        /> 
+                            }} 
+                        />
+                        <Route 
+                            exact 
+                            path="/update" 
+                            render={(props) => {
+                                return  <ModalUpdate
+                                            {...props} 
+                                        /> 
+                            }} 
+                        />
       </div>
     );
   }

@@ -146,16 +146,11 @@ class Modal extends React.Component {
                         onChange={this.changeInputHandler}
                         placeholder="description"
                         required/>
-                    {/* <input 
-                        type="text"
-                        name="category"
-                        value={this.state.category}
-                        onChange={this.changeInputHandler}
-                        placeholder="category"/> */}
                     <label>
                         Choose category from list:
                         <select value={this.state.category} onChange={this.categorySelectedHandler}>
-                            <option value="category1" selected>caterory1</option>
+                            <option value="uncategorized" selected>none</option>
+                            <option value="category1">caterory1</option>
                             <option value="category2">caterory2</option>
                             <option value="category3">caterory3</option>
                         </select>

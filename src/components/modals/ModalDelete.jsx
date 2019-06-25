@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { deleteTab, getUserTabs } from '../../store/actions/actions';
 
 const StylesModalDelete = styled.section`
     position: absolute;
@@ -69,7 +72,14 @@ const StylesModalDelete = styled.section`
 const ModalDelete = (props) => {
     const deleteHandler = () => {
         props.history.push('/home');
-        props.delCompleteHandler();
+        delCompleteHandler();
+    }
+
+    const delCompleteHandler = () => {
+        let tabId = localStorage.getItem('tabID');
+        props.onDeleteTab(tabId);
+        localStorage.removeItem('tabID');
+        props.onRefreshTabs();
     }
 
     return ReactDOM.createPortal(
@@ -86,4 +96,18 @@ const ModalDelete = (props) => {
     );
 }
 
-export default ModalDelete;
+// const mapStateToProps = state => {
+//     return {
+//         tabs: state.tabs,
+//         deleteMessage: state.deleteMessage
+//     }
+// }
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onDeleteTab: (id) => dispatch(deleteTab(id)),
+        onRefreshTabs: () => dispatch(getUserTabs())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ModalDelete);

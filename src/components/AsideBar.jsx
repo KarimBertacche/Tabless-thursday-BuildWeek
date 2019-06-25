@@ -31,7 +31,7 @@ const StylesAsideBar = styled.ul`
 const AsideBar = () => {
     return (
         <StylesAsideBar>
-            <NavLink exact to="/home" className="aside-links">Uncategorized</NavLink>
+            <NavLink exact to="/home" className="aside-links">All</NavLink>
             <NavLink to="/home/category1" className="aside-links">category1</NavLink>
             <NavLink to="/home/category2" className="aside-links">category2</NavLink>
             <NavLink to="/home/category3" className="aside-links">category3</NavLink>
