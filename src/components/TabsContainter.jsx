@@ -45,7 +45,6 @@ const TabsContainer = props => {
                 <span>+</span>
             </Link>
                 {
-                    // props.tabs !== null
                     props.tabs.map(tab => {
                             console.log(tab)
                             return  <TabCard 

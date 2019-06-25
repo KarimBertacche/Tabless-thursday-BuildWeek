@@ -44,7 +44,7 @@ class MainPage extends React.Component{
                     <AsideBar />
                 </aside>
                 <main>
-                    <Route exact path="/home" render={(props) => <TabsContainer {...props}/> } />
+                    <Route path="/home" render={(props) => <TabsContainer {...props}/> } />
                 </main>
             </StylesMainPage>
         )

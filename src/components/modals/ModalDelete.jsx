@@ -68,7 +68,8 @@ const StylesModalDelete = styled.section`
 
 const ModalDelete = (props) => {
     const deleteHandler = () => {
-        props.deleteCardHandler();
+        props.history.push('/home');
+        props.delCompleteHandler();
     }
 
     return ReactDOM.createPortal(

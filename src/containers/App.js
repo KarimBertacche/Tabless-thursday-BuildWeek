@@ -9,6 +9,7 @@ import MainPage from '../containers/MainPage';
 import PrivateRoute from '../components/PrivateRoute';
 import { login } from '../store/actions/actions';
 import Modal from '../components/modals/Modal';
+import ModalDelete from '../components/modals/ModalDelete';
 
 class App extends React.Component {
   constructor(props) {
@@ -77,7 +78,7 @@ class App extends React.Component {
             render={(props) => {
               return <SignUp {...props} passRegisteredUserHandler={this.passRegisteredUserHandler} />
             }} />
-          <PrivateRoute exact path="/home" component={MainPage} />
+          <PrivateRoute path="/home" component={MainPage} />
         </Switch>
         <Route path="/home/new" component={Modal} />
       </div>

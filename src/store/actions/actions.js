@@ -100,9 +100,7 @@ export const deleteTab = (id) => dispatch => {
     axiosWithAuth()
         .delete(`https://tabless-thursday-backend.herokuapp.com/api/tabs/${id}`)
         .then(response => {
-            debugger
             dispatch({ type: DELETE_TAB, payload: response.data.message });
-            // getUserTabs();
         })
         .catch(error => {
             debugger

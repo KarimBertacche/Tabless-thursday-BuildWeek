@@ -4,7 +4,7 @@ import { Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import ModalDelete from './modals/ModalDelete';
-import ModalUpdate from './modals/ModalUpdate';
+// import ModalUpdate from './modals/ModalUpdate';
 import { updateTab, deleteTab, getUserTabs } from '../store/actions/actions';
 
 
@@ -125,16 +125,16 @@ const StylesTabCard = styled.section`
 `;
 
 class TabCard extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         title: '',
-    //         website: '',
-    //         description: '',
-    //         category: '',
-    //         id: null
-    //     }
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            website: '',
+            description: '',
+            category: '',
+            id: null
+        }
+    }
 
     // passDataHandler = (id) =>  {
     //     const tab = this.props.tabs.filter(tab => tab.tab_id === id);
@@ -183,11 +183,19 @@ class TabCard extends React.Component {
     // }
 
     deleteCardHandler = (id) => {
-        this.props.history.push('/home/delete');
-        this.props.onDeleteTab(id);
-        this.props.onRefreshTabs();
+        localStorage.setItem('tabID', id);
     }
 
+    delCompleteHandler = () => {
+        let tabId = localStorage.getItem('tabID');
+        this.props.onDeleteTab(tabId);
+        localStorage.removeItem('tabID');
+        this.refreshWindow();
+    }
+
+    refreshWindow = () => {
+        this.props.onRefreshTabs();
+    }
 
     render() {
         return (
@@ -202,19 +210,20 @@ class TabCard extends React.Component {
                 </div>
                 <div className="side back-side">
                     <div>
-                        <Link to="/home/delete" className="delete-btn">DELETE TAB</Link>
+                        <Link to="/home/delete" className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</Link>
                         <a href={this.props.website} target="_blank" rel="external">{this.props.website}</a>
-                        <Link to="/home/update" className="update-btn"><p onClick={() => this.passDataHandler()}>UPDATE TAB</p></Link> 
+                        {/* <Link to="/home/update" className="update-btn"><p onClick={() => this.passDataHandler()}>UPDATE TAB</p></Link>  */}
+                        
                         <Route 
                             path="/home/delete" 
                             render={(props) => {
                                 return <ModalDelete 
                                             {...props}
-                                            deleteCardHandler={this.deleteCardHandler}
+                                            delCompleteHandler={this.delCompleteHandler}
                                         /> 
                             }} 
                         />
-                        <Route 
+                        {/* <Route 
                             exact 
                             path="/home/update" 
                             render={() => {
@@ -229,7 +238,7 @@ class TabCard extends React.Component {
                                         clearAllFields={this.clearAllFields}
                                         /> 
                             }} 
-                        />
+                        /> */}
                     </div>
                 </div>
             </StylesTabCard>
@@ -245,7 +254,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onUpdateTab: (tabInfo) => dispatch(updateTab(tabInfo)),
+        // onUpdateTab: (tabInfo) => dispatch(updateTab(tabInfo)),
         onDeleteTab: (id) => dispatch(deleteTab(id)),
         onRefreshTabs: () => dispatch(getUserTabs())
     }
