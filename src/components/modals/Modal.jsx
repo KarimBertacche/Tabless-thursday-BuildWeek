@@ -82,6 +82,13 @@ class Modal extends React.Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
+    categorySelectedHandler = (event) => {
+        debugger
+        this.setState({
+            category: event.target.value
+        })
+    }
+
     postTabHandler = () => {
         let userId = localStorage.getItem('userID');
 
@@ -139,12 +146,20 @@ class Modal extends React.Component {
                         onChange={this.changeInputHandler}
                         placeholder="description"
                         required/>
-                    <input 
+                    {/* <input 
                         type="text"
                         name="category"
                         value={this.state.category}
                         onChange={this.changeInputHandler}
-                        placeholder="category"/>
+                        placeholder="category"/> */}
+                    <label>
+                        Choose category from list:
+                        <select value={this.state.category} onChange={this.categorySelectedHandler}>
+                            <option value="category1" selected>caterory1</option>
+                            <option value="category2">caterory2</option>
+                            <option value="category3">caterory3</option>
+                        </select>
+                    </label>
                     <input 
                         type="text"
                         name="favicon"

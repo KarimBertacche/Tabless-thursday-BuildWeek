@@ -157,6 +157,7 @@ class TabCard extends React.Component {
             <StylesTabCard>
                 <div className="side front-side">
                     <h2>{this.props.title}</h2>
+                    <span>{this.props.category}</span>
                     <p>{this.props.tabId}</p>
                     <figure>
                         <img src={this.props.favicon} alt={this.props.title} />

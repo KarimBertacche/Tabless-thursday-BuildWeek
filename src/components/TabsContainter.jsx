@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import uuid from 'uuid';
 
@@ -44,7 +44,7 @@ const TabsContainer = props => {
             <Link to="/home/new" className="add-wrapper" >
                 <span>+</span>
             </Link>
-                {
+                {/* {
                     props.tabs.map(tab => {
                             console.log(tab)
                             return  <TabCard 
@@ -55,9 +55,53 @@ const TabsContainer = props => {
                                         description={tab.description}
                                         website={tab.website}
                                         favicon={tab.favicon}
+                                        category={tab.category}
                                         tabId={tab.tab_id}
                                         tabs={props.tabs}
                                          /> 
+                        })
+
+                } */}
+                {
+                    props.tabs.map(tab => {
+                            if(tab.category === 'category2') {
+                                return  <Route 
+                                            path="/home/category2"
+                                            render={(props) => {
+                                                return <TabCard
+                                                    {...props}
+                                                    key={uuid()}
+                                                    username={tab.username}
+                                                    title={tab.title}
+                                                    description={tab.description}
+                                                    website={tab.website}
+                                                    favicon={tab.favicon}
+                                                    category={tab.category}
+                                                    tabId={tab.tab_id}
+                                                    tabs={props.tabs}
+                                                 /> 
+                                            }}
+                                        />
+                            } else {
+                                return <Route 
+                                            exact
+                                            path="/home"
+                                            render={(props) => {
+                                                return <TabCard
+                                                    {...props}
+                                                    key={uuid()}
+                                                    username={tab.username}
+                                                    title={tab.title}
+                                                    description={tab.description}
+                                                    website={tab.website}
+                                                    favicon={tab.favicon}
+                                                    category={tab.category}
+                                                    tabId={tab.tab_id}
+                                                    tabs={props.tabs}
+                                                /> 
+                                            }}
+                                        />
+                            }
                         })
 
                 }

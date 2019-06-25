@@ -1,15 +1,17 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StylesAsideBar = styled.ul`
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
-    border: 3px solid blue;
     margin: 0;
     padding: 0;
     overflow: scroll;
 
-    li {
+    .aside-links {
         width: 100%;
         list-style: none;
         border: 3px solid red;
@@ -20,12 +22,19 @@ const StylesAsideBar = styled.ul`
         cursor: pointer;
     }
 
+    .active {
+        background-color: red;
+    }
+
 `;
 
 const AsideBar = () => {
     return (
         <StylesAsideBar>
-            <li>All</li>
+            <NavLink exact to="/home" className="aside-links">Uncategorized</NavLink>
+            <NavLink to="/home/category1" className="aside-links">category1</NavLink>
+            <NavLink to="/home/category2" className="aside-links">category2</NavLink>
+            <NavLink to="/home/category3" className="aside-links">category3</NavLink>
         </StylesAsideBar>
     )
 }
