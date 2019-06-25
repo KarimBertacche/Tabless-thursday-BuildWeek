@@ -4,7 +4,7 @@ import { Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import ModalDelete from './modals/ModalDelete';
-// import ModalUpdate from './modals/ModalUpdate';
+import ModalUpdate from './modals/ModalUpdate';
 import { updateTab, deleteTab, getUserTabs } from '../store/actions/actions';
 
 
@@ -190,10 +190,10 @@ class TabCard extends React.Component {
         let tabId = localStorage.getItem('tabID');
         this.props.onDeleteTab(tabId);
         localStorage.removeItem('tabID');
-        this.refreshWindow();
+        this.props.onRefreshTabs();
     }
 
-    refreshWindow = () => {
+    componentDidUpdate() {
         this.props.onRefreshTabs();
     }
 
@@ -211,9 +211,9 @@ class TabCard extends React.Component {
                 <div className="side back-side">
                     <div>
                         <Link to="/home/delete" className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</Link>
-                        <a href={this.props.website} target="_blank" rel="external">{this.props.website}</a>
-                        {/* <Link to="/home/update" className="update-btn"><p onClick={() => this.passDataHandler()}>UPDATE TAB</p></Link>  */}
-                        
+                        <a href={this.props.website}>{this.props.website}</a>
+                        <Link to="/home/update" className="update-btn"><p onClick={''}>UPDATE TAB</p></Link> 
+                        {/* () => this.passDataHandler() */}
                         <Route 
                             path="/home/delete" 
                             render={(props) => {
@@ -223,7 +223,7 @@ class TabCard extends React.Component {
                                         /> 
                             }} 
                         />
-                        {/* <Route 
+                        <Route 
                             exact 
                             path="/home/update" 
                             render={() => {
@@ -238,7 +238,7 @@ class TabCard extends React.Component {
                                         clearAllFields={this.clearAllFields}
                                         /> 
                             }} 
-                        /> */}
+                        />
                     </div>
                 </div>
             </StylesTabCard>
@@ -254,7 +254,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        // onUpdateTab: (tabInfo) => dispatch(updateTab(tabInfo)),
+        onUpdateTab: (tabInfo) => dispatch(updateTab(tabInfo)),
         onDeleteTab: (id) => dispatch(deleteTab(id)),
         onRefreshTabs: () => dispatch(getUserTabs())
     }
