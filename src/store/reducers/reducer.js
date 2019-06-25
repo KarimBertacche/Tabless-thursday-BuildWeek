@@ -2,7 +2,7 @@ import * as types from '../actions/actions';
 
 const initialState = {
     user: null,
-    tabs: null,
+    tabs: [],
     loggedIn: false,
     loading: false,
     deleteMessage: '',

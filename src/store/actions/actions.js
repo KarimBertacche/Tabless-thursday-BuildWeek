@@ -89,7 +89,7 @@ export const postUserTab = (tabInfo) => dispatch => {
         .post(postTabAPI, tabInfo) 
         .then(response => {
             dispatch({ type: CREATE_TAB, payload: response.data[0] })
-            getUserTabs();
+            // getUserTabs();
         })
         .catch(error => {
             debugger
@@ -100,7 +100,9 @@ export const deleteTab = (id) => dispatch => {
     axiosWithAuth()
         .delete(`https://tabless-thursday-backend.herokuapp.com/api/tabs/${id}`)
         .then(response => {
+            debugger
             dispatch({ type: DELETE_TAB, payload: response.data.message });
+            // getUserTabs();
         })
         .catch(error => {
             debugger

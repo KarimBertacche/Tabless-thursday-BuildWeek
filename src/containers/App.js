@@ -77,7 +77,7 @@ class App extends React.Component {
             render={(props) => {
               return <SignUp {...props} passRegisteredUserHandler={this.passRegisteredUserHandler} />
             }} />
-          <PrivateRoute path="/home" component={MainPage} />
+          <PrivateRoute exact path="/home" component={MainPage} />
         </Switch>
         <Route path="/home/new" component={Modal} />
       </div>

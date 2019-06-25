@@ -30,7 +30,11 @@ const StylesMainPage = styled.div`
 
 class MainPage extends React.Component{
     componentDidMount() {
-        this.props.onGetUserTabs()      
+        this.fetchDataHandler();    
+    }
+
+    fetchDataHandler = () => {
+        this.props.onGetUserTabs() 
     }
 
     render() {
@@ -40,7 +44,7 @@ class MainPage extends React.Component{
                     <AsideBar />
                 </aside>
                 <main>
-                    <Route path="/home" render={(props) => <TabsContainer {...props}/> } />
+                    <Route exact path="/home" render={(props) => <TabsContainer {...props}/> } />
                 </main>
             </StylesMainPage>
         )

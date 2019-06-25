@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import ModalDelete from './modals/ModalDelete';
 import ModalUpdate from './modals/ModalUpdate';
-import { updateTab } from '../store/actions/actions';
+import { updateTab, deleteTab, getUserTabs } from '../store/actions/actions';
 
 
 const StylesTabCard = styled.section`
@@ -125,60 +125,67 @@ const StylesTabCard = styled.section`
 `;
 
 class TabCard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            title: '',
-            website: '',
-            description: '',
-            category: '',
-        }
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         title: '',
+    //         website: '',
+    //         description: '',
+    //         category: '',
+    //         id: null
+    //     }
+    // }
 
-    passDataHandler = (id) =>  {
-        const tab = this.props.tabs.filter(tab => tab.tab_id === id);
-        this.setState({
-            title: tab[0].title,
-            website: tab[0].website,
-            description: tab[0].description,
-            category: tab[0].category
-        })   
-    }
+    // passDataHandler = (id) =>  {
+    //     const tab = this.props.tabs.filter(tab => tab.tab_id === id);
+    //     this.setState({
+    //         title: tab[0].title,
+    //         website: tab[0].website,
+    //         description: tab[0].description,
+    //         category: tab[0].category
+    //     })   
+    // }
 
-    // clearAllFields = () => {
+    // // clearAllFields = () => {
+    // //     this.setState({
+    // //         title: '',
+    // //         website: '',
+    // //         description: '',
+    // //         category: ''
+    // //     }) 
+    // // }
+
+    // changeInputHandler = event => {
+    //     this.setState({ [event.target.name]: event.target.value });
+    // }
+
+    // updateTabHandler = () => {
+    //     let userId = localStorage.getItem('userID');
+
+    //     const newTab = {
+    //         title: this.state.title,
+    //         website: this.state.website,
+    //         user_id: userId,
+    //         description: this.state.description,
+    //         category: this.state.category
+    //     }
+
+    //     this.props.onUpdateTab(newTab);
+
     //     this.setState({
     //         title: '',
     //         website: '',
     //         description: '',
     //         category: ''
-    //     }) 
+    //     })
+
+    //     this.props.history.push('/home')
     // }
 
-    changeInputHandler = event => {
-        this.setState({ [event.target.name]: event.target.value });
-    }
-
-    updateTabHandler = () => {
-        let userId = localStorage.getItem('userID');
-
-        const newTab = {
-            title: this.state.title,
-            website: this.state.website,
-            user_id: userId,
-            description: this.state.description,
-            category: this.state.category
-        }
-
-        this.props.onUpdateTab(newTab);
-
-        this.setState({
-            title: '',
-            website: '',
-            description: '',
-            category: ''
-        })
-
-        this.props.history.push('/home')
+    deleteCardHandler = (id) => {
+        this.props.history.push('/home/delete');
+        this.props.onDeleteTab(id);
+        this.props.onRefreshTabs();
     }
 
 
@@ -187,6 +194,7 @@ class TabCard extends React.Component {
             <StylesTabCard>
                 <div className="side front-side">
                     <h2>{this.props.title}</h2>
+                    <p>{this.props.tabId}</p>
                     <figure>
     
                     </figure>
@@ -196,8 +204,16 @@ class TabCard extends React.Component {
                     <div>
                         <Link to="/home/delete" className="delete-btn">DELETE TAB</Link>
                         <a href={this.props.website} target="_blank" rel="external">{this.props.website}</a>
-                        <Link to="/home/update" className="update-btn"><p onClick={() => this.passDataHandler(this.props.tabId)}>UPDATE TAB</p></Link> 
-                        <Route exact path="/home/delete" render={() => <ModalDelete tabId={this.props.tabId} /> } />
+                        <Link to="/home/update" className="update-btn"><p onClick={() => this.passDataHandler()}>UPDATE TAB</p></Link> 
+                        <Route 
+                            path="/home/delete" 
+                            render={(props) => {
+                                return <ModalDelete 
+                                            {...props}
+                                            deleteCardHandler={this.deleteCardHandler}
+                                        /> 
+                            }} 
+                        />
                         <Route 
                             exact 
                             path="/home/update" 
@@ -221,10 +237,18 @@ class TabCard extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
     return {
-        onUpdateTab: (tabInfo) => dispatch(updateTab(tabInfo))
+        deleteMessage: state.deleteMessage
     }
 }
 
-export default connect(null, mapDispatchToProps)(TabCard);
+const mapDispatchToProps = dispatch => {
+    return {
+        onUpdateTab: (tabInfo) => dispatch(updateTab(tabInfo)),
+        onDeleteTab: (id) => dispatch(deleteTab(id)),
+        onRefreshTabs: () => dispatch(getUserTabs())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TabCard);

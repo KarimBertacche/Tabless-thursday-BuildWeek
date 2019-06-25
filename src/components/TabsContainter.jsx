@@ -45,10 +45,11 @@ const TabsContainer = props => {
                 <span>+</span>
             </Link>
                 {
-                    props.tabs !== null
-                    ?   props.tabs.map(tab => {
+                    // props.tabs !== null
+                    props.tabs.map(tab => {
                             console.log(tab)
                             return  <TabCard 
+                                        {...props}
                                         key={uuid()}
                                         username={tab.username}
                                         title={tab.title}
@@ -58,7 +59,6 @@ const TabsContainer = props => {
                                         tabs={props.tabs}
                                          /> 
                         })
-                    :   null
 
                 }
         </StylesTabsContainer>

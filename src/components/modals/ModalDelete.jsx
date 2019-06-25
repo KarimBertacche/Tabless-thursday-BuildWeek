@@ -1,10 +1,7 @@
-import React, { useEffect} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-import { deleteTab, getUserTabs } from '../../store/actions/actions';
 
 const StylesModalDelete = styled.section`
     position: absolute;
@@ -70,16 +67,8 @@ const StylesModalDelete = styled.section`
 `;
 
 const ModalDelete = (props) => {
-
-    useEffect(() => {
-        props.onRefreshTabs();
-    })
-
-    const deleteCardHandler = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        props.onDeleteTab(props.tabId);
-        props.onRefreshTabs();
+    const deleteHandler = () => {
+        props.deleteCardHandler();
     }
 
     return ReactDOM.createPortal(
@@ -87,8 +76,8 @@ const ModalDelete = (props) => {
             <div>
                 <p>Are you sure that you want to delete the tab?</p>
                 <main className="btn-wrapper">
-                    <Link to="/home" className="del-btn">No</Link>
-                    <Link to="/home" className="del-btn"><p onClick={deleteCardHandler}>Yes</p></Link>
+                    <Link exact to="/home" className="del-btn">No</Link>
+                    <button className="del-btn" onClick={deleteHandler}>Yes</button>
                 </main>
             </div>
         </StylesModalDelete>,
@@ -96,17 +85,4 @@ const ModalDelete = (props) => {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        deleteMessage: state.deleteMessage
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onDeleteTab: (id) => dispatch(deleteTab(id)),
-        onRefreshTabs: () => dispatch(getUserTabs())
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ModalDelete);
+export default ModalDelete;
