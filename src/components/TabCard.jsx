@@ -5,8 +5,7 @@ import styled from 'styled-components';
 
 import ModalDelete from './modals/ModalDelete';
 import ModalUpdate from './modals/ModalUpdate';
-import { updateTab, deleteTab, getUserTabs } from '../store/actions/actions';
-
+import { deleteTab, getUserTabs } from '../store/actions/actions';
 
 const StylesTabCard = styled.section`
     position: relative;
@@ -125,62 +124,12 @@ const StylesTabCard = styled.section`
 `;
 
 class TabCard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            title: '',
-            website: '',
-            description: '',
-            category: '',
-            id: null
-        }
+    passDataHandler = (id) =>  {
+        const tab = this.props.tabs.filter(tab => tab.tab_id === id);
+        localStorage.setItem('tabInfo', JSON.stringify(tab));
+        localStorage.setItem('tabId', id);
+        debugger
     }
-
-    // passDataHandler = (id) =>  {
-    //     const tab = this.props.tabs.filter(tab => tab.tab_id === id);
-    //     this.setState({
-    //         title: tab[0].title,
-    //         website: tab[0].website,
-    //         description: tab[0].description,
-    //         category: tab[0].category
-    //     })   
-    // }
-
-    // // clearAllFields = () => {
-    // //     this.setState({
-    // //         title: '',
-    // //         website: '',
-    // //         description: '',
-    // //         category: ''
-    // //     }) 
-    // // }
-
-    // changeInputHandler = event => {
-    //     this.setState({ [event.target.name]: event.target.value });
-    // }
-
-    // updateTabHandler = () => {
-    //     let userId = localStorage.getItem('userID');
-
-    //     const newTab = {
-    //         title: this.state.title,
-    //         website: this.state.website,
-    //         user_id: userId,
-    //         description: this.state.description,
-    //         category: this.state.category
-    //     }
-
-    //     this.props.onUpdateTab(newTab);
-
-    //     this.setState({
-    //         title: '',
-    //         website: '',
-    //         description: '',
-    //         category: ''
-    //     })
-
-    //     this.props.history.push('/home')
-    // }
 
     deleteCardHandler = (id) => {
         localStorage.setItem('tabID', id);
@@ -212,12 +161,12 @@ class TabCard extends React.Component {
                     <div>
                         <Link to="/home/delete" className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</Link>
                         <a href={this.props.website}>{this.props.website}</a>
-                        <Link to="/home/update" className="update-btn"><p onClick={''}>UPDATE TAB</p></Link> 
+                        <Link to="/home/update" className="update-btn" onClick={() => this.passDataHandler(this.props.tabId)}>UPDATE TAB</Link> 
                         {/* () => this.passDataHandler() */}
                         <Route 
                             path="/home/delete" 
                             render={(props) => {
-                                return <ModalDelete 
+                                return  <ModalDelete 
                                             {...props}
                                             delCompleteHandler={this.delCompleteHandler}
                                         /> 
@@ -226,16 +175,10 @@ class TabCard extends React.Component {
                         <Route 
                             exact 
                             path="/home/update" 
-                            render={() => {
-                                return <ModalUpdate
-                                        // {...props} 
-                                        title={this.state.title}
-                                        website={this.state.website}
-                                        description={this.state.description}
-                                        category={this.state.category}
-                                        changeInputHandler={this.changeInputHandler}
-                                        updateTabHandler={this.updateTabHandler}
-                                        clearAllFields={this.clearAllFields}
+                            render={(props) => {
+                                return  <ModalUpdate
+                                            {...props} 
+                                            clearAllFields={this.clearAllFields}
                                         /> 
                             }} 
                         />
@@ -254,7 +197,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onUpdateTab: (tabInfo) => dispatch(updateTab(tabInfo)),
         onDeleteTab: (id) => dispatch(deleteTab(id)),
         onRefreshTabs: () => dispatch(getUserTabs())
     }

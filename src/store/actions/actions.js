@@ -107,11 +107,12 @@ export const deleteTab = (id) => dispatch => {
         })
 }
 
-export const updateTab = (id) => dispatch => {
+export const updateTab = (id, tabInfo) => dispatch => {
+
     axiosWithAuth()
-        .put(`https://tabless-thursday-backend.herokuapp.com/api/tabs/${id}`)
+        .put(`https://tabless-thursday-backend.herokuapp.com/api/tabs/${id}`, tabInfo)
         .then(response => {
-            debugger
+            dispatch({ type: UPDATE_SUCCESS });
         })
         .catch(error => {
             debugger

@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { updateTab, getUserTabs } from '../../store/actions/actions';
 
 const StylesModalUpdate = styled.div`
     position: absolute;
@@ -65,47 +68,106 @@ const StylesModalUpdate = styled.div`
 
 `;
 
-const ModalUpdate = props => {
-    // const clearTabHandler = () => {
-    //     props.clearAllFields();
-    // }
+class ModalUpdate extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            website: '',
+            description: '',
+            category: '',
+        }
+    }
 
-    return ReactDOM.createPortal(
-        <StylesModalUpdate>
-            <div>
-                <Link to="/home" className="exit">X</Link>
-                <input 
-                    type="text"
-                    name="title"
-                    value={props.title}
-                    onChange={props.changeInputHandler}
-                    placeholder="title"
-                    required/>
-                <input 
-                    type="text"
-                    name="website"
-                    value={props.website}
-                    onChange={props.changeInputHandler}
-                    placeholder="website"
-                    required/>
-                <input 
-                    type="text"
-                    name="description"
-                    value={props.description}
-                    onChange={props.changeInputHandler}
-                    placeholder="description"
-                    required/>
-                <input 
-                    type="text"
-                    name="category"
-                    value={props.category}
-                    onChange={props.changeInputHandler}
-                    placeholder="category"/>
-                <button onClick={props.updateTabHandler}>Update Tab</button>
-            </div>
-        </StylesModalUpdate>,
-        document.querySelector('#updatePortal')
-    );
+    componentDidMount() {
+        debugger
+       this.updateInfoHandler(); 
+    }
+
+    updateInfoHandler = () => {
+        const tabInfo = JSON.parse(localStorage.getItem('tabInfo'));
+        this.setState({
+            title: tabInfo[0].title,
+            website: tabInfo[0].website,
+            description: tabInfo[0].description,
+            category: tabInfo[0].category
+        })
+    }
+
+    changeInputHandler = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    }
+
+    updateTabHandler = () => {
+        let tabId = localStorage.getItem('tabId');
+
+        const newTab = {
+            title: this.state.title,
+            website: this.state.website,
+            description: this.state.description,
+            category: this.state.category
+        }
+        debugger
+        this.props.onUpdateTab(tabId, newTab);
+
+        this.setState({
+            title: '',
+            website: '',
+            description: '',
+            category: ''
+        })
+
+        localStorage.removeItem('tabId');
+        this.props.onRefreshTabs();
+        this.props.history.push('/home');
+    }
+
+    render() {
+        return ReactDOM.createPortal(
+            <StylesModalUpdate>
+                <div>
+                    <Link to="/home" className="exit">X</Link>
+                    <input 
+                        type="text"
+                        name="title"
+                        value={this.state.title}
+                        onChange={this.changeInputHandler}
+                        placeholder="title"
+                        required/>
+                    <input 
+                        type="text"
+                        name="website"
+                        value={this.state.website}
+                        onChange={this.changeInputHandler}
+                        placeholder="website"
+                        required/>
+                    <input 
+                        type="text"
+                        name="description"
+                        value={this.state.description}
+                        onChange={this.changeInputHandler}
+                        placeholder="description"
+                        required/>
+                    <input 
+                        type="text"
+                        name="category"
+                        value={this.state.category}
+                        onChange={this.changeInputHandler}
+                        placeholder="category"/>
+                    <button onClick={this.updateTabHandler}>Update Tab</button>
+                </div>
+            </StylesModalUpdate>,
+            document.querySelector('#updatePortal')
+        );
+    }
 };
 
-export default ModalUpdate;
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onUpdateTab: (id, tabInfo) => dispatch(updateTab(id, tabInfo)),
+        onRefreshTabs: () => dispatch(getUserTabs())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ModalUpdate);
