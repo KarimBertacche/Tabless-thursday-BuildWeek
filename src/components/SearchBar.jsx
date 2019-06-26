@@ -40,14 +40,6 @@ const StylesSearchBar = styled.div`
 
     button {
         display: none;
-        /* width: 100px;
-        height: 50px;
-        background-color: red;
-        border: 3px solid red;
-        font-size: 2rem;
-        font-weight: bold;
-        outline: none;
-        cursor: pointer; */
     }
 `;
 

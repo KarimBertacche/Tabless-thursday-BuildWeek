@@ -24,12 +24,12 @@ const StylesNavBar = styled.header`
     }
 
     i {
-        position: absolute;
+        /* position: absolute;
         top: 2%;
-        left: 50%;
+        left: 50%; */
         font-size: 3rem;
         font-weight: bold;
-        margin-right: 100px;
+        margin-right: 50px;
         cursor: pointer;
         z-index: 2000;
         outline: none;

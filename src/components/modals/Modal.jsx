@@ -147,6 +147,7 @@ class Modal extends React.Component {
                         value={this.state.title}
                         onChange={this.changeInputHandler}
                         placeholder="title"
+                        maxlength='16'
                         required/>
                     <input 
                         type="text"

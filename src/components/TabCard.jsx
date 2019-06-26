@@ -25,8 +25,10 @@ const StylesTabCard = styled.section`
         -moz-backface-visibility: none;
 
         &.front-side {
+            position: relative;
             background-color: #fff;
             color: #000;
+            overflow: hidden;
 
             h2 {
                 font-size: 1.5rem;
@@ -35,9 +37,20 @@ const StylesTabCard = styled.section`
                 text-align: center;
             }
 
+            .num-tab {
+                position: absolute;
+                top: 0;
+                right: 0;
+                border-bottom: 3px solid red;
+                border-left: 3px solid red;
+                border-radius: 50%;
+                padding: 2px;
+                font-size: 1.3rem;
+            }
+
             figure {
                 width: 100%;
-                height: 200px;
+                height: 220px;
                 margin: 0;
                 border: 3px solid red;
                 border-radius: 5px;
@@ -51,10 +64,14 @@ const StylesTabCard = styled.section`
 
             p {
                 font-size: 1.2rem;
+                font-weight: bold;
+                white-space: nowrap; 
+                overflow: hidden;
+                text-overflow: ellipsis;
 
-                span {
-                    font-size: 1.2rem;
-                    font-weight: bold;
+                span {    
+                    font-size: 1.2rem;  
+                    font-weight: normal;
                 }
             }
         }
@@ -87,14 +104,23 @@ const StylesTabCard = styled.section`
                     font-size: 1.8rem;
                     font-weight: bold;
                     text-decoration: none;
+                    text-align: center;
                     color: #000;
                 }
-    
-                a {
-                    display: inline-block;
-                    width: 100%;
+
+                p {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
                     font-size: 1.5rem;
-                    text-align: center;
+                    font-weight: bold;
+
+                    span, a {
+                        font-size: 1.5rem;
+                        font-weight: normal;
+                    }
+                    
                 }
 
                 .update-btn {
@@ -110,6 +136,7 @@ const StylesTabCard = styled.section`
                     font-size: 1.8rem;
                     font-weight: bold;
                     text-decoration: none;
+                    text-align: center;
                     color: #000; 
                 }
             }
@@ -128,6 +155,11 @@ const StylesTabCard = styled.section`
 `;
 
 class TabCard extends React.Component {
+    state = {
+        category: this.props.category
+    }
+
+
     passDataHandler = (id) =>  {
         const tab = this.props.tabs.filter(tab => tab.tab_id === id);
         localStorage.setItem('tabInfo', JSON.stringify(tab));
@@ -148,17 +180,17 @@ class TabCard extends React.Component {
             <StylesTabCard>
                 <div className="side front-side">
                     <h2>{this.props.title}</h2>
-                    <span>{this.props.category}</span>
-                    <p>{this.props.tabId}</p>
+                    <span className="num-tab">{this.props.tabId}</span>
                     <figure>
                         <img src={this.props.favicon} alt={this.props.title} />
                     </figure>
-                    <p><span>Description:</span> {this.props.description}</p>
+                    <p>Description: <span>{this.props.description}</span></p>
                 </div>
                 <div className="side back-side">
                     <div>
                         <Link to="/delete" className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</Link>
-                        <a href={this.props.website}>{this.props.website}</a>
+                        <p>Category:<span>{this.props.category? this.state.category : 'N/A'}</span></p>
+                        <p>Website:<a href={this.props.website}>{this.props.website}</a></p>
                         <Link to="/update" className="update-btn" onClick={() => this.passDataHandler(this.props.tabId)}>UPDATE TAB</Link> 
                     </div>
                 </div>
