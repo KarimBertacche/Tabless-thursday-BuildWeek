@@ -37,7 +37,7 @@ const loginAPI = "https://tabless-thursday-backend.herokuapp.com/api/login";
 export const login = ({ username, password, email }) => dispatch => {
     const credentials = { username, password, email };
 
-    // dispatch({ type: LOGIN_START });
+    dispatch({ type: LOGIN_START });
 
     return axios
                 .post(loginAPI, credentials)
@@ -45,13 +45,13 @@ export const login = ({ username, password, email }) => dispatch => {
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('userID', response.data.user.id);
                     localStorage.setItem('userLogged', true);
-                    dispatch({ type: LOGIN_SUCCESS, payload: response.data.user })
+                    dispatch({ type: LOGIN_SUCCESS, payload: response.data.user }); 
                 })
                 .catch(error => {
                     debugger
                 })
                 .finally(() => {
-                    // dispatch({ type: LOGIN_END });
+                    dispatch({ type: LOGIN_END });
                 })
 }
 

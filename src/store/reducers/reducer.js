@@ -4,7 +4,7 @@ const initialState = {
     user: null,
     tabs: [],
     loggedIn: false,
-    loading: false,
+    loginLoading: false,
     deleteMessage: '',
     categories: ['category0', 'category1', 'category2', 'category3'],
     visitedTabs: null,
@@ -13,8 +13,12 @@ const initialState = {
 
 export function reducer(state = initialState, action) {
     switch(action.type) {
+        case types.LOGIN_START:
+            return {...state, loginLoading: true};
         case types.LOGIN_SUCCESS:
             return {...state, user: action.payload, loggedIn: true};
+        case types.LOGIN_END:
+            return {...state, loginLoading: false};
         case types.LOGOUT_USER: 
             return {...state, loggedIn: false};
         case types.REGISTER_SUCCESS:
