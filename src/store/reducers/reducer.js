@@ -45,10 +45,20 @@ export function reducer(state = initialState, action) {
             const newVisitedTabs = state.visitedTabs.map(tab => {
                 if(tab.tab_id === action.payload) {
                     return {...tab, visited: true};
+                } else if (tab.visited === undefined){
+                    return {...tab, visited: false};
                 }
                 return {...tab};
-            })
-            return {...state, visitedTabs: newVisitedTabs}
+            });
+            const newlyVisitedTabs = state.savedTabs.map(tab => {
+                if(tab.tab_id === action.payload) {
+                    return {...tab, visited: true};
+                } else if (tab.visited === undefined){
+                    return {...tab, visited: false};
+                }
+                return {...tab};
+            });
+            return {...state, visitedTabs: newVisitedTabs, savedTabs: newlyVisitedTabs}
         default: 
             return state;
     }
