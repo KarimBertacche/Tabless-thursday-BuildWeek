@@ -2,7 +2,7 @@ import * as types from '../actions/actions';
 
 const initialState = {
     user: null,
-    tabs: null,
+    tabs: [],
     loggedIn: false,
     loading: false,
     deleteMessage: '',
@@ -19,9 +19,11 @@ export function reducer(state = initialState, action) {
         case types.FETCH_SUCCESS:
             return {...state, tabs: action.payload};
         case types.CREATE_TAB:
-            return {...state, tabs: [action.payload].concat(state.tabs)};
+            return {...state, tabs: state.tabs.concat(action.payload)};
         case types.DELETE_TAB:
             return {...state, deleteMessage: action.payload };
+        case types.UPDATE_SUCCESS:
+            return {...state};
         default: 
             return state;
     }

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -60,14 +60,14 @@ const NavBar = props => {
                 <nav>
                     <NavLink to="/home" activeClassName="active" className="nav-links">Tabs</NavLink>
                     <NavLink to="/about" activeClassName="active" className="nav-links">About</NavLink>
-                    <Link exact to="/" className="nav-links" onClick={logUserOutHandler}>Log Out</Link>
+                    <Link to="/" className="nav-links" onClick={logUserOutHandler}>Log Out</Link>
                 </nav>
             </StylesNavBar>
         )
     } else {
         return (
             <StylesNavBar>
-                <Link exact to="/" className="heading-secondary"><h2>Tabless Thursday</h2></Link>
+                <Link to="/" className="heading-secondary"><h2>Tabless Thursday</h2></Link>
                 <nav>
                     <NavLink to="/login" activeClassName="active" className="nav-links">Sign in</NavLink>
                     <NavLink to="/register" activeClassName="active" className="nav-links">Sign Up</NavLink>

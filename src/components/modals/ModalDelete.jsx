@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { deleteTab, getUserTabs } from '../store/actions/actions';
+import { deleteTab, getUserTabs } from '../../store/actions/actions';
 
 const StylesModalDelete = styled.section`
     position: absolute;
@@ -15,7 +15,7 @@ const StylesModalDelete = styled.section`
     align-items: center;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0,0,0, 0.8);
+    background-color: rgba(0,0,0, 0.4);
     z-index: 999;
 
     div {
@@ -70,10 +70,15 @@ const StylesModalDelete = styled.section`
 `;
 
 const ModalDelete = (props) => {
+    const deleteHandler = () => {
+        props.history.push('/home');
+        delCompleteHandler();
+    }
 
-    const deleteCardHandler = (event) => {
-        event.preventDefault();
-        props.onDeleteTab(props.tabId);
+    const delCompleteHandler = () => {
+        let tabId = localStorage.getItem('tabID');
+        props.onDeleteTab(tabId);
+        localStorage.removeItem('tabID');
         props.onRefreshTabs();
     }
 
@@ -82,8 +87,8 @@ const ModalDelete = (props) => {
             <div>
                 <p>Are you sure that you want to delete the tab?</p>
                 <main className="btn-wrapper">
-                    <Link to="/home" className="del-btn">No</Link>
-                    <button onClick={deleteCardHandler} className="del-btn">Yes</button>
+                    <Link exact to="/home" className="del-btn">No</Link>
+                    <button className="del-btn" onClick={deleteHandler}>Yes</button>
                 </main>
             </div>
         </StylesModalDelete>,
@@ -91,11 +96,12 @@ const ModalDelete = (props) => {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        deleteMessage: state.deleteMessage
-    }
-}
+// const mapStateToProps = state => {
+//     return {
+//         tabs: state.tabs,
+//         deleteMessage: state.deleteMessage
+//     }
+// }
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -104,4 +110,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalDelete);
+export default connect(null, mapDispatchToProps)(ModalDelete);

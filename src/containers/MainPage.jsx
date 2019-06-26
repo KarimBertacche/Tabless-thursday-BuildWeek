@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { getUserTabs } from '../store/actions/actions';
@@ -29,7 +30,11 @@ const StylesMainPage = styled.div`
 
 class MainPage extends React.Component{
     componentDidMount() {
-        this.props.onGetUserTabs()      
+        this.fetchDataHandler();    
+    }
+
+    fetchDataHandler = () => {
+        this.props.onGetUserTabs() 
     }
 
     render() {
@@ -39,7 +44,7 @@ class MainPage extends React.Component{
                     <AsideBar />
                 </aside>
                 <main>
-                    <TabsContainer history={this.props.history}/>
+                    <Route path="/home" render={(props) => <TabsContainer {...props}/> } />
                 </main>
             </StylesMainPage>
         )

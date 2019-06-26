@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import uuid from 'uuid';
 
@@ -41,24 +41,68 @@ const StylesTabsContainer = styled.section`
 const TabsContainer = props => {
     return (
         <StylesTabsContainer>
-            <Link to="/home/new" className="add-wrapper" >
+            <Link to="/new" className="add-wrapper" >
                 <span>+</span>
             </Link>
-                {
-                    props.tabs !== null
-                    ?   props.tabs.map(tab => {
+                {/* {
+                    props.tabs.map(tab => {
                             console.log(tab)
                             return  <TabCard 
+                                        {...props}
                                         key={uuid()}
                                         username={tab.username}
                                         title={tab.title}
                                         description={tab.description}
                                         website={tab.website}
+                                        favicon={tab.favicon}
+                                        category={tab.category}
                                         tabId={tab.tab_id}
+                                        tabs={props.tabs}
                                          /> 
                         })
-                    :   null
 
+                } */}
+                {
+                    props.tabs.map(tab => {
+                        return( 
+                            <Switch key={uuid()}>
+                                <Route
+                                    path="/home/:category"
+                                    render={(props) => {
+                                        if(props.match.params.category === tab.category && tab.category !== null) {
+                                            return <TabCard
+                                                {...props}
+                                                username={tab.username}
+                                                title={tab.title}
+                                                description={tab.description}
+                                                website={tab.website}
+                                                favicon={tab.favicon}
+                                                category={tab.category}
+                                                tabId={tab.tab_id}
+                                                tabs={props.tabs}
+                                            /> 
+                                        }
+                                    }}
+                                />
+                                <Route
+                                    path="/home"
+                                    render={(props) => {
+                                        return <TabCard
+                                            {...props}
+                                            username={tab.username}
+                                            title={tab.title}
+                                            description={tab.description}
+                                            website={tab.website}
+                                            favicon={tab.favicon}
+                                            category={tab.category}
+                                            tabId={tab.tab_id}
+                                            tabs={props.tabs}
+                                        /> 
+                                    }}
+                                />
+                            </Switch>
+                        );            
+                    })
                 }
         </StylesTabsContainer>
     );

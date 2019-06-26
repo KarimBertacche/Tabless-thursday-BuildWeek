@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import ModalDelete from './ModalDelete';
+import ModalDelete from './modals/ModalDelete';
+import ModalUpdate from './modals/ModalUpdate';
+import { getUserTabs } from '../store/actions/actions';
 
 const StylesTabCard = styled.section`
     position: relative;
@@ -40,6 +43,12 @@ const StylesTabCard = styled.section`
                 margin: 0;
                 border: 3px solid red;
                 border-radius: 5px;
+                object-fit: contain;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                }
             }
 
             p {
@@ -120,26 +129,57 @@ const StylesTabCard = styled.section`
 
 `;
 
-const TabCard = (props) => {
-    return (
-        <StylesTabCard>
-            <div className="side front-side">
-                <h2>{props.title}</h2>
-                <figure>
+class TabCard extends React.Component {
+    passDataHandler = (id) =>  {
+        const tab = this.props.tabs.filter(tab => tab.tab_id === id);
+        localStorage.setItem('tabInfo', JSON.stringify(tab));
+        localStorage.setItem('tabId', id);
+        debugger
+    }
 
-                </figure>
-                <p><span>Description:</span> {props.description}</p>
-            </div>
-            <div className="side back-side">
-                <div>
-                    <Link to="/home/delete" className="delete-btn">DELETE TAB</Link>
-                    <a href={props.website} target="_blank" rel="external">{props.website}</a>
-                    <Link to="/home/update" className="update-btn">UPDATE TAB</Link>
-                    <Route path="/home/delete" render={() => <ModalDelete tabId={props.tabId} /> } />
+    deleteCardHandler = (id) => {
+        localStorage.setItem('tabID', id);
+    }
+
+    componentDidUpdate() {
+        this.props.onRefreshTabs();
+    }
+
+    render() {
+        return (
+            <StylesTabCard>
+                <div className="side front-side">
+                    <h2>{this.props.title}</h2>
+                    <span>{this.props.category}</span>
+                    <p>{this.props.tabId}</p>
+                    <figure>
+                        <img src={this.props.favicon} alt={this.props.title} />
+                    </figure>
+                    <p><span>Description:</span> {this.props.description}</p>
                 </div>
-            </div>
-        </StylesTabCard>
-    );
+                <div className="side back-side">
+                    <div>
+                        <Link to="/delete" className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</Link>
+                        <a href={this.props.website}>{this.props.website}</a>
+                        <Link to="/update" className="update-btn" onClick={() => this.passDataHandler(this.props.tabId)}>UPDATE TAB</Link> 
+                    </div>
+                </div>
+            </StylesTabCard>
+        );
+    }
 }
 
-export default TabCard;
+const mapStateToProps = state => {
+    return {
+        tabs: state.tabs,
+        deleteMessage: state.deleteMessage
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onRefreshTabs: () => dispatch(getUserTabs())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TabCard);

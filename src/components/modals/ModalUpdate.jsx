@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { postUserTab } from '../store/actions/actions';
+import { updateTab, getUserTabs } from '../../store/actions/actions';
 
-const StylesModal = styled.section`
+const StylesModalUpdate = styled.div`
     position: absolute;
     top: 0;
     left: 0;
@@ -15,7 +15,7 @@ const StylesModal = styled.section`
     align-items: center;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0,0,0, 0.8);
+    background-color: rgba(0,0,0, 0.4);
     z-index: 999;
 
     div {
@@ -29,7 +29,7 @@ const StylesModal = styled.section`
         border-radius: 10px;
         overflow: hidden;
         padding: 40px 20px;
-
+        
         .exit {
             position: absolute;
             top: 2%;
@@ -68,48 +68,63 @@ const StylesModal = styled.section`
 
 `;
 
+class ModalUpdate extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            website: '',
+            description: '',
+            category: '',
+        }
+    }
 
-class Modal extends React.Component {
-    state = {
-        title: '',
-        website: '',
-        description: '',
-        category: '',
-        favicon: ''
+    componentDidMount() {
+        debugger
+       this.updateInfoHandler(); 
+    }
+
+    updateInfoHandler = () => {
+        const tabInfo = JSON.parse(localStorage.getItem('tabInfo'));
+        this.setState({
+            title: tabInfo[0].title,
+            website: tabInfo[0].website,
+            description: tabInfo[0].description,
+            category: tabInfo[0].category
+        })
     }
 
     changeInputHandler = event => {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    postTabHandler = () => {
-        let userId = localStorage.getItem('userID');
+    updateTabHandler = () => {
+        let tabId = localStorage.getItem('tabId');
 
         const newTab = {
             title: this.state.title,
             website: this.state.website,
-            user_id: userId,
             description: this.state.description,
-            category: this.state.category,
-            favicon: this.state.favicon
+            category: this.state.category
         }
-
-        this.props.onPostTab(newTab);
+        debugger
+        this.props.onUpdateTab(tabId, newTab);
 
         this.setState({
             title: '',
             website: '',
             description: '',
-            category: '',
-            favicon: ''
+            category: ''
         })
 
-        this.props.history.push('/home')
+        localStorage.removeItem('tabId');
+        this.props.onRefreshTabs();
+        this.props.history.push('/home');
     }
 
     render() {
         return ReactDOM.createPortal(
-            <StylesModal>
+            <StylesModalUpdate>
                 <div>
                     <Link to="/home" className="exit">X</Link>
                     <input 
@@ -139,24 +154,20 @@ class Modal extends React.Component {
                         value={this.state.category}
                         onChange={this.changeInputHandler}
                         placeholder="category"/>
-                    <input 
-                        type="text"
-                        name="favicon"
-                        value={this.state.favicon}
-                        onChange={this.changeInputHandler}
-                        placeholder="favicon"/>
-                    <button onClick={this.postTabHandler}>Add Tab</button>
+                    <button onClick={this.updateTabHandler}>Update Tab</button>
                 </div>
-            </StylesModal>,
-            document.querySelector('#portal')
+            </StylesModalUpdate>,
+            document.querySelector('#updatePortal')
         );
     }
 };
 
+
 const mapDispatchToProps = dispatch => {
     return {
-        onPostTab: (tabInfo) => dispatch(postUserTab(tabInfo))
+        onUpdateTab: (id, tabInfo) => dispatch(updateTab(id, tabInfo)),
+        onRefreshTabs: () => dispatch(getUserTabs())
     }
 }
 
-export default connect(null, mapDispatchToProps)(Modal);
+export default connect(null, mapDispatchToProps)(ModalUpdate);

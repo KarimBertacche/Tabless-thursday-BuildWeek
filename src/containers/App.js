@@ -7,10 +7,10 @@ import Login from '../components/Login';
 import SignUp from '../components/SignUp';
 import MainPage from '../containers/MainPage';
 import PrivateRoute from '../components/PrivateRoute';
-// import * as types from '../store/actions/actions';
 import { login } from '../store/actions/actions';
-import Modal from '../components/Modal';
-import ModalDelete from '../components/ModalDelete';
+import Modal from '../components/modals/Modal';
+import ModalDelete from '../components/modals/ModalDelete';
+import ModalUpdate from '../components/modals/ModalUpdate';
 
 class App extends React.Component {
   constructor(props) {
@@ -81,7 +81,9 @@ class App extends React.Component {
             }} />
           <PrivateRoute path="/home" component={MainPage} />
         </Switch>
-        <Route path="/home/new" component={Modal} />
+        <Route path="/new" component={Modal} />
+        <Route path="/delete" render={(props) => <ModalDelete {...props} /> } />
+        <Route path="/update" render={(props) => <ModalUpdate {...props} /> } />
       </div>
     );
   }
