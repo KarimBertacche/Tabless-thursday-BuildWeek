@@ -43,7 +43,7 @@ const StylesTabsContainer = styled.section`
 const TabsContainer = props => {
     return (
         <StylesTabsContainer>
-            <SearchBar search={props.search}/>
+            <SearchBar search={props.search} showSearchHandler={props.showSearchHandler}/>
             <Link to="/new" className="add-wrapper" >
                 <span>+</span>
             </Link>

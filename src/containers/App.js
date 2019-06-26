@@ -92,7 +92,15 @@ class App extends React.Component {
             render={(props) => {
               return <SignUp {...props} passRegisteredUserHandler={this.passRegisteredUserHandler} />
             }} />
-          <PrivateRoute path="/home" render={() => <MainPage search={this.state.search}/>} />
+          <PrivateRoute 
+            path="/home" 
+            render={() => {
+              return  <MainPage 
+                        search={this.state.search} 
+                        showSearchHandler={this.showSearchHandler} 
+                      />
+            }}
+          />
         </Switch>
         <Route path="/new" component={Modal} />
         <Route path="/delete" render={(props) => <ModalDelete {...props} /> } />

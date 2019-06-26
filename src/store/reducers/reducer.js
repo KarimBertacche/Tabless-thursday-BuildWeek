@@ -30,6 +30,9 @@ export function reducer(state = initialState, action) {
         case types.REMOVE_CATEGORY:
             const newCategoriesArr = state.categories.filter(category => category !== action.payload);
             return {...state, categories: newCategoriesArr};
+        case types.SEARCH_TAB:
+            const filteredTabArr = state.tabs.filter(tab => tab.title.toLowerCase().startsWith(action.payload.toLowerCase()));
+            return {...state, tabs: filteredTabArr};
         default: 
             return state;
     }

@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+
+import { searchTab } from '../store/actions/actions';
 
 const StylesSearchBar = styled.div`
     position: absolute;
@@ -7,7 +10,7 @@ const StylesSearchBar = styled.div`
     left: 50%;
     transform: ${props => (props.search? 'translate(-50%, 0)': 'translate(-50%, -100%)')};
     display: flex;
-    width: 350px;
+    width: 300px;
     height: 50px;
     background-color: red;
     border: 3px solid red;
@@ -27,7 +30,7 @@ const StylesSearchBar = styled.div`
     }
 
     input {
-        width: 200px;
+        width: 300px;
         height: 50px;
         font-size: 2rem;
         font-weight: bold;
@@ -36,26 +39,49 @@ const StylesSearchBar = styled.div`
     }
 
     button {
-        width: 100px;
+        display: none;
+        /* width: 100px;
         height: 50px;
         background-color: red;
         border: 3px solid red;
         font-size: 2rem;
         font-weight: bold;
         outline: none;
-        cursor: pointer;
+        cursor: pointer; */
     }
 `;
 
-export default function SearchBar(props) {
+class SearchBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            searchInput: ''
+        }
+    }
 
-    console.log(props.search)
+    searchInputHandler = (event) => {
+        this.setState({ searchInput: event.target.value })
+    }
 
-    return (
-        <StylesSearchBar search={props.search}>
-            <i class="fa fa-undo"></i>
-            <input type="text" />
-            <button>Search</button>
-        </StylesSearchBar>
-    );
+    // console.log(props.search)
+    render() {
+        return (
+            <StylesSearchBar search={this.props.search}>
+                <i className="fa fa-undo" onClick={this.props.showSearchHandler}></i>
+                <input 
+                    type="text" 
+                    value={this.state.searchInput}
+                    onChange={this.searchInputHandler}/>
+                <button onClick={this.props.onSearchTab(this.state.searchInput)}>Search</button>
+            </StylesSearchBar>
+        );
+    }
 }
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onSearchTab: (searchInput) => dispatch(searchTab(searchInput)),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar);

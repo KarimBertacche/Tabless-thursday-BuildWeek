@@ -26,6 +26,7 @@ export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const REMOVE_CATEGORY = 'REMOVE_CATEGORY';
 
 export const SEARCH_TAB = 'SEARCH_TAB';
+export const UNDO_SEARCH = 'UNDO_SEARCH';
 
 //ACTIONS CREATOR
 
@@ -133,5 +134,5 @@ export const removeCategory = (category) => dispatch => {
 }
 
 export const searchTab = (searchResult) => dispatch => {
-    dispatch({ type: SEARCH_TAB });
+    dispatch({ type: SEARCH_TAB, payload: searchResult });
 }
