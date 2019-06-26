@@ -7,7 +7,8 @@ const initialState = {
     loading: false,
     deleteMessage: '',
     categories: ['category0', 'category1', 'category2', 'category3'],
-    visitedTabs: [] 
+    visitedTabs: null,
+    savedTabs: null
 }
 
 export function reducer(state = initialState, action) {
@@ -19,9 +20,13 @@ export function reducer(state = initialState, action) {
         case types.REGISTER_SUCCESS:
             return {...state, user: action.payload};
         case types.FETCH_SUCCESS:
+            // if(state.visitedTabs === null || state.visitedTabs.length < action.payload.length) {
+            if(state.visitedTabs === null) {
+                return {...state, tabs: action.payload, visitedTabs: action.payload};
+            } 
             return {...state, tabs: action.payload};
         case types.CREATE_TAB:
-            return {...state, tabs: state.tabs.concat(action.payload)};
+            return {...state, tabs: state.tabs.concat(action.payload), visitedTabs: state.visitedTabs.concat(action.payload)};
         case types.DELETE_TAB:
             return {...state, deleteMessage: action.payload };
         case types.UPDATE_SUCCESS:
@@ -32,8 +37,10 @@ export function reducer(state = initialState, action) {
             const newCategoriesArr = state.categories.filter(category => category !== action.payload);
             return {...state, categories: newCategoriesArr};
         case types.SEARCH_TAB:
-            const filteredTabArr = state.tabs.filter(tab => tab.title.toLowerCase().startsWith(action.payload.toLowerCase()));
-            return {...state, tabs: filteredTabArr};
+            const filteredTabArr = state.visitedTabs.filter(tab => tab.title.toLowerCase().startsWith(action.payload.toLowerCase()));
+            return {...state, visitedTabs: filteredTabArr, savedTabs: state.visitedTabs};
+        case types.UNDO_SEARCH:
+            return {...state, visitedTabs: state.savedTabs }
         case types.TAB_VISITED:
             const newVisitedTabs = state.visitedTabs.map(tab => {
                 if(tab.tab_id === action.payload) {

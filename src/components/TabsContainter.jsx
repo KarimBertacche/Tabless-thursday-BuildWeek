@@ -48,6 +48,51 @@ const TabsContainer = props => {
                 <span>+</span>
             </Link>
                 {
+                    // props.search 
+                    // ?props.searchedTabs.map(tab => {
+                    //     return( 
+                    //         <Switch key={uuid()}>
+                    //             <Route
+                    //                 path="/home/:category"
+                    //                 render={(props) => {
+                    //                     if(props.match.params.category === tab.category && tab.category !== null) {
+                    //                         return <TabCard
+                    //                             {...props}
+                    //                             username={tab.username}
+                    //                             title={tab.title}
+                    //                             description={tab.description}
+                    //                             website={tab.website}
+                    //                             favicon={tab.favicon}
+                    //                             category={tab.category}
+                    //                             visited={tab.visited}
+                    //                             tabId={tab.tab_id}
+                    //                             tabs={props.tabs}
+                    //                         /> 
+                    //                     }
+                    //                 }}
+                    //             />
+                    //             <Route
+                    //                 path="/home"
+                    //                 render={(props) => {
+                    //                     return <TabCard
+                    //                         {...props}
+                    //                         username={tab.username}
+                    //                         title={tab.title}
+                    //                         description={tab.description}
+                    //                         website={tab.website}
+                    //                         favicon={tab.favicon}
+                    //                         category={tab.category}
+                    //                         visited={tab.visited}
+                    //                         tabId={tab.tab_id}
+                    //                         tabs={props.tabs}
+                    //                     /> 
+                    //                 }}
+                    //             />
+                    //         </Switch>
+                    //     );            
+                    // })
+                    
+                    // :
                     props.visitedTabs.map(tab => {
                         return( 
                             <Switch key={uuid()}>
@@ -98,7 +143,8 @@ const TabsContainer = props => {
 const mapStateToProps = state => {
     return {
         tabs: state.tabs,
-        visitedTabs: state.visitedTabs
+        visitedTabs: state.visitedTabs,
+        searchedTabs: state.searchedTabs
     }
 }
 

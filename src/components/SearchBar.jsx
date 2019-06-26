@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { searchTab } from '../store/actions/actions';
+import { searchTab, undoSearch } from '../store/actions/actions';
 
 const StylesSearchBar = styled.div`
     position: absolute;
@@ -10,7 +10,7 @@ const StylesSearchBar = styled.div`
     left: 50%;
     transform: ${props => (props.search? 'translate(-50%, 0)': 'translate(-50%, -100%)')};
     display: flex;
-    width: 300px;
+    width: 350px;
     height: 50px;
     background-color: red;
     border: 3px solid red;
@@ -39,7 +39,14 @@ const StylesSearchBar = styled.div`
     }
 
     button {
-        display: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background-color: red;
+        border: 3px solid red;
+        outline: none;
     }
 `;
 
@@ -55,16 +62,20 @@ class SearchBar extends React.Component {
         this.setState({ searchInput: event.target.value })
     }
 
-    // console.log(props.search)
+    completeSearch = () => {
+        this.props.onSearchTab(this.state.searchInput)
+        this.setState({ searchInput: '' })
+    }
+
     render() {
         return (
             <StylesSearchBar search={this.props.search}>
-                <i className="fa fa-undo" onClick={this.props.showSearchHandler}></i>
+                <i className="fa fa-undo" onClick={this.props.onUndoSearch}></i>
                 <input 
                     type="text" 
                     value={this.state.searchInput}
                     onChange={this.searchInputHandler}/>
-                <button onClick={this.props.onSearchTab(this.state.searchInput)}>Search</button>
+                <button onClick={this.completeSearch}><i className="fa fa-search" /></button>
             </StylesSearchBar>
         );
     }
@@ -73,6 +84,7 @@ class SearchBar extends React.Component {
 const mapDispatchToProps = dispatch => {
     return {
         onSearchTab: (searchInput) => dispatch(searchTab(searchInput)),
+        onUndoSearch: () => dispatch(undoSearch())
     }
 }
 

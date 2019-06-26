@@ -139,6 +139,10 @@ export const searchTab = (searchResult) => dispatch => {
     dispatch({ type: SEARCH_TAB, payload: searchResult });
 }
 
+export const undoSearch = () => dispatch => {
+    dispatch({ type: UNDO_SEARCH });
+}
+
 export const tabVisited = (tabId) => dispatch => {
     dispatch({ type: TAB_VISITED, payload: tabId})
 }
