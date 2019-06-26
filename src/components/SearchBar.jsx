@@ -27,10 +27,11 @@ const StylesSearchBar = styled.div`
         align-items: center;
         width: 50px;
         font-size: 3.5rem;
+        cursor: pointer;
     }
 
     input {
-        width: 300px;
+        width: 260px;
         height: 50px;
         font-size: 2rem;
         font-weight: bold;
@@ -47,6 +48,7 @@ const StylesSearchBar = styled.div`
         background-color: red;
         border: 3px solid red;
         outline: none;
+        cursor: pointer;
     }
 `;
 
@@ -74,7 +76,8 @@ class SearchBar extends React.Component {
                 <input 
                     type="text" 
                     value={this.state.searchInput}
-                    onChange={this.searchInputHandler}/>
+                    onChange={this.searchInputHandler}
+                    maxLength="16"/>
                 <button onClick={this.completeSearch}><i className="fa fa-search" /></button>
             </StylesSearchBar>
         );

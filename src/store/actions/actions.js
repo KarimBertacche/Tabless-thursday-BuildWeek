@@ -80,6 +80,8 @@ export const registerUser = ({ username, password, email }) => dispatch => {
 export const getUserTabs = () => dispatch => {
     let id = localStorage.getItem('userID');
 
+    dispatch({ type: FETCH_START });
+
     axiosWithAuth()
         .get(`https://tabless-thursday-backend.herokuapp.com/api/users/${id}`)
         .then(response => {
@@ -87,7 +89,10 @@ export const getUserTabs = () => dispatch => {
         })
         .catch(error => {
             debugger
-        });
+        })
+        .finally(() => {
+            dispatch({ type: FETCH_END })
+        })
 }
 
 const postTabAPI = "https://tabless-thursday-backend.herokuapp.com/api/tabs";
@@ -108,7 +113,7 @@ export const deleteTab = (id) => dispatch => {
     axiosWithAuth()
         .delete(`https://tabless-thursday-backend.herokuapp.com/api/tabs/${id}`)
         .then(response => {
-            dispatch({ type: DELETE_TAB, payload: response.data.message });
+            dispatch({ type: DELETE_TAB, payload: response.data.message, tabId: id });
         })
         .catch(error => {
             debugger
@@ -120,7 +125,8 @@ export const updateTab = (id, tabInfo) => dispatch => {
     axiosWithAuth()
         .put(`https://tabless-thursday-backend.herokuapp.com/api/tabs/${id}`, tabInfo)
         .then(response => {
-            dispatch({ type: UPDATE_SUCCESS });
+            debugger
+            dispatch({ type: UPDATE_SUCCESS, payload: JSON.parse(response.config.data), tabId: id });
         })
         .catch(error => {
             debugger

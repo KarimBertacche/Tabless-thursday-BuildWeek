@@ -1,9 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { getUserTabs } from '../store/actions/actions';
 import AsideBar from '../components/AsideBar';
 import TabsContainer from '../components/TabsContainter';
 
@@ -28,19 +26,7 @@ const StylesMainPage = styled.div`
 
 `;
 
-class MainPage extends React.Component{
-    componentDidMount() {
-        this.fetchDataHandler();    
-    }
-
-    fetchDataHandler = () => {
-        this.props.onGetUserTabs() 
-    }
-
-    componentDidUpdate() {
-        this.fetchDataHandler(); 
-    }
-
+class MainPage extends React.Component {
     render() {
         return (
             <StylesMainPage>
@@ -64,10 +50,4 @@ class MainPage extends React.Component{
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onGetUserTabs: (id) => dispatch(getUserTabs(id))
-    }
-}
-
-export default connect(null, mapDispatchToProps)(MainPage);
+export default MainPage;

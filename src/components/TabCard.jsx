@@ -186,7 +186,7 @@ class TabCard extends React.Component {
 
 
     passDataHandler = (id) =>  {
-        const tab = this.props.tabs.filter(tab => tab.tab_id === id);
+        const tab = this.props.visitedTabs.filter(tab => tab.tab_id === id);
         localStorage.setItem('tabInfo', JSON.stringify(tab));
         localStorage.setItem('tabId', id);
     }
@@ -228,7 +228,7 @@ class TabCard extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        tabs: state.tabs,
+        visitedTabs: state.visitedTabs,
         deleteMessage: state.deleteMessage,
     }
 }

@@ -5,6 +5,7 @@ const initialState = {
     tabs: [],
     loggedIn: false,
     loginLoading: false,
+    fetchLoading: false,
     deleteMessage: '',
     categories: ['category0', 'category1', 'category2', 'category3'],
     visitedTabs: null,
@@ -23,18 +24,46 @@ export function reducer(state = initialState, action) {
             return {...state, loggedIn: false};
         case types.REGISTER_SUCCESS:
             return {...state, user: action.payload};
+        case types.FETCH_START:
+            return {...state, fetchLoading: true};
         case types.FETCH_SUCCESS:
             // if(state.visitedTabs === null || state.visitedTabs.length < action.payload.length) {
             if(state.visitedTabs === null) {
                 return {...state, tabs: action.payload, visitedTabs: action.payload};
             } 
             return {...state, tabs: action.payload};
+        case types.FETCH_END:
+            return {...state, fetchLoading: false};
         case types.CREATE_TAB:
             return {...state, tabs: state.tabs.concat(action.payload), visitedTabs: state.visitedTabs.concat(action.payload)};
         case types.DELETE_TAB:
-            return {...state, deleteMessage: action.payload };
+            const removedTabArr = state.visitedTabs.filter(tab => {
+                debugger
+                return tab.tab_id !== Number(action.tabId)
+            });
+            return {...state, deleteMessage: action.payload, visitedTabs: removedTabArr };
         case types.UPDATE_SUCCESS:
-            return {...state};
+            const updatedTabArr = state.visitedTabs.map(tab => {
+                let newTabObj = action.payload;
+                if (tab.tab_id === Number(action.tabId) && tab.visited === true) {  
+                    return {...tab, 
+                            title: newTabObj.title,
+                            category: newTabObj.category,
+                            description: newTabObj.description,
+                            website: newTabObj.website,
+                            visited: true }
+                } else if (tab.tab_id === Number(action.tabId) && tab.visited === false) {
+                    return {...tab, 
+                            title: newTabObj.title,
+                            category: newTabObj.category,
+                            description: newTabObj.description,
+                            website: newTabObj.website,
+                            visited: false }
+                }
+                return {...tab}
+            })
+            console.log(updatedTabArr);
+            return {...state, visitedTabs: updatedTabArr};
         case types.ADD_CATEGORY:
             return {...state, categories: state.categories.concat(action.payload)};
         case types.REMOVE_CATEGORY:
@@ -54,14 +83,19 @@ export function reducer(state = initialState, action) {
                 }
                 return {...tab};
             });
-            const newlyVisitedTabs = state.savedTabs.map(tab => {
-                if(tab.tab_id === action.payload) {
-                    return {...tab, visited: true};
-                } else if (tab.visited === undefined){
-                    return {...tab, visited: false};
-                }
-                return {...tab};
-            });
+
+            let newlyVisitedTabs = null;
+
+            if(state.savedTabs !== null) {
+                newlyVisitedTabs = state.savedTabs.map(tab => {
+                    if(tab.tab_id === action.payload) {
+                        return {...tab, visited: true};
+                    } else if (tab.visited === undefined){
+                        return {...tab, visited: false};
+                    }
+                    return {...tab};
+                });
+            }
             return {...state, visitedTabs: newVisitedTabs, savedTabs: newlyVisitedTabs}
         default: 
             return state;
