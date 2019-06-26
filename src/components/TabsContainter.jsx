@@ -19,7 +19,7 @@ const StylesTabsContainer = styled.section`
 
     .add-wrapper {
         width: 230px;
-        height: 300px;
+        height: 330px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -48,7 +48,7 @@ const TabsContainer = props => {
                 <span>+</span>
             </Link>
                 {
-                    props.tabs.map(tab => {
+                    props.visitedTabs.map(tab => {
                         return( 
                             <Switch key={uuid()}>
                                 <Route
@@ -63,6 +63,7 @@ const TabsContainer = props => {
                                                 website={tab.website}
                                                 favicon={tab.favicon}
                                                 category={tab.category}
+                                                visited={tab.visited}
                                                 tabId={tab.tab_id}
                                                 tabs={props.tabs}
                                             /> 
@@ -80,6 +81,7 @@ const TabsContainer = props => {
                                             website={tab.website}
                                             favicon={tab.favicon}
                                             category={tab.category}
+                                            visited={tab.visited}
                                             tabId={tab.tab_id}
                                             tabs={props.tabs}
                                         /> 
@@ -95,7 +97,8 @@ const TabsContainer = props => {
 
 const mapStateToProps = state => {
     return {
-        tabs: state.tabs
+        tabs: state.tabs,
+        visitedTabs: state.visitedTabs
     }
 }
 

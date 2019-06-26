@@ -99,19 +99,19 @@ class Modal extends React.Component {
             this.props.onAddCategory(this.state.newCategory);
             newTab = {
                 title: this.state.title,
-                website: this.state.website,
+                website: this.state.website.toLowerCase(),
                 user_id: userId,
-                description: this.state.description,
-                category: this.state.newCategory,
+                description: this.state.description.toLowerCase(),
+                category: this.state.newCategory.toLowerCase(),
                 favicon: this.state.favicon
             }
         } else {
             newTab = {
                 title: this.state.title,
-                website: this.state.website,
+                website: this.state.website.toLowerCase(),
                 user_id: userId,
-                description: this.state.description,
-                category: this.state.category,
+                description: this.state.description.toLowerCase(),
+                category: this.state.category.toLowerCase(),
                 favicon: this.state.favicon
             }
         }
@@ -147,7 +147,7 @@ class Modal extends React.Component {
                         value={this.state.title}
                         onChange={this.changeInputHandler}
                         placeholder="title"
-                        maxlength='16'
+                        maxLength="16"
                         required/>
                     <input 
                         type="text"
@@ -162,6 +162,7 @@ class Modal extends React.Component {
                         value={this.state.description}
                         onChange={this.changeInputHandler}
                         placeholder="description"
+                        maxLength="120"
                         required/>
                     <label>
                         Choose category from list:

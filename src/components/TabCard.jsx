@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { getUserTabs } from '../store/actions/actions';
+import { getUserTabs, tabVisited } from '../store/actions/actions';
 
 const StylesTabCard = styled.section`
     position: relative;
     width: 230px;
-    height: 300px;
+    height: 330px;
     perspective: 150rem;
     margin-bottom: 10px;
     
@@ -49,13 +49,21 @@ const StylesTabCard = styled.section`
             }
 
             figure {
+                position: relative;
                 width: 100%;
-                height: 220px;
+                height: 250px;
                 margin: 0;
                 border: 3px solid red;
                 border-radius: 5px;
                 object-fit: contain;
                 overflow: hidden;
+
+                i {
+                    position: absolute;
+                    top: 0;
+                    right: 2%;
+                    font-size: 2rem;
+                }
 
                 img {
                     width: 100%;
@@ -120,6 +128,23 @@ const StylesTabCard = styled.section`
                         font-size: 1.5rem;
                         font-weight: normal;
                     }
+
+                    .website {
+                        width: 98%;
+                        text-align: center;
+                        white-space: nowrap; 
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+
+                    .description {
+                        width: 98%;
+                        height: 100px;
+                        overflow: hidden;
+                        word-wrap: break-word;
+                        overflow-wrap: wrap;
+                        text-align: center;
+                    }
                     
                 }
 
@@ -156,7 +181,7 @@ const StylesTabCard = styled.section`
 
 class TabCard extends React.Component {
     state = {
-        category: this.props.category
+        category: this.props.category,
     }
 
 
@@ -164,17 +189,16 @@ class TabCard extends React.Component {
         const tab = this.props.tabs.filter(tab => tab.tab_id === id);
         localStorage.setItem('tabInfo', JSON.stringify(tab));
         localStorage.setItem('tabId', id);
-        debugger
     }
 
     deleteCardHandler = (id) => {
         localStorage.setItem('tabID', id);
     }
 
-    componentDidUpdate() {
-        this.props.onRefreshTabs();
+    visitedTabHandler = () => {
+        this.setState({ visited: true });
     }
-
+    
     render() {
         return (
             <StylesTabCard>
@@ -182,6 +206,7 @@ class TabCard extends React.Component {
                     <h2>{this.props.title}</h2>
                     <span className="num-tab">{this.props.tabId}</span>
                     <figure>
+                        <i className={this.props.visited ? "fa fa-eye" : "fa fa-eye-slash"}></i>
                         <img src={this.props.favicon} alt={this.props.title} />
                     </figure>
                     <p>Description: <span>{this.props.description}</span></p>
@@ -189,8 +214,10 @@ class TabCard extends React.Component {
                 <div className="side back-side">
                     <div>
                         <Link to="/delete" className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</Link>
-                        <p>Category:<span>{this.props.category? this.state.category : 'N/A'}</span></p>
-                        <p>Website:<a href={this.props.website}>{this.props.website}</a></p>
+                        <p onClick={() => this.props.onTabVisited(this.props.tabId)}>Visited: <span>{ this.props.visited ? 'YES' : 'NO'}</span></p>
+                        <p>Category:<span>{this.props.category ? this.state.category : 'N/A'}</span></p>
+                        <p>Website:<a href={this.props.website} className="website">{this.props.website}</a></p>
+                        <p>Description: <span className="description">{this.props.description}</span></p>
                         <Link to="/update" className="update-btn" onClick={() => this.passDataHandler(this.props.tabId)}>UPDATE TAB</Link> 
                     </div>
                 </div>
@@ -202,13 +229,14 @@ class TabCard extends React.Component {
 const mapStateToProps = state => {
     return {
         tabs: state.tabs,
-        deleteMessage: state.deleteMessage
+        deleteMessage: state.deleteMessage,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onRefreshTabs: () => dispatch(getUserTabs())
+        onRefreshTabs: () => dispatch(getUserTabs()),
+        onTabVisited: (tabId) => dispatch(tabVisited(tabId))
     }
 }
 

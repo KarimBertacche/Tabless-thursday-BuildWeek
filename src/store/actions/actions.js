@@ -28,6 +28,8 @@ export const REMOVE_CATEGORY = 'REMOVE_CATEGORY';
 export const SEARCH_TAB = 'SEARCH_TAB';
 export const UNDO_SEARCH = 'UNDO_SEARCH';
 
+export const TAB_VISITED = 'TAB_VISITED';
+
 //ACTIONS CREATOR
 
 const loginAPI = "https://tabless-thursday-backend.herokuapp.com/api/login";
@@ -135,4 +137,8 @@ export const removeCategory = (category) => dispatch => {
 
 export const searchTab = (searchResult) => dispatch => {
     dispatch({ type: SEARCH_TAB, payload: searchResult });
+}
+
+export const tabVisited = (tabId) => dispatch => {
+    dispatch({ type: TAB_VISITED, payload: tabId})
 }

@@ -6,7 +6,8 @@ const initialState = {
     loggedIn: false,
     loading: false,
     deleteMessage: '',
-    categories: ['category0', 'category1', 'category2', 'category3']
+    categories: ['category0', 'category1', 'category2', 'category3'],
+    visitedTabs: [] 
 }
 
 export function reducer(state = initialState, action) {
@@ -33,6 +34,14 @@ export function reducer(state = initialState, action) {
         case types.SEARCH_TAB:
             const filteredTabArr = state.tabs.filter(tab => tab.title.toLowerCase().startsWith(action.payload.toLowerCase()));
             return {...state, tabs: filteredTabArr};
+        case types.TAB_VISITED:
+            const newVisitedTabs = state.visitedTabs.map(tab => {
+                if(tab.tab_id === action.payload) {
+                    return {...tab, visited: true};
+                }
+                return {...tab};
+            })
+            return {...state, visitedTabs: newVisitedTabs}
         default: 
             return state;
     }
