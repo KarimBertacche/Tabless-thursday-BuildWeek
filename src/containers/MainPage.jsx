@@ -37,6 +37,10 @@ class MainPage extends React.Component{
         this.props.onGetUserTabs() 
     }
 
+    componentDidUpdate() {
+        this.fetchDataHandler(); 
+    }
+
     render() {
         return (
             <StylesMainPage>
@@ -44,7 +48,7 @@ class MainPage extends React.Component{
                     <AsideBar />
                 </aside>
                 <main>
-                    <Route path="/home" render={(props) => <TabsContainer {...props}/> } />
+                    <Route path="/home" render={(props) => <TabsContainer {...props} search={this.props.search}/> } />
                 </main>
             </StylesMainPage>
         )

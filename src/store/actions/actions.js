@@ -22,6 +22,11 @@ export const DELETE_TAB = 'DELETE_TAB';
 
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
 
+export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const REMOVE_CATEGORY = 'REMOVE_CATEGORY';
+
+export const SEARCH_TAB = 'SEARCH_TAB';
+
 //ACTIONS CREATOR
 
 const loginAPI = "https://tabless-thursday-backend.herokuapp.com/api/login";
@@ -119,3 +124,14 @@ export const updateTab = (id, tabInfo) => dispatch => {
         })
 }
 
+export const addCategory = (category) => dispatch => {
+    dispatch({ type: ADD_CATEGORY, payload: category });
+}
+ 
+export const removeCategory = (category) => dispatch => {
+    dispatch({ type: REMOVE_CATEGORY, payload: category });
+}
+
+export const searchTab = (searchResult) => dispatch => {
+    dispatch({ type: SEARCH_TAB });
+}

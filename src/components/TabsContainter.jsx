@@ -5,8 +5,10 @@ import styled from 'styled-components';
 import uuid from 'uuid';
 
 import TabCard from './TabCard';
+import SearchBar from './SearchBar';
 
 const StylesTabsContainer = styled.section`
+    position: relative;
     display: flex;
     justify-content: space-evenly;
     align-content: space-between;
@@ -41,27 +43,10 @@ const StylesTabsContainer = styled.section`
 const TabsContainer = props => {
     return (
         <StylesTabsContainer>
+            <SearchBar search={props.search}/>
             <Link to="/new" className="add-wrapper" >
                 <span>+</span>
             </Link>
-                {/* {
-                    props.tabs.map(tab => {
-                            console.log(tab)
-                            return  <TabCard 
-                                        {...props}
-                                        key={uuid()}
-                                        username={tab.username}
-                                        title={tab.title}
-                                        description={tab.description}
-                                        website={tab.website}
-                                        favicon={tab.favicon}
-                                        category={tab.category}
-                                        tabId={tab.tab_id}
-                                        tabs={props.tabs}
-                                         /> 
-                        })
-
-                } */}
                 {
                     props.tabs.map(tab => {
                         return( 
@@ -115,3 +100,25 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(TabsContainer);
+
+
+
+
+/* {
+props.tabs.map(tab => {
+        console.log(tab)
+        return  <TabCard 
+                    {...props}
+                    key={uuid()}
+                    username={tab.username}
+                    title={tab.title}
+                    description={tab.description}
+                    website={tab.website}
+                    favicon={tab.favicon}
+                    category={tab.category}
+                    tabId={tab.tab_id}
+                    tabs={props.tabs}
+                        /> 
+    })
+
+} */

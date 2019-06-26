@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import ModalDelete from './modals/ModalDelete';
-import ModalUpdate from './modals/ModalUpdate';
 import { getUserTabs } from '../store/actions/actions';
 
 const StylesTabCard = styled.section`

@@ -19,8 +19,23 @@ const StylesNavBar = styled.header`
         
         h2 {
             font-size: 4rem;
-            margin: 0; 
-            
+            margin: 0;    
+        }
+    }
+
+    i {
+        position: absolute;
+        top: 2%;
+        left: 50%;
+        font-size: 3rem;
+        font-weight: bold;
+        margin-right: 100px;
+        cursor: pointer;
+        z-index: 2000;
+        outline: none;
+
+        span {
+            font-size: 2.5rem;
         }
     }
 
@@ -35,7 +50,6 @@ const StylesNavBar = styled.header`
         &:last-child {
             margin-right: 0;
         }
-
     }
 
     .active {
@@ -58,6 +72,7 @@ const NavBar = props => {
             <StylesNavBar>
                 <Link to="/home" className="heading-secondary"><h2>Tabless Thursday</h2></Link>
                 <nav>
+                    <i className="fa fa-search" onClick={props.showSearchHandler}> <span>Search</span></i>
                     <NavLink to="/home" activeClassName="active" className="nav-links">Tabs</NavLink>
                     <NavLink to="/about" activeClassName="active" className="nav-links">About</NavLink>
                     <Link to="/" className="nav-links" onClick={logUserOutHandler}>Log Out</Link>

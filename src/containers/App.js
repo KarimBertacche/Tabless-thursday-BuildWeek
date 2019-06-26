@@ -18,7 +18,8 @@ class App extends React.Component {
     this.state = {
       username: '',
       password: '',
-      email: ''
+      email: '',
+      search: false
     }
   }
 
@@ -54,10 +55,22 @@ class App extends React.Component {
     }
   }
 
+  showSearchHandler = () => {
+    if(this.state.search === false) {
+      this.setState({
+        search: true
+      })
+    } else {
+      this.setState({
+        search: false
+      })
+    }
+  }
+
   render() {
     return (
       <div>
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} showSearchHandler={this.showSearchHandler}/>
   
         <Switch>
           <Route 
@@ -79,7 +92,7 @@ class App extends React.Component {
             render={(props) => {
               return <SignUp {...props} passRegisteredUserHandler={this.passRegisteredUserHandler} />
             }} />
-          <PrivateRoute path="/home" component={MainPage} />
+          <PrivateRoute path="/home" render={() => <MainPage search={this.state.search}/>} />
         </Switch>
         <Route path="/new" component={Modal} />
         <Route path="/delete" render={(props) => <ModalDelete {...props} /> } />
@@ -89,9 +102,10 @@ class App extends React.Component {
   }
 }
 
+
 const mapStateToProps = state => {
   return {
-      user: state.user
+      user: state.user,
   }
 }
 

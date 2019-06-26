@@ -6,6 +6,7 @@ const initialState = {
     loggedIn: false,
     loading: false,
     deleteMessage: '',
+    categories: ['category0', 'category1', 'category2', 'category3']
 }
 
 export function reducer(state = initialState, action) {
@@ -24,6 +25,11 @@ export function reducer(state = initialState, action) {
             return {...state, deleteMessage: action.payload };
         case types.UPDATE_SUCCESS:
             return {...state};
+        case types.ADD_CATEGORY:
+            return {...state, categories: state.categories.concat(action.payload)};
+        case types.REMOVE_CATEGORY:
+            const newCategoriesArr = state.categories.filter(category => category !== action.payload);
+            return {...state, categories: newCategoriesArr};
         default: 
             return state;
     }
