@@ -41,6 +41,8 @@ export function reducer(state = initialState, action) {
                 return tab.tab_id !== Number(action.tabId)
             });
             return {...state, deleteMessage: action.payload, visitedTabs: removedTabArr };
+        case types.ADD_CATEGORY_LINK:
+            return {...state, categories: state.categories.concat(action.payload)};
         case types.UPDATE_SUCCESS:
             const updatedTabArr = state.visitedTabs.map(tab => {
                 let newTabObj = action.payload;

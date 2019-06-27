@@ -24,6 +24,7 @@ export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
 
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const REMOVE_CATEGORY = 'REMOVE_CATEGORY';
+export const ADD_CATEGORY_LINK = 'ADD_CATEGORY_LINK';
 
 export const SEARCH_TAB = 'SEARCH_TAB';
 export const UNDO_SEARCH = 'UNDO_SEARCH';
@@ -150,5 +151,9 @@ export const undoSearch = () => dispatch => {
 }
 
 export const tabVisited = (tabId) => dispatch => {
-    dispatch({ type: TAB_VISITED, payload: tabId})
+    dispatch({ type: TAB_VISITED, payload: tabId});
+}
+
+export const addCategoryLink = (nameLink) => dispatch => {
+    dispatch({ type: ADD_CATEGORY_LINK, payload: nameLink });
 }

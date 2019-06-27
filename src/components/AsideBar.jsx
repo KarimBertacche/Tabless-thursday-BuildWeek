@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid';
 
 import { StylesAsideBar } from '../styles/stylesNavBar';
-import { removeCategory, undoSearch } from '../store/actions/actions';
+import { removeCategory, undoSearch, addCategoryLink } from '../store/actions/actions';
 
 class AsideBar extends React.Component {
     state = {
@@ -14,6 +14,14 @@ class AsideBar extends React.Component {
 
     changeInputHandler = (event) => {
         this.setState({ linkInput: event.target.value})
+    }
+
+    addCategoryHandler = () => {
+        if(this.state.linkInput !== "") {
+            this.props.onAddCategory(this.state.linkInput);
+        }
+        this.toggleInputHandler();
+        this.setState({ linkInput: '' });
     }
 
     toggleInputHandler = () => {
@@ -39,12 +47,14 @@ class AsideBar extends React.Component {
                 }
                 {
                     this.state.addLink
-                    ? <li onClick={this.toggleInputHandler}><i class="fa fa-arrow-circle-up"></i></li>
+                    ? <li onClick={this.addCategoryHandler}><i class="fa fa-arrow-circle-up"></i></li>
                     : <li onClick={this.toggleInputHandler}><i class="fa fa-plus-circle"></i></li>
                 }
                 <input 
                     className={this.state.addLink ? 'show' : 'hide'}
                     type="text"
+                    value={this.state.linkInput}
+                    onChange={this.changeInputHandler}
                     maxLength="13"
                     placeholder="Add category"/>
             </StylesAsideBar>
@@ -61,7 +71,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onRemoveCategory: (category) => dispatch(removeCategory(category)),
-        onUndoSearch: () => dispatch(undoSearch())
+        onUndoSearch: () => dispatch(undoSearch()),
+        onAddCategory: (category) => dispatch(addCategoryLink(category))
     }
 }
 
