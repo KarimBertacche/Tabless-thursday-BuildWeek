@@ -8,7 +8,7 @@ import Login from '../components/Login';
 import SignUp from '../components/SignUp';
 import MainPage from '../containers/MainPage';
 import PrivateRoute from '../components/PrivateRoute';
-import { login } from '../store/actions/actions';
+import { login, getUserTabs } from '../store/actions/actions';
 import bgImage from '../img/blown-away.jpg';
 
 const StylesApp = styled.section`
@@ -16,7 +16,6 @@ const StylesApp = styled.section`
   width: 100%;
   height: 100vh;
   background-image: linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 255, 0, .7)), url(${bgImage});
-  /* background-image: url(${bgImage}); */
   background-position: center;
   background-size: cover;
 `;
@@ -30,6 +29,10 @@ class App extends React.Component {
       email: '',
       search: false
     }
+  }
+
+  componentDidMount() {
+    this.props.getUserTabs()
   }
 
   inputChangeHandler = (event) => {
@@ -125,4 +128,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { login })(App);
+export default connect(mapStateToProps, { login, getUserTabs })(App);

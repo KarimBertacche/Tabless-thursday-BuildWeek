@@ -12,7 +12,7 @@ const NavBar = props => {
         props.history.push('/');
     }
 
-    if (!!localStorage.getItem('userLogged') || props.loggedIn) {
+    if (props.loggedIn && localStorage.getItem('token')) {
         return (
             <StylesNavBar>
                 <Link to="/home" className="heading-secondary"><h2>T@bless Thursday</h2></Link>
