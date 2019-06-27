@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import uuid from 'uuid';
 
-import { removeCategory } from '../store/actions/actions';
+import { removeCategory, undoSearch } from '../store/actions/actions';
 
 const StylesAsideBar = styled.ul`
     display: flex;
@@ -58,7 +58,7 @@ const StylesAsideBar = styled.ul`
 const AsideBar = (props) => {
     return (
         <StylesAsideBar>
-            <NavLink exact to="/home" className="aside-links">All</NavLink>
+            <NavLink exact to="/home" className="aside-links" onClick={props.onUndoSearch}>All</NavLink>
             { 
                 props.categories.map(category => {
                     return <NavLink 
@@ -80,7 +80,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onRemoveCategory: (category) => dispatch(removeCategory(category)) 
+        onRemoveCategory: (category) => dispatch(removeCategory(category)),
+        onUndoSearch: () => dispatch(undoSearch())
     }
 }
 

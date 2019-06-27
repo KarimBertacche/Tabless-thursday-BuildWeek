@@ -16,6 +16,7 @@ const StylesTabsContainer = styled.section`
     flex-wrap: wrap;
     height: 100%;
     padding: 20px;
+    padding-top: 70px;
     overflow: scroll;
 
     img {
@@ -34,6 +35,7 @@ const StylesTabsContainer = styled.section`
         cursor: pointer;
         text-decoration: none;
         margin-bottom: 10px;
+        box-shadow: 0 5px 10px #000;
 
         span {
             font-size: 14rem;

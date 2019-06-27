@@ -23,6 +23,7 @@ const StylesTabCard = styled.section`
         backface-visibility: hidden;
         -webkit-backface-visibility: none;
         -moz-backface-visibility: none;
+        box-shadow: 0 10px 20px #000;
 
         &.front-side {
             position: relative;

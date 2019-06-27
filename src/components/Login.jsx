@@ -15,6 +15,7 @@ const StylesLogin = styled.form`
     border-radius: 10px;
     overflow: hidden;
     padding: 30px;
+    box-shadow: 0 10px 20px #000;
 
     h2 {
         font-size: 3rem;

@@ -27,7 +27,6 @@ export function reducer(state = initialState, action) {
         case types.FETCH_START:
             return {...state, fetchLoading: true};
         case types.FETCH_SUCCESS:
-            // if(state.visitedTabs === null || state.visitedTabs.length < action.payload.length) {
             if(state.visitedTabs === null) {
                 return {...state, tabs: action.payload, visitedTabs: action.payload};
             } 
@@ -72,6 +71,7 @@ export function reducer(state = initialState, action) {
         case types.SEARCH_TAB:
             const filteredTabArr = state.visitedTabs.filter(tab => tab.title.toLowerCase().startsWith(action.payload.toLowerCase()));
             return {...state, visitedTabs: filteredTabArr, savedTabs: state.visitedTabs};
+            // return {...state, visitedTabs: filteredTabArr, savedTabs: state.tabs};
         case types.UNDO_SEARCH:
             return {...state, visitedTabs: state.savedTabs }
         case types.TAB_VISITED:

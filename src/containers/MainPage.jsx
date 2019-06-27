@@ -10,18 +10,20 @@ const StylesMainPage = styled.div`
 
     aside {
         position: fixed;
-        height: 91vh;
+        height: 91.4vh;
         min-width: 200px;
         border: 3px solid red;
         border-top: none;
+        margin-top: 8.4vh;
     }
 
     main {
         width: 85%;
-        height: 91vh;
+        height: 91.4vh;
         margin-left: 200px;
         border: 3px solid red;
-        border-top: none;   
+        border-top: none;
+        margin-top: 8.4vh; 
     }
 
 `;
