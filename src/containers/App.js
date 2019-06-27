@@ -8,9 +8,6 @@ import SignUp from '../components/SignUp';
 import MainPage from '../containers/MainPage';
 import PrivateRoute from '../components/PrivateRoute';
 import { login } from '../store/actions/actions';
-import Modal from '../components/modals/Modal';
-import ModalDelete from '../components/modals/ModalDelete';
-import ModalUpdate from '../components/modals/ModalUpdate';
 
 class App extends React.Component {
   constructor(props) {
@@ -102,9 +99,6 @@ class App extends React.Component {
             }}
           />
         </Switch>
-        <Route path="/new" component={Modal} />
-        <Route path="/delete" render={(props) => <ModalDelete {...props} /> } />
-        <Route path="/update" render={(props) => <ModalUpdate {...props} /> } />
       </div>
     );
   }

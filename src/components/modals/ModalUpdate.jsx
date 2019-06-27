@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import uuid from 'uuid';
 
 import { StylesModalUpdate } from '../../styles/stylesModals';
 
@@ -6,7 +8,7 @@ const ModalUpdate = props => {
     return (
         <StylesModalUpdate className={props.toggle ? 'show' : 'hide'}>
             <div>
-                <button className="exit" onClick={props.toggleModalUpdate}>X</button>
+                <p className="exit" onClick={props.toggleModalUpdate}>X</p>
                 <input 
                     type="text"
                     name="title"
@@ -28,16 +30,38 @@ const ModalUpdate = props => {
                     onChange={props.changeInputHandler}
                     placeholder="description"
                     required/>
-                <input 
+                <label>
+                    Choose category from list: <br/>
+                    <select 
+                        value={props.category}
+                        onChange={props.changeSelectedHandler}>
+                        <option value="uncategorized">none</option>
+                        {
+                            props.categories.map(category => {
+                                return  <option 
+                                            key={uuid()} 
+                                            value={category}
+                                        >{category}</option>
+                            })
+                        }
+                    </select>
+                </label>
+                {/* <input 
                     type="text"
                     name="category"
                     value={props.category}
                     onChange={props.changeInputHandler}
-                    placeholder="category"/>
+                    placeholder="category"/> */}
                 <button onClick={props.updateTabHandler}>Update Tab</button>
             </div>
         </StylesModalUpdate>
     );
 };
 
-export default ModalUpdate;
+const mapStateToProps = state => {
+    return {
+        categories: state.categories
+    }
+}
+
+export default connect(mapStateToProps)(ModalUpdate);

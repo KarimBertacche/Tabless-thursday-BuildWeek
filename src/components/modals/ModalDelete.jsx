@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
 import { StylesModalDelete } from '../../styles/stylesModals';
@@ -15,9 +14,10 @@ const ModalDelete = (props) => {
         props.onRefreshTabs();
     }
 
-    return ReactDOM.createPortal(
+    return (
         <StylesModalDelete className={props.toggle ? 'show' : 'hide'}>
             <div>
+                <i className="fa fa-exclamation-triangle"></i>
                 <p>Are you sure that you want to delete the tab?</p>
                 <main className="btn-wrapper">
                     <button 
@@ -27,8 +27,7 @@ const ModalDelete = (props) => {
                     <button className="del-btn" onClick={delCompleteHandler}>Yes</button>
                 </main>
             </div>
-        </StylesModalDelete>,
-        document.querySelector('#deletePortal')
+        </StylesModalDelete>
     );
 }
 

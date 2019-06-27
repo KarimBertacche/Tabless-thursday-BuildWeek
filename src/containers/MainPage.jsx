@@ -6,17 +6,20 @@ import { StylesMainPage } from '../styles/stylesHome';
 import AsideBar from '../components/AsideBar';
 import TabsContainer from '../components/TabsContainter';
 import { updateTab, getUserTabs } from '../store/actions/actions';
+import ModalCreate from '../components/modals/ModalCreate'
 import ModalDelete from '../components/modals/ModalDelete';
 import ModalUpdate from '../components/modals/ModalUpdate';
 
 class MainPage extends React.Component {
     state = {
+        toggleCreate: false,
         toggleDelete: false,
         toggleUpdate: false,
         title: '',
         website: '',
         description: '',
         category: '',
+        newCategory: ''
     }
 
     toggleModalDelete = () => {
@@ -35,8 +38,15 @@ class MainPage extends React.Component {
         }
     }
 
+    toggleModalCreate = () => {
+        if(this.state.toggleCreate === true) {
+            this.setState({ toggleCreate: false })   
+        } else {
+            this.setState({ toggleCreate: true });
+        }
+    }
+
     updateInfoHandler = () => { 
-        debugger;
         const tabInfo = JSON.parse(localStorage.getItem('tabInfo'));
         console.log(tabInfo)
         this.setState({
@@ -49,6 +59,10 @@ class MainPage extends React.Component {
 
     changeInputHandler = event => {
         this.setState({ [event.target.name]: event.target.value });
+    }
+
+    changeSelectedHandler = event => {
+        this.setState({ category: event.target.value })
     }
 
     updateTabHandler = () => {
@@ -89,6 +103,7 @@ class MainPage extends React.Component {
                                         {...props} 
                                         search={this.props.search}
                                         showSearchHandler={this.props.showSearchHandler}
+                                        toggleModalCreate={this.toggleModalCreate}
                                         toggleModalDelete={this.toggleModalDelete}
                                         toggleModalUpdate={this.toggleModalUpdate}
                                         updateInfoHandler={this.updateInfoHandler}
@@ -96,6 +111,10 @@ class MainPage extends React.Component {
                         }}
                     />
                 </main>
+                <ModalCreate
+                    toggle={this.state.toggleCreate}
+                    toggleModalCreate={this.toggleModalCreate} 
+                />
                 <ModalDelete 
                     toggle={this.state.toggleDelete}
                     toggleModalDelete={this.toggleModalDelete}
@@ -109,6 +128,7 @@ class MainPage extends React.Component {
                     category={this.state.category}
                     changeInputHandler={this.changeInputHandler}
                     updateTabHandler={this.updateTabHandler}
+                    changeSelectedHandler={this.changeSelectedHandler}
                 />
             </StylesMainPage>
         )

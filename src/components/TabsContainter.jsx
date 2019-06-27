@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import uuid from 'uuid';
 
 import { StylesTabsContainer } from '../styles/stylesHome';
@@ -17,9 +17,9 @@ class TabsContainer extends React.Component {
                     ?   <StylesTabsContainer><img src={fetchSpinner} alt="pacman spinner" /></StylesTabsContainer>
                     :   <StylesTabsContainer>
                             <SearchBar search={this.props.search} showSearchHandler={this.props.showSearchHandler}/>
-                            <Link to="/new" className="add-wrapper" >
+                            <button className="add-wrapper" onClick={this.props.toggleModalCreate}>
                                 <span>+</span>
-                            </Link>
+                            </button>
                                 {
                                     this.props.visitedTabs 
                                     ?   this.props.visitedTabs.map(tab => {
