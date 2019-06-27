@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { StylesTabCard } from '../styles/stylesHome';
 import { getUserTabs, tabVisited } from '../store/actions/actions';
@@ -10,19 +9,17 @@ class TabCard extends React.Component {
         category: this.props.category,
     }
 
-
     passDataHandler = (id) =>  {
         const tab = this.props.visitedTabs.filter(tab => tab.tab_id === id);
         localStorage.setItem('tabInfo', JSON.stringify(tab));
         localStorage.setItem('tabId', id);
+        this.props.toggleModalUpdate();
+        this.props.updateInfoHandler();
     }
 
     deleteCardHandler = (id) => {
         localStorage.setItem('tabID', id);
-    }
-
-    visitedTabHandler = () => {
-        this.setState({ visited: true });
+        this.props.toggleModalDelete();
     }
     
     render() {
@@ -39,12 +36,12 @@ class TabCard extends React.Component {
                 </div>
                 <div className="side back-side">
                     <div>
-                        <Link to="/delete" className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</Link>
+                        <button className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</button>
                         <p onClick={() => this.props.onTabVisited(this.props.tabId)}>Visited: <span>{ this.props.visited ? 'YES' : 'NO'}</span></p>
                         <p>Category:<span>{this.props.category ? this.state.category : 'N/A'}</span></p>
                         <p>Website:<a href={this.props.website} className="website">{this.props.website}</a></p>
                         <p>Description: <span className="description">{this.props.description}</span></p>
-                        <Link to="/update" className="update-btn" onClick={() => this.passDataHandler(this.props.tabId)}>UPDATE TAB</Link> 
+                        <button className="update-btn" onClick={() => this.passDataHandler(this.props.tabId)}>UPDATE TAB</button> 
                     </div>
                 </div>
             </StylesTabCard>

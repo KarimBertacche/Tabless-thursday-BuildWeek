@@ -47,8 +47,8 @@ class AsideBar extends React.Component {
                 }
                 {
                     this.state.addLink
-                    ? <li onClick={this.addCategoryHandler}><i class="fa fa-arrow-circle-up"></i></li>
-                    : <li onClick={this.toggleInputHandler}><i class="fa fa-plus-circle"></i></li>
+                    ? <li onClick={this.addCategoryHandler}><i className="fa fa-arrow-circle-up"></i></li>
+                    : <li onClick={this.toggleInputHandler}><i className="fa fa-plus-circle"></i></li>
                 }
                 <input 
                     className={this.state.addLink ? 'show' : 'hide'}
