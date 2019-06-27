@@ -22,6 +22,14 @@ export const DELETE_TAB = 'DELETE_TAB';
 
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
 
+export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const REMOVE_CATEGORY = 'REMOVE_CATEGORY';
+
+export const SEARCH_TAB = 'SEARCH_TAB';
+export const UNDO_SEARCH = 'UNDO_SEARCH';
+
+export const TAB_VISITED = 'TAB_VISITED';
+
 //ACTIONS CREATOR
 
 const loginAPI = "https://tabless-thursday-backend.herokuapp.com/api/login";
@@ -29,7 +37,7 @@ const loginAPI = "https://tabless-thursday-backend.herokuapp.com/api/login";
 export const login = ({ username, password, email }) => dispatch => {
     const credentials = { username, password, email };
 
-    // dispatch({ type: LOGIN_START });
+    dispatch({ type: LOGIN_START });
 
     return axios
                 .post(loginAPI, credentials)
@@ -37,13 +45,13 @@ export const login = ({ username, password, email }) => dispatch => {
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('userID', response.data.user.id);
                     localStorage.setItem('userLogged', true);
-                    dispatch({ type: LOGIN_SUCCESS, payload: response.data.user })
+                    dispatch({ type: LOGIN_SUCCESS, payload: response.data.user }); 
                 })
                 .catch(error => {
                     debugger
                 })
                 .finally(() => {
-                    // dispatch({ type: LOGIN_END });
+                    dispatch({ type: LOGIN_END });
                 })
 }
 
@@ -72,6 +80,8 @@ export const registerUser = ({ username, password, email }) => dispatch => {
 export const getUserTabs = () => dispatch => {
     let id = localStorage.getItem('userID');
 
+    dispatch({ type: FETCH_START });
+
     axiosWithAuth()
         .get(`https://tabless-thursday-backend.herokuapp.com/api/users/${id}`)
         .then(response => {
@@ -79,7 +89,10 @@ export const getUserTabs = () => dispatch => {
         })
         .catch(error => {
             debugger
-        });
+        })
+        .finally(() => {
+            dispatch({ type: FETCH_END })
+        })
 }
 
 const postTabAPI = "https://tabless-thursday-backend.herokuapp.com/api/tabs";
@@ -100,7 +113,7 @@ export const deleteTab = (id) => dispatch => {
     axiosWithAuth()
         .delete(`https://tabless-thursday-backend.herokuapp.com/api/tabs/${id}`)
         .then(response => {
-            dispatch({ type: DELETE_TAB, payload: response.data.message });
+            dispatch({ type: DELETE_TAB, payload: response.data.message, tabId: id });
         })
         .catch(error => {
             debugger
@@ -112,10 +125,30 @@ export const updateTab = (id, tabInfo) => dispatch => {
     axiosWithAuth()
         .put(`https://tabless-thursday-backend.herokuapp.com/api/tabs/${id}`, tabInfo)
         .then(response => {
-            dispatch({ type: UPDATE_SUCCESS });
+            debugger
+            dispatch({ type: UPDATE_SUCCESS, payload: JSON.parse(response.config.data), tabId: id });
         })
         .catch(error => {
             debugger
         })
 }
 
+export const addCategory = (category) => dispatch => {
+    dispatch({ type: ADD_CATEGORY, payload: category });
+}
+ 
+export const removeCategory = (category) => dispatch => {
+    dispatch({ type: REMOVE_CATEGORY, payload: category });
+}
+
+export const searchTab = (searchResult) => dispatch => {
+    dispatch({ type: SEARCH_TAB, payload: searchResult });
+}
+
+export const undoSearch = () => dispatch => {
+    dispatch({ type: UNDO_SEARCH });
+}
+
+export const tabVisited = (tabId) => dispatch => {
+    dispatch({ type: TAB_VISITED, payload: tabId})
+}

@@ -80,7 +80,6 @@ class ModalUpdate extends React.Component {
     }
 
     componentDidMount() {
-        debugger
        this.updateInfoHandler(); 
     }
 

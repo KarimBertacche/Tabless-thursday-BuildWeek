@@ -1,9 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { getUserTabs } from '../store/actions/actions';
 import AsideBar from '../components/AsideBar';
 import TabsContainer from '../components/TabsContainter';
 
@@ -12,31 +10,25 @@ const StylesMainPage = styled.div`
 
     aside {
         position: fixed;
-        height: 91vh;
+        height: 91.4vh;
         min-width: 200px;
         border: 3px solid red;
         border-top: none;
+        margin-top: 8.4vh;
     }
 
     main {
         width: 85%;
-        height: 91vh;
+        height: 91.4vh;
         margin-left: 200px;
         border: 3px solid red;
-        border-top: none;   
+        border-top: none;
+        margin-top: 8.4vh; 
     }
 
 `;
 
-class MainPage extends React.Component{
-    componentDidMount() {
-        this.fetchDataHandler();    
-    }
-
-    fetchDataHandler = () => {
-        this.props.onGetUserTabs() 
-    }
-
+class MainPage extends React.Component {
     render() {
         return (
             <StylesMainPage>
@@ -44,17 +36,20 @@ class MainPage extends React.Component{
                     <AsideBar />
                 </aside>
                 <main>
-                    <Route path="/home" render={(props) => <TabsContainer {...props}/> } />
+                    <Route 
+                        path="/home" 
+                        render={(props) => {
+                            return  <TabsContainer 
+                                        {...props} 
+                                        search={this.props.search}
+                                        showSearchHandler={this.props.showSearchHandler}
+                                    /> 
+                        }}
+                    />
                 </main>
             </StylesMainPage>
         )
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onGetUserTabs: (id) => dispatch(getUserTabs(id))
-    }
-}
-
-export default connect(null, mapDispatchToProps)(MainPage);
+export default MainPage;

@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+import loginSpinner from '../spinners/wave-preloader.svg';
+
 const StylesLogin = styled.form`
     display: flex;
     flex-direction: column;
@@ -13,6 +15,7 @@ const StylesLogin = styled.form`
     border-radius: 10px;
     overflow: hidden;
     padding: 30px;
+    box-shadow: 0 10px 20px #000;
 
     h2 {
         font-size: 3rem;
@@ -33,6 +36,7 @@ const StylesLogin = styled.form`
 
     button {
         width: 40%;
+        height: 35px;
         margin: 0 auto;
         padding: 5px;
         border: 3px solid red;
@@ -41,40 +45,61 @@ const StylesLogin = styled.form`
         font-size: 1.2rem;
     }
 
+    figure {
+        display: flex;
+        justify-content: center;
+        height: 200px;
+        margin-top: -10px;
+
+        img {
+            width: 100%;
+        }
+    }
+
 `;
 
 const Login = props => {
     return (
-        <StylesLogin onSubmit={props.loginUserHandler}>
-            <h2>Login</h2>
-            <input 
-                type="text"
-                value={props.username}
-                name='username'
-                onChange={props.inputChangeHandler}
-                placeholder='username'
-            />
-            <input 
-                type="password"
-                value={props.password}
-                name="password"
-                onChange={props.inputChangeHandler}
-                placeholder="password"
-            />
-            <input 
-                type="email"
-                value={props.email}
-                name="email"
-                onChange={props.inputChangeHandler}
-                placeholder="email"/>
-            <button type="submit">Sign in</button>
-        </StylesLogin>
+        <>
+            {
+                props.loginLoading 
+                ?   <StylesLogin>
+                        <h2>Loggin In...</h2>   
+                        <figure><img src={loginSpinner} alt="loginSpinner"/></figure>
+                    </StylesLogin>
+                :   <StylesLogin onSubmit={props.loginUserHandler}>
+                        <h2>Login</h2>
+                        <input 
+                            type="text"
+                            value={props.username}
+                            name='username'
+                            onChange={props.inputChangeHandler}
+                            placeholder='username'
+                        />
+                        <input 
+                            type="password"
+                            value={props.password}
+                            name="password"
+                            onChange={props.inputChangeHandler}
+                            placeholder="password"
+                        />
+                        <input 
+                            type="email"
+                            value={props.email}
+                            name="email"
+                            onChange={props.inputChangeHandler}
+                            placeholder="email"/>
+                        <button type="submit">Sign in</button>
+                    </StylesLogin>
+            }
+        </>
     );
 }
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        loginLoading: state.loginLoading
     }
 }
 

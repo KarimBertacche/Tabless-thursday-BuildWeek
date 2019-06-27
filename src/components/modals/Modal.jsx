@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import uuid from 'uuid';
 
-import { postUserTab } from '../../store/actions/actions';
+import { postUserTab, addCategory } from '../../store/actions/actions';
 
 const StylesModal = styled.section`
     position: absolute;
@@ -75,7 +76,8 @@ class Modal extends React.Component {
         website: '',
         description: '',
         category: '',
-        favicon: ''
+        favicon: '',
+        newCategory: ''
     }
 
     changeInputHandler = event => {
@@ -83,7 +85,6 @@ class Modal extends React.Component {
     }
 
     categorySelectedHandler = (event) => {
-        debugger
         this.setState({
             category: event.target.value
         })
@@ -92,15 +93,29 @@ class Modal extends React.Component {
     postTabHandler = () => {
         let userId = localStorage.getItem('userID');
 
-        const newTab = {
-            title: this.state.title,
-            website: this.state.website,
-            user_id: userId,
-            description: this.state.description,
-            category: this.state.category,
-            favicon: this.state.favicon
-        }
+        let newTab;
 
+        if(this.state.newCategory !== '') {
+            this.props.onAddCategory(this.state.newCategory);
+            newTab = {
+                title: this.state.title,
+                website: this.state.website.toLowerCase(),
+                user_id: userId,
+                description: this.state.description.toLowerCase(),
+                category: this.state.newCategory.toLowerCase(),
+                favicon: this.state.favicon
+            }
+        } else {
+            newTab = {
+                title: this.state.title,
+                website: this.state.website.toLowerCase(),
+                user_id: userId,
+                description: this.state.description.toLowerCase(),
+                category: this.state.category.toLowerCase(),
+                favicon: this.state.favicon
+            }
+        }
+        
         this.props.onPostTab(newTab);
 
         this.setState({
@@ -108,7 +123,8 @@ class Modal extends React.Component {
             website: '',
             description: '',
             category: '',
-            favicon: null
+            favicon: null,
+            newCategory: ''
         })
 
         this.props.history.push('/home')
@@ -131,6 +147,7 @@ class Modal extends React.Component {
                         value={this.state.title}
                         onChange={this.changeInputHandler}
                         placeholder="title"
+                        maxLength="16"
                         required/>
                     <input 
                         type="text"
@@ -145,16 +162,25 @@ class Modal extends React.Component {
                         value={this.state.description}
                         onChange={this.changeInputHandler}
                         placeholder="description"
+                        maxLength="120"
                         required/>
                     <label>
                         Choose category from list:
                         <select value={this.state.category} onChange={this.categorySelectedHandler}>
-                            <option value="uncategorized" selected>none</option>
-                            <option value="category1">caterory1</option>
-                            <option value="category2">caterory2</option>
-                            <option value="category3">caterory3</option>
+                            <option value="uncategorized">none</option>
+                            {
+                                this.props.categories.map(category => {
+                                    return <option key={uuid()} value={category}>{category}</option>
+                                })
+                            }
                         </select>
                     </label>
+                    <input 
+                        type="text"
+                        name="newCategory"
+                        value={this.state.newCategory}
+                        onChange={this.changeInputHandler}
+                        placeholder="add new category"/>
                     <input 
                         type="text"
                         name="favicon"
@@ -169,10 +195,17 @@ class Modal extends React.Component {
     }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
     return {
-        onPostTab: (tabInfo) => dispatch(postUserTab(tabInfo))
+        categories: state.categories
     }
 }
 
-export default connect(null, mapDispatchToProps)(Modal);
+const mapDispatchToProps = dispatch => {
+    return {
+        onPostTab: (tabInfo) => dispatch(postUserTab(tabInfo)),
+        onAddCategory: (category) => dispatch(addCategory(category))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);

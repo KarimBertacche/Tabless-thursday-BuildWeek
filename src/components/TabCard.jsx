@@ -1,16 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import ModalDelete from './modals/ModalDelete';
-import ModalUpdate from './modals/ModalUpdate';
-import { getUserTabs } from '../store/actions/actions';
+import { getUserTabs, tabVisited } from '../store/actions/actions';
 
 const StylesTabCard = styled.section`
     position: relative;
     width: 230px;
-    height: 300px;
+    height: 330px;
     perspective: 150rem;
     margin-bottom: 10px;
     
@@ -25,10 +23,13 @@ const StylesTabCard = styled.section`
         backface-visibility: hidden;
         -webkit-backface-visibility: none;
         -moz-backface-visibility: none;
+        box-shadow: 0 10px 20px #000;
 
         &.front-side {
+            position: relative;
             background-color: #fff;
             color: #000;
+            overflow: hidden;
 
             h2 {
                 font-size: 1.5rem;
@@ -37,14 +38,33 @@ const StylesTabCard = styled.section`
                 text-align: center;
             }
 
+            .num-tab {
+                position: absolute;
+                top: 0;
+                right: 0;
+                border-bottom: 3px solid red;
+                border-left: 3px solid red;
+                border-radius: 50%;
+                padding: 2px;
+                font-size: 1.3rem;
+            }
+
             figure {
+                position: relative;
                 width: 100%;
-                height: 200px;
+                height: 250px;
                 margin: 0;
                 border: 3px solid red;
                 border-radius: 5px;
                 object-fit: contain;
                 overflow: hidden;
+
+                i {
+                    position: absolute;
+                    top: 0;
+                    right: 2%;
+                    font-size: 2rem;
+                }
 
                 img {
                     width: 100%;
@@ -53,10 +73,14 @@ const StylesTabCard = styled.section`
 
             p {
                 font-size: 1.2rem;
+                font-weight: bold;
+                white-space: nowrap; 
+                overflow: hidden;
+                text-overflow: ellipsis;
 
-                span {
-                    font-size: 1.2rem;
-                    font-weight: bold;
+                span {    
+                    font-size: 1.2rem;  
+                    font-weight: normal;
                 }
             }
         }
@@ -89,14 +113,40 @@ const StylesTabCard = styled.section`
                     font-size: 1.8rem;
                     font-weight: bold;
                     text-decoration: none;
+                    text-align: center;
                     color: #000;
                 }
-    
-                a {
-                    display: inline-block;
-                    width: 100%;
+
+                p {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
                     font-size: 1.5rem;
-                    text-align: center;
+                    font-weight: bold;
+
+                    span, a {
+                        font-size: 1.5rem;
+                        font-weight: normal;
+                    }
+
+                    .website {
+                        width: 98%;
+                        text-align: center;
+                        white-space: nowrap; 
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+
+                    .description {
+                        width: 98%;
+                        height: 100px;
+                        overflow: hidden;
+                        word-wrap: break-word;
+                        overflow-wrap: wrap;
+                        text-align: center;
+                    }
+                    
                 }
 
                 .update-btn {
@@ -112,6 +162,7 @@ const StylesTabCard = styled.section`
                     font-size: 1.8rem;
                     font-weight: bold;
                     text-decoration: none;
+                    text-align: center;
                     color: #000; 
                 }
             }
@@ -130,37 +181,44 @@ const StylesTabCard = styled.section`
 `;
 
 class TabCard extends React.Component {
+    state = {
+        category: this.props.category,
+    }
+
+
     passDataHandler = (id) =>  {
-        const tab = this.props.tabs.filter(tab => tab.tab_id === id);
+        const tab = this.props.visitedTabs.filter(tab => tab.tab_id === id);
         localStorage.setItem('tabInfo', JSON.stringify(tab));
         localStorage.setItem('tabId', id);
-        debugger
     }
 
     deleteCardHandler = (id) => {
         localStorage.setItem('tabID', id);
     }
 
-    componentDidUpdate() {
-        this.props.onRefreshTabs();
+    visitedTabHandler = () => {
+        this.setState({ visited: true });
     }
-
+    
     render() {
         return (
             <StylesTabCard>
                 <div className="side front-side">
                     <h2>{this.props.title}</h2>
-                    <span>{this.props.category}</span>
-                    <p>{this.props.tabId}</p>
+                    <span className="num-tab">{this.props.tabId}</span>
                     <figure>
+                        <i className={this.props.visited ? "fa fa-eye" : "fa fa-eye-slash"}></i>
                         <img src={this.props.favicon} alt={this.props.title} />
                     </figure>
-                    <p><span>Description:</span> {this.props.description}</p>
+                    <p>Description: <span>{this.props.description}</span></p>
                 </div>
                 <div className="side back-side">
                     <div>
                         <Link to="/delete" className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</Link>
-                        <a href={this.props.website}>{this.props.website}</a>
+                        <p onClick={() => this.props.onTabVisited(this.props.tabId)}>Visited: <span>{ this.props.visited ? 'YES' : 'NO'}</span></p>
+                        <p>Category:<span>{this.props.category ? this.state.category : 'N/A'}</span></p>
+                        <p>Website:<a href={this.props.website} className="website">{this.props.website}</a></p>
+                        <p>Description: <span className="description">{this.props.description}</span></p>
                         <Link to="/update" className="update-btn" onClick={() => this.passDataHandler(this.props.tabId)}>UPDATE TAB</Link> 
                     </div>
                 </div>
@@ -171,14 +229,15 @@ class TabCard extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        tabs: state.tabs,
-        deleteMessage: state.deleteMessage
+        visitedTabs: state.visitedTabs,
+        deleteMessage: state.deleteMessage,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onRefreshTabs: () => dispatch(getUserTabs())
+        onRefreshTabs: () => dispatch(getUserTabs()),
+        onTabVisited: (tabId) => dispatch(tabVisited(tabId))
     }
 }
 

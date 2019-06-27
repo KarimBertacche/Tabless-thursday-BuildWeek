@@ -5,18 +5,38 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import './index.css';
+
 import App from './containers/App';
 import { reducer as rootReducer } from './store/reducers/reducer';
 import { logger } from './middleware/logger';
+ 
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+ 
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-const store = createStore(rootReducer, compose(applyMiddleware(thunk, logger), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+const store = createStore(
+    persistedReducer,
+    compose(
+        applyMiddleware(thunk, logger),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+);
+
+let persistor = persistStore(store)
 
 ReactDOM.render(
     <Router>
         <Provider store={store}>
-            <Route path="/" component={App} />
+            <PersistGate loading={null} persistor={persistor}>
+                <Route path="/" component={App} />
+            </PersistGate>
         </Provider>
     </Router>,
     document.getElementById('root')
