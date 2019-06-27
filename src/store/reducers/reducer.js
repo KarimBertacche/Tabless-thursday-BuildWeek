@@ -72,8 +72,7 @@ export function reducer(state = initialState, action) {
             return {...state, categories: newCategoriesArr};
         case types.SEARCH_TAB:
             const filteredTabArr = state.visitedTabs.filter(tab => tab.title.toLowerCase().startsWith(action.payload.toLowerCase()));
-            //return {...state, visitedTabs: filteredTabArr, savedTabs: state.visitedTabs};
-            return {...state, visitedTabs: filteredTabArr, savedTabs: state.tabs};
+            return {...state, visitedTabs: filteredTabArr, savedTabs: state.visitedTabs};
         case types.UNDO_SEARCH:
             return {...state, visitedTabs: state.savedTabs }
         case types.TAB_VISITED:
@@ -103,3 +102,5 @@ export function reducer(state = initialState, action) {
             return state;
     }
 }
+
+// return {...state, visitedTabs: filteredTabArr, savedTabs: state.tabs};

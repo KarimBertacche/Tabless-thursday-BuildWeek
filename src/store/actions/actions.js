@@ -126,7 +126,6 @@ export const updateTab = (id, tabInfo) => dispatch => {
     axiosWithAuth()
         .put(`https://tabless-thursday-backend.herokuapp.com/api/tabs/${id}`, tabInfo)
         .then(response => {
-            debugger
             dispatch({ type: UPDATE_SUCCESS, payload: JSON.parse(response.config.data), tabId: id });
         })
         .catch(error => {

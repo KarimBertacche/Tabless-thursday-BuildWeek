@@ -4,6 +4,7 @@ import { colorPrimary, colorSecondary } from './variables/colors';
 // STYLES MAIN PAGE
 export const StylesMainPage = styled.div`
     display: flex;
+    background-color: #fff;
 
     aside {
         position: fixed;
@@ -95,9 +96,25 @@ export const StylesTabCard = styled.section`
 
         &.front-side {
             position: relative;
-            background-color: #fff;
-            color: #000;
+            background-color: ${colorPrimary};
+            color: ${colorSecondary};
+            color: #fff;
             overflow: hidden;
+
+            i {
+                position: absolute;
+                top: 0;
+                left: 2%;
+                font-size: 2rem;
+                
+                &.c1 {
+                    color: #fff;
+                }
+
+                &.c2 {
+                    color: ${colorSecondary};
+                }
+            }
 
             h2 {
                 font-size: 1.5rem;
@@ -126,21 +143,6 @@ export const StylesTabCard = styled.section`
                 border-radius: 5px;
                 object-fit: contain;
                 overflow: hidden;
-
-                i {
-                    position: absolute;
-                    top: 0;
-                    right: 2%;
-                    font-size: 2rem;
-                    
-                    &.c1 {
-                        color: ${colorPrimary};
-                    }
-
-                    &.c2 {
-                        color: ${colorSecondary};
-                    }
-                }
 
                 img {
                     width: 100%;

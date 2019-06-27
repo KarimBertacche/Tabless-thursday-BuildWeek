@@ -9,6 +9,7 @@ export const StylesLogin = styled.form`
     width: 25%;
     height: 300px;
     margin: 10% auto 0;
+    background-color: rgba(0, 0, 0, .35);
     border: 3px solid #000;
     border-radius: 10px;
     overflow: hidden;
@@ -64,6 +65,7 @@ export const StylesSignUp = styled.form`
     width: 25%;
     height: 350px;
     margin: 10% auto 0;
+    background-color: rgba(0, 0, 0, .35);
     border: 3px solid #000;
     border-radius: 10px;
     overflow: hidden;

@@ -24,11 +24,60 @@ class TabsContainer extends React.Component {
                                     this.props.visitedTabs 
                                     ?   this.props.visitedTabs.map(tab => {
                                             return( 
-                                                <Switch key={uuid()}>
+                                                <>
+                                                    <Switch key={uuid()}>
+                                                        <Route
+                                                            exact
+                                                            strict
+                                                            path="/home"
+                                                            render={(props) => {
+                                                                return <TabCard
+                                                                    {...props}
+                                                                    username={tab.username}
+                                                                    title={tab.title}
+                                                                    description={tab.description}
+                                                                    website={tab.website}
+                                                                    favicon={tab.favicon}
+                                                                    category={tab.category}
+                                                                    visited={tab.visited}
+                                                                    tabId={tab.tab_id}
+                                                                    tabs={this.props.tabs}
+                                                                    toggleModalDelete={this.props.toggleModalDelete}
+                                                                    toggleModalUpdate={this.props.toggleModalUpdate}
+                                                                    updateInfoHandler={this.props.updateInfoHandler}
+                                                                /> 
+                                                            }}
+                                                        />
+                                                        <Route
+                                                            exact
+                                                            strict
+                                                            path="/home/:category"
+                                                            render={(props) => {
+                                                                if(props.match.params.category === tab.category && tab.category !== null) {
+                                                                    return <TabCard
+                                                                        {...props}
+                                                                        username={tab.username}
+                                                                        title={tab.title}
+                                                                        description={tab.description}
+                                                                        website={tab.website}
+                                                                        favicon={tab.favicon}
+                                                                        category={tab.category}
+                                                                        visited={tab.visited}
+                                                                        tabId={tab.tab_id}
+                                                                        tabs={this.props.tabs}
+                                                                        toggleModalDelete={this.props.toggleModalDelete}
+                                                                        toggleModalUpdate={this.props.toggleModalUpdate}
+                                                                        updateInfoHandler={this.props.updateInfoHandler}
+                                                                    /> 
+                                                                }
+                                                            }}
+                                                        />  
+                                                    </Switch>
                                                     <Route
-                                                        path="/home/:category"
+                                                        path="/home/unseen"
                                                         render={(props) => {
-                                                            if(props.match.params.category === tab.category && tab.category !== null) {
+                                                            if(!tab.visited) {
+                                                                debugger
                                                                 return <TabCard
                                                                     {...props}
                                                                     username={tab.username}
@@ -47,36 +96,88 @@ class TabsContainer extends React.Component {
                                                             }
                                                         }}
                                                     />
-                                                    <Route
-                                                        path="/home"
+                                                     <Route
+                                                        path="/home/seen"
                                                         render={(props) => {
-                                                            return <TabCard
-                                                                {...props}
-                                                                username={tab.username}
-                                                                title={tab.title}
-                                                                description={tab.description}
-                                                                website={tab.website}
-                                                                favicon={tab.favicon}
-                                                                category={tab.category}
-                                                                visited={tab.visited}
-                                                                tabId={tab.tab_id}
-                                                                tabs={this.props.tabs}
-                                                                toggleModalDelete={this.props.toggleModalDelete}
-                                                                toggleModalUpdate={this.props.toggleModalUpdate}
-                                                                updateInfoHandler={this.props.updateInfoHandler}
-                                                            /> 
+                                                            if(tab.visited === true) {
+                                                                debugger
+                                                                return <TabCard
+                                                                    {...props}
+                                                                    username={tab.username}
+                                                                    title={tab.title}
+                                                                    description={tab.description}
+                                                                    website={tab.website}
+                                                                    favicon={tab.favicon}
+                                                                    category={tab.category}
+                                                                    visited={tab.visited}
+                                                                    tabId={tab.tab_id}
+                                                                    tabs={this.props.tabs}
+                                                                    toggleModalDelete={this.props.toggleModalDelete}
+                                                                    toggleModalUpdate={this.props.toggleModalUpdate}
+                                                                    updateInfoHandler={this.props.updateInfoHandler}
+                                                                /> 
+                                                            }
                                                         }}
                                                     />
-                                                </Switch>
+                                                </>
                                             );            
                                         })
                                     :   this.props.tabs.map(tab => {
                                             return( 
-                                                <Switch key={uuid()}>
+                                                <>
+                                                    <Switch key={uuid()}>
+                                                        <Route
+                                                            exact
+                                                            strict
+                                                            path="/home"
+                                                            render={(props) => {
+                                                                return <TabCard
+                                                                    {...props}
+                                                                    username={tab.username}
+                                                                    title={tab.title}
+                                                                    description={tab.description}
+                                                                    website={tab.website}
+                                                                    favicon={tab.favicon}
+                                                                    category={tab.category}
+                                                                    visited={tab.visited}
+                                                                    tabId={tab.tab_id}
+                                                                    tabs={this.props.tabs}
+                                                                    toggleModalDelete={this.props.toggleModalDelete}
+                                                                    toggleModalUpdate={this.props.toggleModalUpdate}
+                                                                    updateInfoHandler={this.props.updateInfoHandler}
+                                                                /> 
+                                                            }}
+                                                        />
+                                                        <Route
+                                                            exact
+                                                            strict
+                                                            path="/home/:category"
+                                                            render={(props) => {
+                                                                if(props.match.params.category === tab.category && tab.category !== null) {
+                                                                    return <TabCard
+                                                                        {...props}
+                                                                        username={tab.username}
+                                                                        title={tab.title}
+                                                                        description={tab.description}
+                                                                        website={tab.website}
+                                                                        favicon={tab.favicon}
+                                                                        category={tab.category}
+                                                                        visited={tab.visited}
+                                                                        tabId={tab.tab_id}
+                                                                        tabs={this.props.tabs}
+                                                                        toggleModalDelete={this.props.toggleModalDelete}
+                                                                        toggleModalUpdate={this.props.toggleModalUpdate}
+                                                                        updateInfoHandler={this.props.updateInfoHandler}
+                                                                    /> 
+                                                                }
+                                                            }}
+                                                        />  
+                                                    </Switch>
                                                     <Route
-                                                        path="/home/:category"
+                                                        path="/home/unseen"
                                                         render={(props) => {
-                                                            if(props.match.params.category === tab.category && tab.category !== null) {
+                                                            if(!tab.visited) {
+                                                                debugger
                                                                 return <TabCard
                                                                     {...props}
                                                                     username={tab.username}
@@ -96,26 +197,29 @@ class TabsContainer extends React.Component {
                                                         }}
                                                     />
                                                     <Route
-                                                        path="/home"
+                                                        path="/home/seen"
                                                         render={(props) => {
-                                                            return <TabCard
-                                                                {...props}
-                                                                username={tab.username}
-                                                                title={tab.title}
-                                                                description={tab.description}
-                                                                website={tab.website}
-                                                                favicon={tab.favicon}
-                                                                category={tab.category}
-                                                                visited={tab.visited}
-                                                                tabId={tab.tab_id}
-                                                                tabs={this.props.tabs}
-                                                                toggleModalDelete={this.props.toggleModalDelete}
-                                                                toggleModalUpdate={this.props.toggleModalUpdate}
-                                                                updateInfoHandler={this.props.updateInfoHandler}
-                                                            /> 
+                                                            if(tab.visited === true) {
+                                                                debugger
+                                                                return <TabCard
+                                                                    {...props}
+                                                                    username={tab.username}
+                                                                    title={tab.title}
+                                                                    description={tab.description}
+                                                                    website={tab.website}
+                                                                    favicon={tab.favicon}
+                                                                    category={tab.category}
+                                                                    visited={tab.visited}
+                                                                    tabId={tab.tab_id}
+                                                                    tabs={this.props.tabs}
+                                                                    toggleModalDelete={this.props.toggleModalDelete}
+                                                                    toggleModalUpdate={this.props.toggleModalUpdate}
+                                                                    updateInfoHandler={this.props.updateInfoHandler}
+                                                                /> 
+                                                            }
                                                         }}
                                                     />
-                                                </Switch>
+                                                </>
                                             );            
                                         })
                                 }

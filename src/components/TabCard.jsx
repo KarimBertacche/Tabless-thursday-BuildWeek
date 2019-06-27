@@ -26,10 +26,10 @@ class TabCard extends React.Component {
         return (
             <StylesTabCard>
                 <div className="side front-side">
+                    <i className={this.props.visited ? "fa fa-eye c1" : "fa fa-eye-slash c2"}></i>
                     <h2>{this.props.title}</h2>
                     <span className="num-tab">{this.props.tabId}</span>
                     <figure>
-                        <i className={this.props.visited ? "fa fa-eye c1" : "fa fa-eye-slash c2"}></i>
                         <img src={this.props.favicon} alt={this.props.title} />
                     </figure>
                     <p>Description: <span>{this.props.description}</span></p>

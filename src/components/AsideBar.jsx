@@ -35,7 +35,9 @@ class AsideBar extends React.Component {
     render() {
         return (
             <StylesAsideBar>
-                <NavLink exact to="/home" className="aside-links" onClick={this.props.onUndoSearch}>All</NavLink>
+                <NavLink exact to="/home" className="aside-links">All</NavLink>
+                <NavLink to="/home/unseen" className="aside-links">Unvisited</NavLink>
+                <NavLink to="/home/seen" className="aside-links">Visited</NavLink>
                 { 
                     this.props.categories.map(category => {
                         return <NavLink 

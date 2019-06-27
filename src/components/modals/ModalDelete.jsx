@@ -10,7 +10,7 @@ const ModalDelete = (props) => {
         let tabId = localStorage.getItem('tabID');
         props.onDeleteTab(tabId);
         localStorage.removeItem('tabID');
-        props.hideModalDelete()
+        props.toggleModalDelete()
         props.onRefreshTabs();
     }
 

@@ -21,7 +21,8 @@ export const StylesNavBar = styled.header`
         
         h2 {
             font-size: 4rem;
-            margin: 0;    
+            margin: 0; 
+            text-shadow: 1px 2px 1px #000;   
         }
     }
 
@@ -63,7 +64,7 @@ export const StylesSearchBar = styled.div`
     border-bottom-right-radius: 20px;
     overflow: hidden;
     z-index: 100;
-    box-shadow: 0 5px 10px #000, 0 5px 10px #000, 0 5px 10px #000;
+    box-shadow: 0 5px 10px #000, 0 5px 10px #000;
 
     i {
         display: flex;
@@ -72,7 +73,8 @@ export const StylesSearchBar = styled.div`
         width: 50px;
         font-size: 3.5rem;
         cursor: pointer;
-        color: ${colorSecondary};
+        /* color: ${colorSecondary}; */
+        color: #fff;
     }
 
     input {
@@ -115,7 +117,7 @@ export const StylesSearchButton = styled.section`
     overflow: hidden;
     z-index: 100;
     transition: all 5s ease-in-out;
-    box-shadow: 0 5px 10px #000, 0 5px 10px #000, 0 5px 10px #000;
+    box-shadow: 0 5px 10px #000, 0 5px 10px #000;
 
     i {
         font-size: 3rem;
@@ -124,6 +126,7 @@ export const StylesSearchButton = styled.section`
         z-index: 2000;
         outline: none;
         color: ${colorSecondary};
+        color: #fff;
 
         span {
             font-size: 2.5rem;
@@ -217,7 +220,7 @@ export const StylesAsideBar = styled.ul`
     input {
         width: 100%;
         height: 40px;
-        border: 3px solid ${colorPrimary};
+        border: 5px solid ${colorPrimary};
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
         font-size: 1.5rem;

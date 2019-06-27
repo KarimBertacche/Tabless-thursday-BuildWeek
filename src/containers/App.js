@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
 import NavBar from '../components/NavBar';
 import Login from '../components/Login';
@@ -8,6 +9,16 @@ import SignUp from '../components/SignUp';
 import MainPage from '../containers/MainPage';
 import PrivateRoute from '../components/PrivateRoute';
 import { login } from '../store/actions/actions';
+import bgImage from '../img/blown-away.jpg';
+
+const StylesApp = styled.section`
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-image: url(${bgImage});
+  background-position: center;
+  background-size: cover;
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -66,40 +77,39 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <StylesApp>
         <NavBar {...this.props} showSearchHandler={this.showSearchHandler}/>
-  
-        <Switch>
-          <Route 
-            path="/login" 
-            render={() => {
-              return (
-                <Login 
-                  username={this.state.username} 
-                  password={this.state.password}
-                  email={this.state.email}
-                  inputChangeHandler={this.inputChangeHandler}
-                  loginUserHandler={this.loginUserHandler}
-                />
-              );
-            }}
-          />
-          <Route 
-            path="/register" 
-            render={(props) => {
-              return <SignUp {...props} passRegisteredUserHandler={this.passRegisteredUserHandler} />
-            }} />
-          <PrivateRoute 
-            path="/home" 
-            render={() => {
-              return  <MainPage 
-                        search={this.state.search} 
-                        showSearchHandler={this.showSearchHandler} 
-                      />
-            }}
-          />
-        </Switch>
-      </div>
+          <Switch>
+            <Route 
+              path="/login" 
+              render={() => {
+                return (
+                  <Login 
+                    username={this.state.username} 
+                    password={this.state.password}
+                    email={this.state.email}
+                    inputChangeHandler={this.inputChangeHandler}
+                    loginUserHandler={this.loginUserHandler}
+                  />
+                );
+              }}
+            />
+            <Route 
+              path="/register" 
+              render={(props) => {
+                return <SignUp {...props} passRegisteredUserHandler={this.passRegisteredUserHandler} />
+              }} />
+            <PrivateRoute 
+              path="/home" 
+              render={() => {
+                return  <MainPage 
+                          search={this.state.search} 
+                          showSearchHandler={this.showSearchHandler} 
+                        />
+              }}
+            />
+          </Switch>     
+      </StylesApp>
     );
   }
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid';
 
 import { StylesModalCreate } from '../../styles/stylesModals';
-import { postUserTab, addCategory } from '../../store/actions/actions';
+import { postUserTab, addCategory, getUserTabs } from '../../store/actions/actions';
 
 class ModalCreate extends React.Component {
     state = {
@@ -63,6 +63,7 @@ class ModalCreate extends React.Component {
         })
 
         this.props.toggleModalCreate();
+        this.props.onRefreshTabs();
     }
 
     // fileSelectedHandler = (event) => {
@@ -138,7 +139,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onPostTab: (tabInfo) => dispatch(postUserTab(tabInfo)),
-        onAddCategory: (category) => dispatch(addCategory(category))
+        onAddCategory: (category) => dispatch(addCategory(category)),
+        onRefreshTabs: () => dispatch(getUserTabs())
     }
 }
 
