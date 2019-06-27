@@ -1,11 +1,11 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { StylesMainPage } from '../styles/stylesHome';
 import AsideBar from '../components/AsideBar';
 import TabsContainer from '../components/TabsContainter';
-import { updateTab, getUserTabs } from '../store/actions/actions';
+import { updateTab, getUserTabs, addCategory } from '../store/actions/actions';
 import ModalCreate from '../components/modals/ModalCreate'
 import ModalDelete from '../components/modals/ModalDelete';
 import ModalUpdate from '../components/modals/ModalUpdate';
@@ -67,12 +67,23 @@ class MainPage extends React.Component {
 
     updateTabHandler = () => {
         let tabId = localStorage.getItem('tabId');
+        let newTab;
 
-        const newTab = {
-            title: this.state.title,
-            website: this.state.website,
-            description: this.state.description,
-            category: this.state.category
+        if(this.state.newCategory !== '') {
+            this.props.onAddCategory(this.state.newCategory);
+            newTab = {
+                title: this.state.title,
+                website: this.state.website.toLowerCase(),
+                description: this.state.description,
+                category: this.state.newCategory.toLowerCase(),
+            }
+        } else {
+            newTab = {
+                title: this.state.title,
+                website: this.state.website.toLowerCase(),
+                description: this.state.description,
+                category: this.state.category,
+            }
         }
 
         this.props.onUpdateTab(tabId, newTab);
@@ -81,7 +92,8 @@ class MainPage extends React.Component {
             title: '',
             website: '',
             description: '',
-            category: ''
+            category: '',
+            newCategory: ''
         })
 
         localStorage.removeItem('tabId');
@@ -126,6 +138,7 @@ class MainPage extends React.Component {
                     website={this.state.website}
                     description={this.state.description}
                     category={this.state.category}
+                    newCategory={this.state.newCategory}
                     changeInputHandler={this.changeInputHandler}
                     updateTabHandler={this.updateTabHandler}
                     changeSelectedHandler={this.changeSelectedHandler}
@@ -138,6 +151,7 @@ class MainPage extends React.Component {
 const mapDispatchToProps = dispatch => {
     return {
         onUpdateTab: (id, tabInfo) => dispatch(updateTab(id, tabInfo)),
+        onAddCategory: (category) => dispatch(addCategory(category)),
         onRefreshTabs: () => dispatch(getUserTabs())
     }
 }

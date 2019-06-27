@@ -22,29 +22,33 @@ class SignUp extends Component {
     registerUserHandler = (event) => {
         event.preventDefault();
     
-        if(this.state.password === this.state.password2) {
-            this.props.registerUser({
-                username: this.state.username,
-                password: this.state.password,
-                email: this.state.email
-            }).then(() => {
-                this.props.passRegisteredUserHandler();
-                this.props.history.push('/login')
-            });
-    
-            this.setState({
-                username: '',
-                password: '',
-                password2: '',
-                email: ''
-            })
+        if(this.state.username.length > 3 && this.state.password.length > 5) {
+            if(this.state.password === this.state.password2) {
+                this.props.registerUser({
+                    username: this.state.username,
+                    password: this.state.password,
+                    email: this.state.email
+                }).then(() => {
+                    this.props.passRegisteredUserHandler();
+                    this.props.history.push('/login')
+                });
+        
+                this.setState({
+                    username: '',
+                    password: '',
+                    password2: '',
+                    email: ''
+                })
+            } else {
+                alert('passwords don\'t match');
+                this.setState({
+                    password: '',
+                    password2: ''
+                })
+            } 
         } else {
-            alert('passwords don\'t match');
-            this.setState({
-                password: '',
-                password2: ''
-            })
-        } 
+            alert('make your username and password are at least 3 characters!');
+        }
     }
 
     render() {
@@ -57,6 +61,7 @@ class SignUp extends Component {
                     name='username'
                     onChange={this.registerInputHandler}
                     placeholder='username'
+                    minLength="3"
                 />
                 <input 
                     type="password"
@@ -64,6 +69,7 @@ class SignUp extends Component {
                     name="password"
                     onChange={this.registerInputHandler}
                     placeholder="password"
+                    minLength="3"
                 />
                 <input 
                     type="password"
@@ -71,6 +77,7 @@ class SignUp extends Component {
                     name="password2"
                     onChange={this.registerInputHandler}
                     placeholder="repeat password"
+                    minLength="3"
                 />
                 <input 
                     type="email"

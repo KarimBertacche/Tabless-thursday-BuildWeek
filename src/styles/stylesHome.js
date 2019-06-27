@@ -141,7 +141,7 @@ export const StylesTabCard = styled.section`
                 margin: 0;
                 border: 3px solid ${colorPrimary};
                 border-radius: 5px;
-                object-fit: contain;
+                object-fit: cover;
                 overflow: hidden;
 
                 img {

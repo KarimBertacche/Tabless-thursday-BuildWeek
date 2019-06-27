@@ -36,7 +36,7 @@ class ModalCreate extends React.Component {
                 title: this.state.title,
                 website: this.state.website.toLowerCase(),
                 user_id: userId,
-                description: this.state.description.toLowerCase(),
+                description: this.state.description,
                 category: this.state.newCategory.toLowerCase(),
                 favicon: this.state.favicon
             }
@@ -45,8 +45,8 @@ class ModalCreate extends React.Component {
                 title: this.state.title,
                 website: this.state.website.toLowerCase(),
                 user_id: userId,
-                description: this.state.description.toLowerCase(),
-                category: this.state.category.toLowerCase(),
+                description: this.state.description,
+                category: this.state.category,
                 favicon: this.state.favicon
             }
         }
@@ -122,7 +122,8 @@ class ModalCreate extends React.Component {
                         name="newCategory"
                         value={this.state.newCategory}
                         onChange={this.changeInputHandler}
-                        placeholder="add new category"/>
+                        placeholder="add new category"
+                        maxLength="13"/>
                     <button onClick={this.postTabHandler}>Add Tab</button>
                 </div>
             </StylesModalCreate>

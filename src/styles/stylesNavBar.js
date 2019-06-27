@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colorPrimary, colorSecondary } from './variables/colors';
+import { colorPrimary, colorSecondary, red } from './variables/colors';
 
 // STYLES NAV BAR 
 export const StylesNavBar = styled.header`
@@ -75,6 +75,10 @@ export const StylesSearchBar = styled.div`
         cursor: pointer;
         /* color: ${colorSecondary}; */
         color: #fff;
+
+        :hover {
+            color: ${colorSecondary};
+        }
     }
 
     input {
@@ -96,6 +100,10 @@ export const StylesSearchBar = styled.div`
         border: 3px solid ${colorPrimary};
         outline: none;
         cursor: pointer;
+
+        &:hover i {
+            color: ${colorSecondary};
+        }
     }
 `;
 
@@ -125,12 +133,15 @@ export const StylesSearchButton = styled.section`
         cursor: pointer;
         z-index: 2000;
         outline: none;
-        color: ${colorSecondary};
         color: #fff;
 
         span {
             font-size: 2.5rem;
         }
+    }
+
+    &:hover i {
+        color: ${colorSecondary};
     }
 `;
 
@@ -167,7 +178,7 @@ export const StylesAsideBar = styled.ul`
             font-size: 2rem;
 
             &:hover {
-                color: #fff;
+                color: ${red};
             }
         }
 

@@ -9,7 +9,8 @@ const initialState = {
     deleteMessage: '',
     categories: ['category0', 'category1', 'category2', 'category3'],
     visitedTabs: null,
-    savedTabs: null
+    savedTabs: null,
+    randomImg: []
 }
 
 export function reducer(state = initialState, action) {
@@ -69,7 +70,13 @@ export function reducer(state = initialState, action) {
             return {...state, categories: state.categories.concat(action.payload)};
         case types.REMOVE_CATEGORY:
             const newCategoriesArr = state.categories.filter(category => category !== action.payload);
-            return {...state, categories: newCategoriesArr};
+            const updatedTabsArr = state.visitedTabs.map(tab => {
+                if(tab.category === action.payload) {
+                    return {...tab, category: 'N/A'};
+                }
+                return {...tab};
+            })
+            return {...state, categories: newCategoriesArr, visitedTabs: updatedTabsArr};
         case types.SEARCH_TAB:
             const filteredTabArr = state.visitedTabs.filter(tab => tab.title.toLowerCase().startsWith(action.payload.toLowerCase()));
             return {...state, visitedTabs: filteredTabArr, savedTabs: state.visitedTabs};

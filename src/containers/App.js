@@ -38,19 +38,22 @@ class App extends React.Component {
   loginUserHandler = (event) => {
     event.preventDefault();
 
-    this.props.login({
-      username: this.state.username,
-      password: this.state.password,
-      email: this.state.email
-    }).then(() => {
-      this.props.history.push("/home");
-    })
-
-    this.setState({
-      username: '',
-      password: '',
-      email: ''
-    })
+    if(this.state.username.length >= 3 && this.state.password.length >= 3) {
+      this.props.login({
+        username: this.state.username,
+        password: this.state.password,
+        email: this.state.email
+      }).then(() => {
+        this.props.history.push("/home");
+      })
+  
+      this.setState({
+        username: '',
+        password: '',
+        email: ''
+      })
+    }
+    this.props.history.push("/login");
   }
 
   passRegisteredUserHandler = () => {

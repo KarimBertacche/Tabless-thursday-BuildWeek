@@ -15,7 +15,7 @@ const NavBar = props => {
     if (!!localStorage.getItem('userLogged') || props.loggedIn) {
         return (
             <StylesNavBar>
-                <Link to="/home" className="heading-secondary"><h2>Tabless Thursday</h2></Link>
+                <Link to="/home" className="heading-secondary"><h2>T@bless Thursday</h2></Link>
                 <nav>
                     <NavLink to="/home" activeClassName="active" className="nav-links">Tabs</NavLink>
                     <NavLink to="/about" activeClassName="active" className="nav-links">About</NavLink>
@@ -26,7 +26,7 @@ const NavBar = props => {
     } else {
         return (
             <StylesNavBar>
-                <Link to="/" className="heading-secondary"><h2>Tabless Thursday</h2></Link>
+                <Link to="/" className="heading-secondary"><h2>T@bless Thursday</h2></Link>
                 <nav>
                     <NavLink to="/login" activeClassName="active" className="nav-links">Sign in</NavLink>
                     <NavLink to="/register" activeClassName="active" className="nav-links">Sign Up</NavLink>

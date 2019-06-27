@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colorPrimary, colorSecondary } from './variables/colors';
+import { colorPrimary, colorSecondary, red } from './variables/colors';
 
 // MODAL CREATE STYLES
 export const StylesModalCreate = styled.section`
@@ -29,7 +29,7 @@ export const StylesModalCreate = styled.section`
         width: 450px;
         height: 400px;
         background-color: ${colorPrimary};
-        border: 3px solid red;
+        border: 3px solid ${colorSecondary};
         border-radius: 10px;
         overflow: hidden;
         padding: 40px 20px;
@@ -43,6 +43,7 @@ export const StylesModalCreate = styled.section`
             font-size: 2.3rem;
             font-weight: bold;
             cursor: pointer;
+            color: #fff;
 
             &:hover {
                 transform: scale(1.2);
@@ -89,7 +90,7 @@ export const StylesModalCreate = styled.section`
             min-width: 150px;
             margin: 0 auto;
             margin-top: 25px;
-            border: 3px solid red;
+            border: 3px solid ${colorSecondary};
             border-radius: 20px;
             padding: 5px;
             font-size: 1.7rem;
@@ -140,7 +141,7 @@ export const StylesModalDelete = styled.section`
 
         i {
             font-size: 5rem;
-            color: ${colorSecondary};
+            color: ${red};
         }
 
         p {
@@ -213,7 +214,7 @@ export const StylesModalUpdate = styled.div`
         width: 450px;
         height: 350px;
         background-color: ${colorPrimary};
-        border: 3px solid red;
+        border: 3px solid ${colorSecondary};
         border-radius: 10px;
         overflow: hidden;
         padding: 40px 20px;
@@ -227,6 +228,7 @@ export const StylesModalUpdate = styled.div`
             font-size: 2.3rem;
             font-weight: bold;
             cursor: pointer;
+            color: #fff;
 
             &:hover {
                 transform: scale(1.2);
@@ -273,7 +275,7 @@ export const StylesModalUpdate = styled.div`
             min-width: 150px;
             margin: 0 auto;
             margin-top: 25px;
-            border: 3px solid red;
+            border: 3px solid ${colorSecondary};
             border-radius: 20px;
             padding: 5px;
             font-size: 1.7rem;

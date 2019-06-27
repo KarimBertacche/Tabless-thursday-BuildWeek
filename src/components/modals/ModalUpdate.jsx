@@ -46,12 +46,13 @@ const ModalUpdate = props => {
                         }
                     </select>
                 </label>
-                {/* <input 
+                <input 
                     type="text"
-                    name="category"
-                    value={props.category}
+                    name="newCategory"
+                    value={props.newCategory}
                     onChange={props.changeInputHandler}
-                    placeholder="category"/> */}
+                    placeholder="add new category"
+                    maxLength="13"/>
                 <button onClick={props.updateTabHandler}>Update Tab</button>
             </div>
         </StylesModalUpdate>
