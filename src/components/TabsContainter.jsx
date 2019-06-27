@@ -1,52 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Route, Switch } from 'react-router-dom';
-import styled from 'styled-components';
 import uuid from 'uuid';
 
+import { StylesTabsContainer } from '../styles/stylesHome';
 import TabCard from './TabCard';
 import SearchBar from './SearchBar';
 import fetchSpinner from '../spinners/pacman.svg';
-
-const StylesTabsContainer = styled.section`
-    position: relative;
-    display: flex;
-    justify-content: space-evenly;
-    align-content: space-between;
-    flex-wrap: wrap;
-    height: 100%;
-    padding: 20px;
-    padding-top: 70px;
-    overflow: scroll;
-
-    img {
-        width: 100%;
-        height: 100%;
-    }
-
-    .add-wrapper {
-        width: 230px;
-        height: 330px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 3px solid red;
-        border-radius: 10px;
-        cursor: pointer;
-        text-decoration: none;
-        margin-bottom: 10px;
-        box-shadow: 0 5px 10px #000;
-
-        span {
-            font-size: 14rem;
-            font-weight: lighter;
-        }
-
-        &:hover span {
-            color: red;
-        }
-    }
-`;
 
 const TabsContainer = props => {
     return (
