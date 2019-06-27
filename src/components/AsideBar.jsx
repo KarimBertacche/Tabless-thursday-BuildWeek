@@ -18,7 +18,7 @@ class AsideBar extends React.Component {
 
     addCategoryHandler = () => {
         if(this.state.linkInput !== "") {
-            this.props.onAddCategory(this.state.linkInput);
+            this.props.onAddCategory(this.state.linkInput.toLowerCase());
         }
         this.toggleInputHandler();
         this.setState({ linkInput: '' });
@@ -42,9 +42,9 @@ class AsideBar extends React.Component {
                     this.props.categories.map(category => {
                         return <NavLink 
                                     key={uuid()} 
-                                    to={`/home/${category}`} 
+                                    to={`/home/${category.toLowerCase()}`} 
                                     className="aside-links"
-                                >{category}<span onClick={() => this.props.onRemoveCategory(category)}>X</span></NavLink>
+                                >{category.toLowerCase()}<span onClick={() => this.props.onRemoveCategory(category)}>X</span></NavLink>
                     })
                 }
                 {

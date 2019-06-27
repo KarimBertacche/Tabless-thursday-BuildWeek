@@ -24,9 +24,9 @@ class TabsContainer extends React.Component {
                                     this.props.visitedTabs 
                                     ?   this.props.visitedTabs.map(tab => {
                                             return( 
-                                                <>
-                                                    <Switch key={uuid()}>
-                                                        <Route
+                                                <React.Fragment key={uuid()}>
+                                                    <Switch>
+                                                        <Route     
                                                             exact
                                                             strict
                                                             path="/home"
@@ -77,7 +77,6 @@ class TabsContainer extends React.Component {
                                                         path="/home/unseen"
                                                         render={(props) => {
                                                             if(!tab.visited) {
-                                                                debugger
                                                                 return <TabCard
                                                                     {...props}
                                                                     username={tab.username}
@@ -100,7 +99,6 @@ class TabsContainer extends React.Component {
                                                         path="/home/seen"
                                                         render={(props) => {
                                                             if(tab.visited === true) {
-                                                                debugger
                                                                 return <TabCard
                                                                     {...props}
                                                                     username={tab.username}
@@ -119,13 +117,13 @@ class TabsContainer extends React.Component {
                                                             }
                                                         }}
                                                     />
-                                                </>
+                                                </React.Fragment>
                                             );            
                                         })
                                     :   this.props.tabs.map(tab => {
                                             return( 
-                                                <>
-                                                    <Switch key={uuid()}>
+                                                <React.Fragment key={uuid()}>
+                                                    <Switch>
                                                         <Route
                                                             exact
                                                             strict
@@ -219,7 +217,7 @@ class TabsContainer extends React.Component {
                                                             }
                                                         }}
                                                     />
-                                                </>
+                                                </React.Fragment>
                                             );            
                                         })
                                 }

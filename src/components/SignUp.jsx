@@ -22,7 +22,7 @@ class SignUp extends Component {
     registerUserHandler = (event) => {
         event.preventDefault();
     
-        if(this.state.username.length > 3 && this.state.password.length > 5) {
+        if(this.state.username.length >= 3 && this.state.password.length >= 3) {
             if(this.state.password === this.state.password2) {
                 this.props.registerUser({
                     username: this.state.username,

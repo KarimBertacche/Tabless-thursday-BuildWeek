@@ -15,7 +15,8 @@ const StylesApp = styled.section`
   position: fixed;
   width: 100%;
   height: 100vh;
-  background-image: url(${bgImage});
+  background-image: linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 255, 0, .7)), url(${bgImage});
+  /* background-image: url(${bgImage}); */
   background-position: center;
   background-size: cover;
 `;

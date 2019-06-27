@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { StylesMainPage } from '../styles/stylesHome';
@@ -70,7 +70,7 @@ class MainPage extends React.Component {
         let newTab;
 
         if(this.state.newCategory !== '') {
-            this.props.onAddCategory(this.state.newCategory);
+            this.props.onAddCategory(this.state.newCategory.toLowerCase());
             newTab = {
                 title: this.state.title,
                 website: this.state.website.toLowerCase(),

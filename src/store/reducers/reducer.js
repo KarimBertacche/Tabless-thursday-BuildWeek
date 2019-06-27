@@ -64,7 +64,6 @@ export function reducer(state = initialState, action) {
                 }
                 return {...tab}
             })
-            console.log(updatedTabArr);
             return {...state, visitedTabs: updatedTabArr};
         case types.ADD_CATEGORY:
             return {...state, categories: state.categories.concat(action.payload)};
