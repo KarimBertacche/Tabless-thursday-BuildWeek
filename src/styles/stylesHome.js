@@ -53,14 +53,21 @@ export const StylesTabsContainer = styled.section`
         text-decoration: none;
         margin-bottom: 10px;
         box-shadow: 0 5px 10px #000;
+        transition: all .2s ease-in-out;
 
         span {
             font-size: 14rem;
             font-weight: lighter;
+            transition: all .2s ease-in-out;
         }
 
         &:hover span {
-            color: ${colorPrimary};
+            transform: translateY(-10px) scale(1.3);
+            color: ${colorSecondary};
+        }
+
+        &:hover {
+            border: 3px solid ${colorSecondary};
         }
     }
 `;
@@ -175,6 +182,9 @@ export const StylesTabCard = styled.section`
                     left: 50%;
                     transform: translateX(-50%);
                     width: 80%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     background-color: ${colorPrimary};
                     border: 3px solid ${colorPrimary};
                     border-top: none;
@@ -185,6 +195,13 @@ export const StylesTabCard = styled.section`
                     text-decoration: none;
                     text-align: center;
                     color: ${colorSecondary};
+                    transition: all .3s ease-in-out;
+
+                    &:hover {
+                        background-color: ${colorSecondary};
+                        color: ${colorPrimary};
+                        padding: 7px 0;
+                    }
                 }
 
                 p {
@@ -235,6 +252,13 @@ export const StylesTabCard = styled.section`
                     text-decoration: none;
                     text-align: center;
                     color: ${colorSecondary};
+                    transition: all .3s ease-in-out;
+
+                    &:hover {
+                        background-color: ${colorSecondary};
+                        color: ${colorPrimary};
+                        padding: 7px 0;
+                    }
                 }
             }
 

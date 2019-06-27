@@ -188,13 +188,55 @@ export const StylesAsideBar = styled.ul`
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 35px;
+        height: 40px;
+        background-color: #fff;
         border: 3px solid ${colorPrimary};
         margin: 0 auto;
         padding: 0;
         list-style: none;
-        font-size: 3.5rem;
         box-shadow: 0 5px 10px #000;
         cursor: pointer;
+        z-index: 100;
+        transition: all .2s ease-in-out;
+
+        &:hover {
+            background-color: ${colorPrimary};
+            border: 3px solid ${colorSecondary};
+            color: ${colorSecondary};
+        }
+
+        &:hover i {
+            transform: scale(1.2);
+        }
+
+        i {
+            font-size: 3rem;
+        }
+    }
+
+    input {
+        width: 100%;
+        height: 40px;
+        border: 3px solid ${colorPrimary};
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        font-size: 1.5rem;
+        text-align: center;
+        outline: none;
+        color: ${colorSecondary};
+        font-weight: bold;
+        transition: all 1s ease-in-out;
+
+        &.hide {
+            transform: translateY(-100%);
+        }
+
+        &.show {
+            display: translateY(0);
+        }
+
+        &::placeholder {
+            color: ${colorSecondary};
+        }
     }
 `;
