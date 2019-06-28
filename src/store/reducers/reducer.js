@@ -39,9 +39,9 @@ export function reducerData(state = initialState, action) {
             return {...state, fetchLoading: true};
         case types.FETCH_SUCCESS:
             if(state.visitedTabs === null) {
-                return {...state, visitedTabs: action.payload};
+                return {...state, tabs: action.payload, visitedTabs: action.payload};
             } 
-            return {...state};
+            return {...state, tabs: action.payload};
         case types.FETCH_END:
             return {...state, fetchLoading: false};
         case types.CREATE_TAB:
