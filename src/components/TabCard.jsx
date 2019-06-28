@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { StylesTabCard } from '../styles/stylesHome';
-import { getUserTabs, tabVisited } from '../store/actions/actions';
+import { getUserTabs, tabVisited } from '../store/actions/actionsCreators';
 
 class TabCard extends React.Component {
     state = {

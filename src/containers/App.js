@@ -8,7 +8,7 @@ import Login from '../components/Login';
 import SignUp from '../components/SignUp';
 import MainPage from '../containers/MainPage';
 import PrivateRoute from '../components/PrivateRoute';
-import { login, getUserTabs } from '../store/actions/actions';
+import { login, getUserTabs } from '../store/actions/actionsCreators';
 import bgImage from '../img/blown-away.jpg';
 
 const StylesApp = styled.section`

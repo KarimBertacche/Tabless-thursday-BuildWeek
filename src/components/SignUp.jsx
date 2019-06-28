@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { StylesSignUp } from '../styles/stylesAuth';
-import { registerUser } from '../store/actions/actions';
+import { registerUser } from '../store/actions/actionsCreators';
 
 class SignUp extends Component {
     constructor(props) {

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { StylesModalDelete } from '../../styles/stylesModals';
-import { deleteTab, getUserTabs } from '../../store/actions/actions';
+import { deleteTab, getUserTabs } from '../../store/actions/actionsCreators';
 
 const ModalDelete = (props) => {
     

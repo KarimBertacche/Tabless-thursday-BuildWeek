@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { StylesSearchBar, StylesSearchButton } from '../styles/stylesNavBar';
-import { searchTab, undoSearch } from '../store/actions/actions';
+import { searchTab, undoSearch } from '../store/actions/actionsCreators';
 
 class SearchBar extends React.Component {
     constructor(props) {

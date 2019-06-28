@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid';
 
 import { StylesModalCreate } from '../../styles/stylesModals';
-import { postUserTab, addCategory, getUserTabs } from '../../store/actions/actions';
+import { postUserTab, addCategory, getUserTabs } from '../../store/actions/actionsCreators';
 
 class ModalCreate extends React.Component {
     state = {
@@ -38,7 +38,7 @@ class ModalCreate extends React.Component {
                     user_id: userId,
                     description: this.state.description,
                     category: this.state.newCategory.toLowerCase(),
-                    favicon: this.state.favicon
+                    favicon: this.state.favicon || 'https://c7.uihere.com/files/243/617/293/clark-kent-t-shirt-darkseid-superman-logo-cartoon-cartoon-superman.jpg'
                 }
             } else {
                 newTab = {
@@ -47,7 +47,7 @@ class ModalCreate extends React.Component {
                     user_id: userId,
                     description: this.state.description,
                     category: this.state.category,
-                    favicon: this.state.favicon
+                    favicon: this.state.favicon || 'https://c7.uihere.com/files/243/617/293/clark-kent-t-shirt-darkseid-superman-logo-cartoon-cartoon-superman.jpg'
                 }
             }
             

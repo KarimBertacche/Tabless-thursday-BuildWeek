@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { StylesMainPage } from '../styles/stylesHome';
 import AsideBar from '../components/AsideBar';
 import TabsContainer from '../components/TabsContainter';
-import { updateTab, getUserTabs, addCategory } from '../store/actions/actions';
+import { updateTab, getUserTabs, addCategory } from '../store/actions/actionsCreators';
 import ModalCreate from '../components/modals/ModalCreate'
 import ModalDelete from '../components/modals/ModalDelete';
 import ModalUpdate from '../components/modals/ModalUpdate';

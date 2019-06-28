@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 
 import { StylesNavBar } from '../styles/stylesNavBar';
-import * as actions from '../store/actions/actions';
+import * as actions from '../store/actions/actionsCreators';
 
 const NavBar = props => {
     const logUserOutHandler = (event) => {

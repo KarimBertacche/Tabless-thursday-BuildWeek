@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid';
 
 import { StylesAsideBar } from '../styles/stylesNavBar';
-import { removeCategory, undoSearch, addCategoryLink } from '../store/actions/actions';
+import { removeCategory, undoSearch, addCategoryLink } from '../store/actions/actionsCreators';
 
 class AsideBar extends React.Component {
     state = {

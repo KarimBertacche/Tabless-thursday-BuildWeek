@@ -96,6 +96,7 @@ export const StylesModalCreate = styled.section`
             font-size: 1.7rem;
             font-weight: bold;
             cursor: pointer;
+            outline: none;
 
             &:hover {
                 background-color: ${colorPrimary};
@@ -281,6 +282,7 @@ export const StylesModalUpdate = styled.div`
             font-size: 1.7rem;
             font-weight: bold;
             cursor: pointer;
+            outline: none;
 
             &:hover {
                 background-color: ${colorPrimary};
