@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import uuid from 'uuid';
 
 import { StylesAsideBar } from '../styles/stylesNavBar';
-import { removeCategory, undoSearch, addCategoryLink } from '../store/actions/actionsCreators';
+import { removeCategory, undoSearch, addCategoryLink, logOutUser } from '../store/actions/actionsCreators';
 
-class AsideBar extends React.Component {
+class AsideBarSmall extends React.Component {
     state = {
         addLink: false,
         linkInput: ''
@@ -32,10 +32,16 @@ class AsideBar extends React.Component {
         }
     }
 
+    logUserOutHandler = (event) => {
+        event.preventDefault();
+        this.props.onLoggingOut();
+    }
+
     render() {
         return (
             <StylesAsideBar
                 className={this.props.toggleMenu ? 'slideIn' : 'slideOut'}>
+                <NavLink exact to="/" className="aside-links" onClick={this.logUserOutHandler}>Log Out</NavLink>
                 <NavLink exact to="/home" className="aside-links">All</NavLink>
                 <NavLink to="/home/unseen" className="aside-links">Unvisited</NavLink>
                 <NavLink to="/home/seen" className="aside-links">Visited</NavLink>
@@ -75,8 +81,9 @@ const mapDispatchToProps = dispatch => {
     return {
         onRemoveCategory: (category) => dispatch(removeCategory(category)),
         onUndoSearch: () => dispatch(undoSearch()),
-        onAddCategory: (category) => dispatch(addCategoryLink(category))
+        onAddCategory: (category) => dispatch(addCategoryLink(category)),
+        onLoggingOut: () => dispatch(logOutUser()),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsideBar);
+export default connect(mapStateToProps, mapDispatchToProps)(AsideBarSmall);

@@ -3,16 +3,22 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import './index.css';
+import './styles/index.css';
 
 import App from './containers/App';
-import { reducer as rootReducer } from './store/reducers/reducer';
+import { reducerLogin, reducerData } from './store/reducers/reducer';
+// import { reducer as rootReducer } from './store/reducers/reducer';
 import { logger } from './middleware/logger';
+
+const rootReducer = combineReducers({
+    login: reducerLogin,
+    data: reducerData
+});
  
 const persistConfig = {
   key: 'root',

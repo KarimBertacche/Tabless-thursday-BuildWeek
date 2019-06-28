@@ -1,18 +1,12 @@
 import * as types from '../actions/actions';
 
-const initialState = {
+const initialStateLogin = {
     user: null,
-    tabs: [],
     loggedIn: false,
     loginLoading: false,
-    fetchLoading: false,
-    deleteMessage: '',
-    categories: ['category0', 'category1', 'category2', 'category3'],
-    visitedTabs: null,
-    savedTabs: null
 }
 
-export function reducer(state = initialState, action) {
+export function reducerLogin(state = initialStateLogin, action) {
     switch(action.type) {
         case types.LOGIN_START:
             return {...state, loginLoading: true};
@@ -24,6 +18,23 @@ export function reducer(state = initialState, action) {
             return {...state, loggedIn: false};
         case types.REGISTER_SUCCESS:
             return {...state, user: action.payload};
+        default:
+            return {...state};
+    }
+}
+
+const initialState = {
+    tabs: [],
+    fetchLoading: false,
+    deleteMessage: '',
+    categories: ['category0', 'category1', 'category2', 'category3'],
+    visitedTabs: null,
+    savedTabs: null,
+    randomImg: []
+}
+
+export function reducerData(state = initialState, action) {
+    switch(action.type) {
         case types.FETCH_START:
             return {...state, fetchLoading: true};
         case types.FETCH_SUCCESS:
@@ -37,14 +48,13 @@ export function reducer(state = initialState, action) {
             return {...state, tabs: state.tabs.concat(action.payload), visitedTabs: state.visitedTabs.concat(action.payload)};
         case types.DELETE_TAB:
             const removedTabArr = state.visitedTabs.filter(tab => {
-                debugger
                 return tab.tab_id !== Number(action.tabId)
             });
             return {...state, deleteMessage: action.payload, visitedTabs: removedTabArr };
         case types.UPDATE_SUCCESS:
             const updatedTabArr = state.visitedTabs.map(tab => {
                 let newTabObj = action.payload;
-                if (tab.tab_id === Number(action.tabId) && tab.visited === true) {  
+                if (tab.tab_id === Number(action.tabId) && tab.visited === true) { 
                     return {...tab, 
                             title: newTabObj.title,
                             category: newTabObj.category,
@@ -61,17 +71,25 @@ export function reducer(state = initialState, action) {
                 }
                 return {...tab}
             })
-            console.log(updatedTabArr);
             return {...state, visitedTabs: updatedTabArr};
         case types.ADD_CATEGORY:
+            let matchCategory = state.categories.find(category => category === action.payload);
+            if(matchCategory) {
+                return {...state};
+            }
             return {...state, categories: state.categories.concat(action.payload)};
         case types.REMOVE_CATEGORY:
             const newCategoriesArr = state.categories.filter(category => category !== action.payload);
-            return {...state, categories: newCategoriesArr};
+            const updatedTabsArr = state.visitedTabs.map(tab => {
+                if(tab.category === action.payload) {
+                    return {...tab, category: 'N/A'};
+                }
+                return {...tab};
+            })
+            return {...state, categories: newCategoriesArr, visitedTabs: updatedTabsArr};
         case types.SEARCH_TAB:
             const filteredTabArr = state.visitedTabs.filter(tab => tab.title.toLowerCase().startsWith(action.payload.toLowerCase()));
             return {...state, visitedTabs: filteredTabArr, savedTabs: state.visitedTabs};
-            // return {...state, visitedTabs: filteredTabArr, savedTabs: state.tabs};
         case types.UNDO_SEARCH:
             return {...state, visitedTabs: state.savedTabs }
         case types.TAB_VISITED:

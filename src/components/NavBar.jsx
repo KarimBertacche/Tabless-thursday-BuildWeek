@@ -1,53 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
-import styled from 'styled-components';
 
-import * as actions from '../store/actions/actions';
-
-const StylesNavBar = styled.header`
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 8.5vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: red;
-    padding: 0 30px;
-    box-shadow: 0 5px 10px #000;
-    z-index: 200;
-  
-    .heading-secondary {
-        text-decoration: none;
-        color: #000;
-        
-        h2 {
-            font-size: 4rem;
-            margin: 0;    
-        }
-    }
-
-    .nav-links {
-        text-decoration: none;
-        font-size: 2rem;
-        font-weight: bold;
-        padding: 20px;
-        color: #000;
-        margin-right: 30px;
-
-        &:last-child {
-            margin-right: 0;
-        }
-    }
-
-    .active {
-        display: inline-block;
-        background-color: #000;
-        color: #fff;
-        padding: 20px;
-    }
-`;
+import { StylesNavBar } from '../styles/stylesNavBar';
+import * as actions from '../store/actions/actionsCreators';
 
 const NavBar = props => {
     const logUserOutHandler = (event) => {
@@ -56,12 +12,16 @@ const NavBar = props => {
         props.history.push('/');
     }
 
-    if (!!localStorage.getItem('userLogged') || props.loggedIn) {
+    if (localStorage.getItem('userLogged') && localStorage.getItem('token')) {
         return (
             <StylesNavBar>
-                <Link to="/home" className="heading-secondary"><h2>Tabless Thursday</h2></Link>
+                <div 
+                    className={props.toggleMenu ? "hamburger-btn open" : "hamburger-btn"}
+                    onClick={props.toggleMenuHandler}>
+                    <span></span>
+                </div>
+                <Link to="/home" className="heading-secondary"><h2>T@bless Thursday</h2></Link>
                 <nav>
-                    {/* <i className="fa fa-search" onClick={props.showSearchHandler}> <span>Search</span></i> */}
                     <NavLink to="/home" activeClassName="active" className="nav-links">Tabs</NavLink>
                     <NavLink to="/about" activeClassName="active" className="nav-links">About</NavLink>
                     <Link to="/" className="nav-links" onClick={logUserOutHandler}>Log Out</Link>
@@ -71,7 +31,13 @@ const NavBar = props => {
     } else {
         return (
             <StylesNavBar>
-                <Link to="/" className="heading-secondary"><h2>Tabless Thursday</h2></Link>
+                        {/* <p>&#9776;</p>  */}
+                <div 
+                    className={props.toggleMenu ? "hamburger-btn open" : "hamburger-btn"}
+                    onClick={props.toggleMenuHandler}>
+                    <span></span>
+                </div>
+                <Link to="/" className="heading-secondary"><h2>T@bless Thursday</h2></Link>
                 <nav>
                     <NavLink to="/login" activeClassName="active" className="nav-links">Sign in</NavLink>
                     <NavLink to="/register" activeClassName="active" className="nav-links">Sign Up</NavLink>
@@ -83,7 +49,7 @@ const NavBar = props => {
 
 const mapStateToProps = state => {
     return {
-        loggedIn: state.loggedIn,
+        loggedIn: state.login.loggedIn,
     }
 }
 
