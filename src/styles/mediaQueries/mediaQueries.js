@@ -2,7 +2,7 @@ const size = {
     mobileS: '320px',
     mobileM: '375px',
     mobileL: '425px', // -> add more breakpoints
-    mobileXL: '600px',
+    mobileXL: '628px',
     tablet: '800px',
     laptop: '1024px',
     laptopL: '1440px',

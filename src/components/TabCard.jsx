@@ -37,9 +37,16 @@ class TabCard extends React.Component {
                 <div className="side back-side">
                     <div>
                         <button className="delete-btn" onClick={() => this.deleteCardHandler(this.props.tabId)}>DELETE TAB</button>
-                        <p onClick={() => this.props.onTabVisited(this.props.tabId)}>Visited: <span>{ this.props.visited ? 'YES' : 'NO'}</span></p>
+                        <p>Visited: <span>{ this.props.visited ? 'YES' : 'NO'}</span></p>
                         <p>Category:<span>{this.props.category ? this.state.category : 'N/A'}</span></p>
-                        <p>Website:<a href={this.props.website} className="website">{this.props.website}</a></p>
+                        <p
+                            >Website:<a 
+                            onClick={() => this.props.onTabVisited(this.props.tabId)}
+                            href={this.props.website} 
+                            className="website" 
+                            rel="external" 
+                            target="_blank"
+                        >{this.props.website}</a></p>
                         <p>Description: <span className="description">{this.props.description}</span></p>
                         <button className="update-btn" onClick={() => this.passDataHandler(this.props.tabId)}>UPDATE TAB</button> 
                     </div>

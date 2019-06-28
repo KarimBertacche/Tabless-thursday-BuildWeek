@@ -38,7 +38,8 @@ class App extends React.Component {
 
   getUserTabsHandler = () => {
     this.props.getUserTabs();
-    this.setState({ toggleMenu: false })
+    this.setState({ toggleMenu: false });
+    localStorage.setItem('userLogged', this.props.loggedIn);
   }
 
   inputChangeHandler = (event) => {
@@ -104,6 +105,7 @@ class App extends React.Component {
     return (
       <StylesApp>
         <NavBar 
+          {...this.props}
           showSearchHandler={this.showSearchHandler} 
           toggleMenu={this.state.toggleMenu}
           toggleMenuHandler={this.toggleMenuHandler}/>
@@ -147,6 +149,7 @@ class App extends React.Component {
 const mapStateToProps = state => {
   return {
       user: state.login.user,
+      loggedIn: state.login.loggedIn,
   }
 }
 

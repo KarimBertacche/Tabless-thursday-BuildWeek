@@ -22,6 +22,7 @@ export const StylesMainPage = styled.div`
         @media ${device.tablet} {
             transform: translateX(-100%);
             position: none;
+            z-index: 1000;
         }
 
         .slideIn {
@@ -42,7 +43,7 @@ export const StylesMainPage = styled.div`
         border: 3px solid ${colorPrimary};
         border-left: none;
         border-top: none;
-        margin-top: 8.4vh; 
+        margin-top: 8.4vh;
 
         @media ${device.tablet} {
             width: 100%;
@@ -81,6 +82,7 @@ export const StylesTabsContainer = styled.section`
         margin-bottom: 10px;
         box-shadow: 0 5px 10px #000;
         transition: all .2s ease-in-out;
+        z-index: 200;
 
         span {
             font-size: 14rem;
@@ -95,6 +97,7 @@ export const StylesTabsContainer = styled.section`
 
         &:hover {
             border: 3px solid ${colorSecondary};
+            color: ${colorSecondary};
         }
     }
 `;

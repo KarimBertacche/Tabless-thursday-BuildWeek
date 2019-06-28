@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { StylesLogin } from '../styles/stylesAuth';
-import loginSpinner from '../spinners/wave-preloader.svg';
+import loginSpinner from '../spinners/round-loader.svg';
 
 const Login = props => {
     return (

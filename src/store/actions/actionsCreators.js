@@ -19,7 +19,7 @@ export const login = ({ username, password, email }) => dispatch => {
                     dispatch({ type: types.LOGIN_SUCCESS, payload: response.data.user }); 
                 })
                 .catch(error => {
-                    // debugger
+                    console.log(error.message);
                 })
                 .finally(() => {
                     dispatch({ type: types.LOGIN_END });
@@ -44,7 +44,7 @@ export const registerUser = ({ username, password, email }) => dispatch => {
                     dispatch({ type: types.REGISTER_SUCCESS, payload: response.data.saved })
                 })
                 .catch(error => {
-                    // debugger
+                    console.log(error.message);
                 })
 }
 
@@ -59,7 +59,7 @@ export const getUserTabs = () => dispatch => {
             dispatch({ type: types.FETCH_SUCCESS, payload: response.data.tabs })
         })
         .catch(error => {
-            // debugger
+            console.log(error.message);
         })
         .finally(() => {
             dispatch({ type: types.FETCH_END })
@@ -73,10 +73,9 @@ export const postUserTab = (tabInfo) => dispatch => {
         .post(postTabAPI, tabInfo) 
         .then(response => {
             dispatch({ type: types.CREATE_TAB, payload: response.data[0] })
-            // getUserTabs();
         })
         .catch(error => {
-            // debugger
+            console.log(error.message);
         })
 }
 
@@ -87,7 +86,7 @@ export const deleteTab = (id) => dispatch => {
             dispatch({ type: types.DELETE_TAB, payload: response.data.message, tabId: id });
         })
         .catch(error => {
-            // debugger
+            console.log(error.message);
         })
 }
 
@@ -99,7 +98,7 @@ export const updateTab = (id, tabInfo) => dispatch => {
             dispatch({ type: types.UPDATE_SUCCESS, payload: JSON.parse(response.config.data), tabId: id });
         })
         .catch(error => {
-            // debugger
+            console.log(error.message);
         })
 }
 

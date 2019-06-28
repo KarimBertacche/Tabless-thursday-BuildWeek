@@ -17,18 +17,6 @@ export const StylesNavBar = styled.header`
     box-shadow: 0 5px 10px #000;
     z-index: 200;
 
-    /* .menu-btn {
-        position: relative;
-        top: 0;
-        left: 0;
-        color: #fff;
-
-        p {
-            position: absolute;
-            top: -75px;;
-            font-size: 4.5rem;
-        } */
-
     .hamburger-btn {
         display: none;
 
@@ -135,7 +123,7 @@ export const StylesSearchBar = styled.div`
     position: fixed;
     top: 8.8vh;
     left: 50%;
-    transform: ${props => (props.search? 'translate(-50%, 0)': 'translate(-50%, -100%)')};
+    /* transform: ${props => (props.search? 'translate(-50%, 0)': 'translate(-50%, -100%)')}; */
     transform: translate(-50%, 0);
     display: flex;
     width: 350px;
@@ -148,6 +136,10 @@ export const StylesSearchBar = styled.div`
     overflow: hidden;
     z-index: 100;
     box-shadow: 0 5px 10px #000, 0 5px 10px #000;
+
+    @media ${device.mobileXL} {
+        transform: translate(-15%, 0);
+    }
 
     i {
         display: flex;
@@ -209,6 +201,10 @@ export const StylesSearchButton = styled.section`
     z-index: 100;
     transition: all 5s ease-in-out;
     box-shadow: 0 5px 10px #000, 0 5px 10px #000;
+
+    @media ${device.mobileXL} {
+        transform: translate(0);
+    }
 
     i {
         font-size: 3rem;
@@ -297,6 +293,11 @@ export const StylesAsideBar = styled.ul`
         z-index: 100;
         transform: translateX(-1%);
         transition: all .2s ease-in-out;
+
+        @media ${device.mobileXL} {
+            width: 110%;
+            transform: translateX(0);
+        }
 
         &:hover {
             background-color: ${colorPrimary};
