@@ -29,41 +29,43 @@ class ModalCreate extends React.Component {
         let userId = localStorage.getItem('userID');
 
         let newTab;
-
-        if(this.state.newCategory !== '') {
-            this.props.onAddCategory(this.state.newCategory);
-            newTab = {
-                title: this.state.title,
-                website: this.state.website.toLowerCase(),
-                user_id: userId,
-                description: this.state.description,
-                category: this.state.newCategory.toLowerCase(),
-                favicon: this.state.favicon
+        if(this.state.title !== '' && this.state.website !== ''){
+            if(this.state.newCategory !== '') {
+                this.props.onAddCategory(this.state.newCategory);
+                newTab = {
+                    title: this.state.title,
+                    website: this.state.website.toLowerCase(),
+                    user_id: userId,
+                    description: this.state.description,
+                    category: this.state.newCategory.toLowerCase(),
+                    favicon: this.state.favicon
+                }
+            } else {
+                newTab = {
+                    title: this.state.title,
+                    website: this.state.website.toLowerCase(),
+                    user_id: userId,
+                    description: this.state.description,
+                    category: this.state.category,
+                    favicon: this.state.favicon
+                }
             }
-        } else {
-            newTab = {
-                title: this.state.title,
-                website: this.state.website.toLowerCase(),
-                user_id: userId,
-                description: this.state.description,
-                category: this.state.category,
-                favicon: this.state.favicon
-            }
+            
+            this.props.onPostTab(newTab);
+    
+            this.setState({
+                title: '',
+                website: '',
+                description: '',
+                category: '',
+                favicon: null,
+                newCategory: ''
+            })
+    
+            this.props.toggleModalCreate();
+            this.props.onRefreshTabs();
         }
-        
-        this.props.onPostTab(newTab);
-
-        this.setState({
-            title: '',
-            website: '',
-            description: '',
-            category: '',
-            favicon: null,
-            newCategory: ''
-        })
-
-        this.props.toggleModalCreate();
-        this.props.onRefreshTabs();
+        return null; 
     }
 
     // fileSelectedHandler = (event) => {

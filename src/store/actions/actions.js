@@ -138,6 +138,10 @@ export const addCategory = (category) => dispatch => {
     dispatch({ type: ADD_CATEGORY, payload: category });
 }
  
+export const addCategoryLink = (nameLink) => dispatch => {
+    dispatch({ type: ADD_CATEGORY, payload: nameLink });
+}
+
 export const removeCategory = (category) => dispatch => {
     dispatch({ type: REMOVE_CATEGORY, payload: category });
 }
@@ -152,8 +156,4 @@ export const undoSearch = () => dispatch => {
 
 export const tabVisited = (tabId) => dispatch => {
     dispatch({ type: TAB_VISITED, payload: tabId});
-}
-
-export const addCategoryLink = (nameLink) => dispatch => {
-    dispatch({ type: ADD_CATEGORY_LINK, payload: nameLink });
 }
