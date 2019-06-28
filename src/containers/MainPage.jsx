@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { StylesMainPage } from '../styles/stylesHome';
 import AsideBar from '../components/AsideBar';
+import AsideBarSmall from '../components/AsideBarSmall';
 import TabsContainer from '../components/TabsContainter';
 import { updateTab, getUserTabs, addCategory } from '../store/actions/actionsCreators';
 import ModalCreate from '../components/modals/ModalCreate'
@@ -104,8 +105,13 @@ class MainPage extends React.Component {
     render() {
         return (
             <StylesMainPage>
-                <aside>
-                    <AsideBar />
+                <aside className={this.props.toggleMenu ? 'slideIn' : 'slideOut'}>
+                {
+                    this.props.toggleMenu 
+                    ? <AsideBarSmall toggleMenu={this.props.toggleMenu}/>
+                    : <AsideBar toggleMenu={this.props.toggleMenu}/>
+                }
+                    
                 </aside>
                 <main>
                     <Route 

@@ -15,6 +15,11 @@ const NavBar = props => {
     if (props.loggedIn && localStorage.getItem('token')) {
         return (
             <StylesNavBar>
+                <div 
+                    className={props.toggleMenu ? "hamburger-btn open" : "hamburger-btn"}
+                    onClick={props.toggleMenuHandler}>
+                    <span></span>
+                </div>
                 <Link to="/home" className="heading-secondary"><h2>T@bless Thursday</h2></Link>
                 <nav>
                     <NavLink to="/home" activeClassName="active" className="nav-links">Tabs</NavLink>
@@ -26,6 +31,12 @@ const NavBar = props => {
     } else {
         return (
             <StylesNavBar>
+                        {/* <p>&#9776;</p>  */}
+                <div 
+                    className={props.toggleMenu ? "hamburger-btn open" : "hamburger-btn"}
+                    onClick={props.toggleMenuHandler}>
+                    <span></span>
+                </div>
                 <Link to="/" className="heading-secondary"><h2>T@bless Thursday</h2></Link>
                 <nav>
                     <NavLink to="/login" activeClassName="active" className="nav-links">Sign in</NavLink>

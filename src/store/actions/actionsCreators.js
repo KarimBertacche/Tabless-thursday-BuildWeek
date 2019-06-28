@@ -19,7 +19,7 @@ export const login = ({ username, password, email }) => dispatch => {
                     dispatch({ type: types.LOGIN_SUCCESS, payload: response.data.user }); 
                 })
                 .catch(error => {
-                    debugger
+                    // debugger
                 })
                 .finally(() => {
                     dispatch({ type: types.LOGIN_END });
@@ -44,7 +44,7 @@ export const registerUser = ({ username, password, email }) => dispatch => {
                     dispatch({ type: types.REGISTER_SUCCESS, payload: response.data.saved })
                 })
                 .catch(error => {
-                    debugger
+                    // debugger
                 })
 }
 
@@ -59,7 +59,7 @@ export const getUserTabs = () => dispatch => {
             dispatch({ type: types.FETCH_SUCCESS, payload: response.data.tabs })
         })
         .catch(error => {
-            debugger
+            // debugger
         })
         .finally(() => {
             dispatch({ type: types.FETCH_END })
@@ -76,7 +76,7 @@ export const postUserTab = (tabInfo) => dispatch => {
             // getUserTabs();
         })
         .catch(error => {
-            debugger
+            // debugger
         })
 }
 
@@ -87,7 +87,7 @@ export const deleteTab = (id) => dispatch => {
             dispatch({ type: types.DELETE_TAB, payload: response.data.message, tabId: id });
         })
         .catch(error => {
-            debugger
+            // debugger
         })
 }
 
@@ -99,7 +99,7 @@ export const updateTab = (id, tabInfo) => dispatch => {
             dispatch({ type: types.UPDATE_SUCCESS, payload: JSON.parse(response.config.data), tabId: id });
         })
         .catch(error => {
-            debugger
+            // debugger
         })
 }
 

@@ -27,12 +27,18 @@ class App extends React.Component {
       username: '',
       password: '',
       email: '',
-      search: false
+      search: false,
+      toggleMenu: false
     }
   }
 
   componentDidMount() {
-    this.props.getUserTabs()
+    this.getUserTabsHandler();
+  }
+
+  getUserTabsHandler = () => {
+    this.props.getUserTabs();
+    this.setState({ toggleMenu: false })
   }
 
   inputChangeHandler = (event) => {
@@ -82,10 +88,25 @@ class App extends React.Component {
     }
   }
 
+  toggleMenuHandler = () => {
+    if(this.state.toggleMenu === false) {
+      this.setState({
+        toggleMenu: true
+      })
+    } else {
+      this.setState({
+        toggleMenu: false
+      })
+    }
+  }
+
   render() {
     return (
       <StylesApp>
-        <NavBar {...this.props} showSearchHandler={this.showSearchHandler}/>
+        <NavBar 
+          showSearchHandler={this.showSearchHandler} 
+          toggleMenu={this.state.toggleMenu}
+          toggleMenuHandler={this.toggleMenuHandler}/>
           <Switch>
             <Route 
               path="/login" 
@@ -112,6 +133,8 @@ class App extends React.Component {
                 return  <MainPage 
                           search={this.state.search} 
                           showSearchHandler={this.showSearchHandler} 
+                          toggleMenu={this.state.toggleMenu}
+                          toggleMenuHandler={this.toggleMenuHandler}
                         />
               }}
             />
@@ -120,7 +143,6 @@ class App extends React.Component {
     );
   }
 }
-
 
 const mapStateToProps = state => {
   return {

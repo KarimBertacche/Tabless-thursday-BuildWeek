@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+
 import { colorPrimary, colorSecondary, red } from './variables/colors';
+import { device } from '../styles/mediaQueries/mediaQueries';
 
 // STYLES NAV BAR 
 export const StylesNavBar = styled.header`
@@ -14,10 +16,87 @@ export const StylesNavBar = styled.header`
     padding: 0 30px;
     box-shadow: 0 5px 10px #000;
     z-index: 200;
+
+    /* .menu-btn {
+        position: relative;
+        top: 0;
+        left: 0;
+        color: #fff;
+
+        p {
+            position: absolute;
+            top: -75px;;
+            font-size: 4.5rem;
+        } */
+
+    .hamburger-btn {
+        display: none;
+
+        @media ${device.tablet} {
+            display: flex;
+        }
+
+        span {
+            content: '';
+            display: table;
+            position: relative;
+            width: 40px;
+            background-color: ${colorSecondary};
+            height: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &::before {
+                position: absolute;
+                content: '';
+                display: table;
+                width: 40px;
+                background-color: ${colorSecondary};
+                height: 5px;
+                border-radius: 5px;
+                transform: translateY(-12px);
+                transition: all .4s ease-out;
+            }
+
+            &::after {
+                position: absolute;
+                content: '';
+                display: table;
+                width: 40px;
+                background-color: ${colorSecondary};
+                height: 5px;
+                border-radius: 5px;
+                transform: translateY(12px);
+                transition: all .4s ease-out;
+            }
+
+        }
+
+        &.open span {
+            visibility: hidden;
+        }
+
+        &.open ::before {
+            transform: translateY(0) rotate(135deg);
+            visibility: visible;
+        }
+
+        &.open ::after {
+            transform: translateY(0) rotate(-135deg);
+            visibility: visible;
+        }
+
+    }
   
     .heading-secondary {
         text-decoration: none;
         color: ${colorSecondary};
+
+        @media ${device.tablet} {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
         
         h2 {
             font-size: 4rem;
@@ -33,6 +112,10 @@ export const StylesNavBar = styled.header`
         padding: 20px;
         color: ${colorSecondary};
         margin-right: 30px;
+
+        @media ${device.tablet} {
+            display: none;
+        }
 
         &:last-child {
             margin-right: 0;
@@ -189,6 +272,7 @@ export const StylesAsideBar = styled.ul`
     }
 
     .active {
+        width: 100%;
         background-color: ${colorPrimary};
         transform: translateX(0);
     }
@@ -201,7 +285,7 @@ export const StylesAsideBar = styled.ul`
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
+        width: 98%;
         height: 40px;
         background-color: #fff;
         border: 3px solid ${colorPrimary};
@@ -211,6 +295,7 @@ export const StylesAsideBar = styled.ul`
         box-shadow: 0 5px 10px #000;
         cursor: pointer;
         z-index: 100;
+        transform: translateX(-1%);
         transition: all .2s ease-in-out;
 
         &:hover {

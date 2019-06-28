@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+
 import { colorPrimary, colorSecondary } from './variables/colors';
+import { device } from './mediaQueries/mediaQueries';
 
 // STYLES MAIN PAGE
 export const StylesMainPage = styled.div`
@@ -10,9 +12,27 @@ export const StylesMainPage = styled.div`
         position: fixed;
         height: 91.4vh;
         min-width: 200px;
-        border: 3px solid ${colorPrimary};
+        border-left: 5px solid ${colorPrimary};
         border-top: none;
         margin-top: 8.4vh;
+        z-index: 100;
+        transform: translateX(95%);
+        transition: all .3s ease-in-out;
+
+        @media ${device.tablet} {
+            transform: translateX(-100%);
+            position: none;
+        }
+
+        .slideIn {
+            transform: translateX(100%);
+            background-color: #fff;
+            border-right: 3px solid ${colorPrimary};
+        }
+
+        .slideOut {
+            transform: translateX(-100%); 
+        }
     }
 
     main {
@@ -20,8 +40,14 @@ export const StylesMainPage = styled.div`
         height: 91.4vh;
         margin-left: 200px;
         border: 3px solid ${colorPrimary};
+        border-left: none;
         border-top: none;
         margin-top: 8.4vh; 
+
+        @media ${device.tablet} {
+            width: 100%;
+            margin-left: 0;
+        }
     }
 `;
 
