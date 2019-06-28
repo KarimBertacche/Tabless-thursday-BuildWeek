@@ -51,8 +51,8 @@ class TabCard extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        visitedTabs: state.visitedTabs,
-        deleteMessage: state.deleteMessage,
+        visitedTabs: state.data.visitedTabs,
+        deleteMessage: state.data.deleteMessage,
     }
 }
 

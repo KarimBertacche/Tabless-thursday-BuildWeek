@@ -1,19 +1,12 @@
 import * as types from '../actions/actions';
 
-const initialState = {
+const initialStateLogin = {
     user: null,
-    tabs: [],
     loggedIn: false,
     loginLoading: false,
-    fetchLoading: false,
-    deleteMessage: '',
-    categories: ['category0', 'category1', 'category2', 'category3'],
-    visitedTabs: null,
-    savedTabs: null,
-    randomImg: []
 }
 
-export function reducer(state = initialState, action) {
+export function reducerLogin(state = initialStateLogin, action) {
     switch(action.type) {
         case types.LOGIN_START:
             return {...state, loginLoading: true};
@@ -25,13 +18,30 @@ export function reducer(state = initialState, action) {
             return {...state, loggedIn: false};
         case types.REGISTER_SUCCESS:
             return {...state, user: action.payload};
+        default:
+            return {...state};
+    }
+}
+
+const initialState = {
+    tabs: [],
+    fetchLoading: false,
+    deleteMessage: '',
+    categories: ['category0', 'category1', 'category2', 'category3'],
+    visitedTabs: null,
+    savedTabs: null,
+    randomImg: []
+}
+
+export function reducerData(state = initialState, action) {
+    switch(action.type) {
         case types.FETCH_START:
             return {...state, fetchLoading: true};
         case types.FETCH_SUCCESS:
             if(state.visitedTabs === null) {
-                return {...state, tabs: action.payload, visitedTabs: action.payload};
+                return {...state, visitedTabs: action.payload};
             } 
-            return {...state, tabs: action.payload};
+            return {...state};
         case types.FETCH_END:
             return {...state, fetchLoading: false};
         case types.CREATE_TAB:

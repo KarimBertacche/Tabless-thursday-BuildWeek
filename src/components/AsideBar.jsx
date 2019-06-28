@@ -66,7 +66,7 @@ class AsideBar extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        categories: state.categories
+        categories: state.data.categories
     }
 }
 

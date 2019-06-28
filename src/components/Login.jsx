@@ -44,8 +44,8 @@ const Login = props => {
 
 const mapStateToProps = state => {
     return {
-        user: state.user,
-        loginLoading: state.loginLoading
+        user: state.login.user,
+        loginLoading: state.login.loginLoading
     }
 }
 
